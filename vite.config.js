@@ -22,7 +22,6 @@ export default defineConfig({
         manualChunks: {
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
           'chart-vendor': ['chart.js', 'react-chartjs-2'],
-          'map-vendor': ['leaflet', 'react-leaflet'],
         },
       },
     },
