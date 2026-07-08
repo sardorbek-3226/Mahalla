@@ -7,6 +7,7 @@ import {
   HiOutlineCheckCircle,
   HiOutlineStar,
   HiOutlineBanknotes,
+  HiOutlineWrenchScrewdriver,
 } from 'react-icons/hi2';
 import PageHeader from '@/components/common/PageHeader';
 import StatCard from '@/components/dashboard/StatCard';
@@ -21,11 +22,20 @@ import { formatDateTime } from '@/utils/format';
 const WorkerDashboard = () => {
   const { user } = useAuth();
   const [available, setAvailable] = useState(user?.is_available ?? true);
+  const providerId = user?.provider_profile_id;
 
   const { data, isLoading } = useQuery({
     queryKey: ['bookings', 'worker'],
     queryFn: () => bookingService.list({ limit: 6 }),
   });
+
+  // Nudge new workers to set their hourly rate and services until they've done it.
+  const { data: provider } = useQuery({
+    queryKey: ['provider', providerId],
+    queryFn: () => workerService.getById(providerId),
+    enabled: !!providerId,
+  });
+  const needsOnboarding = !providerId || (provider && provider.services.length === 0);
 
   const availabilityMut = useMutation({
     mutationFn: (val) => workerService.setAvailability(val),
@@ -65,6 +75,26 @@ const WorkerDashboard = () => {
           </Button>
         }
       />
+
+      {needsOnboarding && (
+        <Card className="mb-6 flex flex-col items-start gap-4 border-l-4 border-l-amber-400 p-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-start gap-3">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-900/30">
+              <HiOutlineWrenchScrewdriver className="h-5 w-5" />
+            </span>
+            <div>
+              <p className="font-semibold">Profilingiz hali to'liq emas</p>
+              <p className="text-sm text-gray-500">
+                Buyurtma olish uchun soatiga (yoki kuniga) qancha ish haqi olishingizni va qaysi xizmatlarni
+                bajara olishingizni kiriting.
+              </p>
+            </div>
+          </div>
+          <Link to="/provider/services">
+            <Button variant="gradient" className="w-full sm:w-auto">Narx va xizmatlarni kiritish</Button>
+          </Link>
+        </Card>
+      )}
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard label="Yangi so'rovlar" value={bookings.filter((b) => b.status === 'new').length} icon={HiOutlineCalendarDays} tone="amber" />

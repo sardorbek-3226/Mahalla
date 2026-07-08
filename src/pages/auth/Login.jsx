@@ -70,11 +70,14 @@ const Login = () => {
           </div>
         )}
 
-        <div className="flex justify-end">
-          <Link to="/forgot-password" className="text-sm font-medium text-primary-600 hover:underline">
-            Parolni unutdingizmi?
-          </Link>
-        </div>
+        {/* Real backend has no password-reset endpoint yet — only the mock/demo does. */}
+        {ENV.MOCK_AUTH && (
+          <div className="flex justify-end">
+            <Link to="/forgot-password" className="text-sm font-medium text-primary-600 hover:underline">
+              Parolni unutdingizmi?
+            </Link>
+          </div>
+        )}
 
         <Button type="submit" variant="gradient" size="lg" loading={isSubmitting} className="w-full">
           Kirish
