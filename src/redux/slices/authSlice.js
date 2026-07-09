@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { authService } from '@/services/authService';
 import { tokenStore } from '@/api/axiosInstance';
+import { ENV } from '@/config/env';
 
 // Note: only the user object is persisted (cookies hold the real tokens).
 const initialState = {
@@ -29,10 +30,16 @@ export const register = createAsyncThunk('auth/register', async (payload, { reje
   }
 });
 
-// Runs once on app start to restore the session from the cookie.
+// Runs once on app start to restore the session from the stored access token.
 export const fetchCurrentUser = createAsyncThunk(
   'auth/me',
   async (_, { rejectWithValue }) => {
+    // Real backend is Bearer-token based: with no stored token, /auth/me is
+    // guaranteed to 401, so skip the request entirely instead of firing one
+    // on every guest page load.
+    if (!ENV.MOCK_AUTH && !tokenStore.access) {
+      return rejectWithValue(null);
+    }
     try {
       const data = await authService.me();
       return data.user ?? data;

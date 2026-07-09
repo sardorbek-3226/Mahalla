@@ -14,7 +14,7 @@ const App = () => {
   useTheme(); // applies the theme class to <html>
 
   useEffect(() => {
-    // Restore session from the HTTP-only cookie on first load.
+    // Restore session from the stored access token (if any) on first load.
     dispatch(fetchCurrentUser());
 
     // When a token refresh ultimately fails, the axios layer calls this.
