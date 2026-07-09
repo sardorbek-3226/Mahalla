@@ -1,7 +1,9 @@
 // Centralized access to Vite env vars. Never read import.meta.env elsewhere.
+// Fallbacks point at the real deployed backend (not localhost) so the app still
+// works if VITE_API_URL/VITE_SOCKET_URL aren't set on the hosting platform.
 export const ENV = {
-  API_URL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1',
-  SOCKET_URL: import.meta.env.VITE_SOCKET_URL || 'http://localhost:5000',
+  API_URL: import.meta.env.VITE_API_URL || 'https://mahala-uz.duckdns.org/api/v1',
+  SOCKET_URL: import.meta.env.VITE_SOCKET_URL || 'https://mahala-uz.duckdns.org',
   MAP_DEFAULT: {
     lat: Number(import.meta.env.VITE_MAP_DEFAULT_LAT) || 41.2995,
     lng: Number(import.meta.env.VITE_MAP_DEFAULT_LNG) || 69.2401,
