@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
-import { HiOutlineUser, HiOutlinePhone, HiOutlineLockClosed } from 'react-icons/hi2';
+import { HiOutlineUser, HiOutlinePhone, HiOutlineLockClosed, HiOutlineEye, HiOutlineEyeSlash } from 'react-icons/hi2';
 import { Button, Input } from '@/components/ui';
 import { authService } from '@/services/authService';
 import { setUser } from '@/redux/slices/authSlice';
@@ -25,6 +26,8 @@ const ROLE_HINTS = {
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -59,8 +62,8 @@ const Register = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold">Ro'yxatdan o'tish</h2>
-      <p className="mt-1 text-sm text-gray-500">Mahalla platformasiga qo'shiling.</p>
+      <h2 className="text-2xl font-bold">Ro&apos;yxatdan o&apos;tish</h2>
+      <p className="mt-1 text-sm text-gray-500">Mahalla platformasiga qo&apos;shiling.</p>
 
       <form onSubmit={handleSubmit(onSubmit)} className="mt-6 space-y-4">
         <Input
@@ -103,17 +106,39 @@ const Register = () => {
 
         <Input
           label="Parol"
-          type="password"
+          type={showPassword ? 'text' : 'password'}
           placeholder="••••••••"
           leftIcon={<HiOutlineLockClosed className="h-4 w-4" />}
+          rightIcon={
+            <button
+              type="button"
+              tabIndex={-1}
+              onClick={() => setShowPassword((v) => !v)}
+              className="pointer-events-auto text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+              aria-label={showPassword ? 'Parolni yashirish' : 'Parolni koʻrsatish'}
+            >
+              {showPassword ? <HiOutlineEyeSlash className="h-4 w-4" /> : <HiOutlineEye className="h-4 w-4" />}
+            </button>
+          }
           error={errors.password?.message}
           {...register('password', { required: 'Parol majburiy', minLength: { value: 6, message: 'Kamida 6 ta belgi' } })}
         />
         <Input
           label="Parolni tasdiqlang"
-          type="password"
+          type={showConfirmPassword ? 'text' : 'password'}
           placeholder="••••••••"
           leftIcon={<HiOutlineLockClosed className="h-4 w-4" />}
+          rightIcon={
+            <button
+              type="button"
+              tabIndex={-1}
+              onClick={() => setShowConfirmPassword((v) => !v)}
+              className="pointer-events-auto text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+              aria-label={showConfirmPassword ? 'Parolni yashirish' : 'Parolni koʻrsatish'}
+            >
+              {showConfirmPassword ? <HiOutlineEyeSlash className="h-4 w-4" /> : <HiOutlineEye className="h-4 w-4" />}
+            </button>
+          }
           error={errors.confirmPassword?.message}
           {...register('confirmPassword', {
             required: 'Parolni tasdiqlang',
@@ -122,7 +147,7 @@ const Register = () => {
         />
 
         <Button type="submit" variant="gradient" size="lg" loading={isSubmitting} className="w-full">
-          Ro'yxatdan o'tish
+          Ro&apos;yxatdan o&apos;tish
         </Button>
       </form>
 

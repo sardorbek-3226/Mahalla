@@ -10,6 +10,7 @@ import Logo from '@/components/common/Logo';
 import { Button } from '@/components/ui';
 import { useTheme } from '@/hooks/useTheme';
 import { useAuth } from '@/hooks/useAuth';
+import { ROLE_HOME } from '@/constants/roles';
 
 const FEATURES = [
   { icon: HiOutlineShieldCheck, title: 'Tekshirilgan ustalar', desc: 'Har bir usta mahalla admini tomonidan tasdiqlanadi.' },
@@ -26,7 +27,7 @@ const STATS = [
 
 const Landing = () => {
   const { isDark, toggle } = useTheme();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
@@ -44,7 +45,7 @@ const Landing = () => {
               {isDark ? '☀️' : '🌙'}
             </button>
             {isAuthenticated ? (
-              <Link to="/dashboard/citizen"><Button>Kabinet</Button></Link>
+              <Link to={ROLE_HOME[user?.role] || '/'}><Button>Kabinet</Button></Link>
             ) : (
               <>
                 <Link to="/login"><Button variant="ghost">Kirish</Button></Link>
@@ -77,7 +78,7 @@ const Landing = () => {
                 </Button>
               </Link>
               <Link to="/workers">
-                <Button variant="outline" size="lg">Xizmatlarni ko'rish</Button>
+                <Button variant="outline" size="lg">Xizmatlarni ko&apos;rish</Button>
               </Link>
             </div>
           </motion.div>

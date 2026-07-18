@@ -45,13 +45,13 @@ async function route(config) {
   // ---- WORKERS / PROVIDERS --------------------------------------------------
   if (path === '/providers' && method === 'get') {
     let list = [...db.workers];
-    if (params.category_id) list = list.filter((w) => w.category_id === params.category_id);
+    if (params.categoryId) list = list.filter((w) => w.category_id === params.categoryId);
     if (params.available === true || params.available === 'true')
       list = list.filter((w) => w.is_available);
-    if (params.verified === true || params.verified === 'true')
+    if (params.verifiedOnly === true || params.verifiedOnly === 'true')
       list = list.filter((w) => w.verification_status === 'verified');
-    if (params.q) {
-      const q = String(params.q).toLowerCase();
+    if (params.search) {
+      const q = String(params.search).toLowerCase();
       list = list.filter(
         (w) => w.full_name.toLowerCase().includes(q) || w.category_name.toLowerCase().includes(q)
       );

@@ -138,24 +138,4 @@ export const mockAuth = {
   async refresh() {
     return { success: true };
   },
-
-  async forgotPassword() {
-    await delay();
-    return { success: true };
-  },
-
-  async resetPassword() {
-    await delay();
-    return { success: true };
-  },
-
-  async changePassword() {
-    await delay();
-    return { success: true };
-  },
-
-  async verifyEmail() {
-    await delay();
-    return { success: true };
-  },
 };

@@ -83,7 +83,7 @@ const WorkerDashboard = () => {
               <HiOutlineWrenchScrewdriver className="h-5 w-5" />
             </span>
             <div>
-              <p className="font-semibold">Profilingiz hali to'liq emas</p>
+              <p className="font-semibold">Profilingiz hali to&apos;liq emas</p>
               <p className="text-sm text-gray-500">
                 Buyurtma olish uchun soatiga (yoki kuniga) qancha ish haqi olishingizni va qaysi xizmatlarni
                 bajara olishingizni kiriting.

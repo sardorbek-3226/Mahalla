@@ -19,8 +19,11 @@ import { useAuth } from '@/hooks/useAuth';
 
 const OrganizationDashboard = () => {
   const { user } = useAuth();
-  const { data } = useQuery({ queryKey: ['workers', { sort: 'rating' }], queryFn: () => workerService.list({ sort: 'rating', limit: 3 }) });
-  const workers = data?.items || data || [];
+  // The backend has no sort param for GET /providers, so fetch a page and sort client-side.
+  const { data } = useQuery({ queryKey: ['workers', 'top-rated'], queryFn: () => workerService.list({ limit: 12 }) });
+  const workers = [...(data?.items || data || [])]
+    .sort((a, b) => (b.rating_avg ?? 0) - (a.rating_avg ?? 0))
+    .slice(0, 3);
 
   const hiringChart = {
     labels: ['Yan', 'Fev', 'Mar', 'Apr', 'May', 'Iyun'],

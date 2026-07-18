@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
-import { HiOutlinePhone, HiOutlineLockClosed } from 'react-icons/hi2';
+import { HiOutlinePhone, HiOutlineLockClosed, HiOutlineEye, HiOutlineEyeSlash } from 'react-icons/hi2';
 import { Button, Input } from '@/components/ui';
 import GoogleButton from '@/components/common/GoogleButton';
 import { login } from '@/redux/slices/authSlice';
@@ -13,6 +14,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -49,9 +51,20 @@ const Login = () => {
         />
         <Input
           label="Parol"
-          type="password"
+          type={showPassword ? 'text' : 'password'}
           placeholder="••••••••"
           leftIcon={<HiOutlineLockClosed className="h-4 w-4" />}
+          rightIcon={
+            <button
+              type="button"
+              tabIndex={-1}
+              onClick={() => setShowPassword((v) => !v)}
+              className="pointer-events-auto text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+              aria-label={showPassword ? 'Parolni yashirish' : 'Parolni koʻrsatish'}
+            >
+              {showPassword ? <HiOutlineEyeSlash className="h-4 w-4" /> : <HiOutlineEye className="h-4 w-4" />}
+            </button>
+          }
           error={errors.password?.message}
           {...register('password', { required: 'Parol majburiy', minLength: { value: 6, message: 'Kamida 6 ta belgi' } })}
         />
@@ -70,14 +83,11 @@ const Login = () => {
           </div>
         )}
 
-        {/* Real backend has no password-reset endpoint yet — only the mock/demo does. */}
-        {ENV.MOCK_AUTH && (
-          <div className="flex justify-end">
-            <Link to="/forgot-password" className="text-sm font-medium text-primary-600 hover:underline">
-              Parolni unutdingizmi?
-            </Link>
-          </div>
-        )}
+        <div className="flex justify-end">
+          <Link to="/forgot-password" className="text-sm font-medium text-primary-600 hover:underline">
+            Parolni unutdingizmi?
+          </Link>
+        </div>
 
         <Button type="submit" variant="gradient" size="lg" loading={isSubmitting} className="w-full">
           Kirish
@@ -90,9 +100,9 @@ const Login = () => {
       <GoogleButton label="Google bilan kirish" />
 
       <p className="mt-6 text-center text-sm text-gray-500">
-        Hisobingiz yo'qmi?{' '}
+        Hisobingiz yo&apos;qmi?{' '}
         <Link to="/register" className="font-semibold text-primary-600 hover:underline">
-          Ro'yxatdan o'ting
+          Ro&apos;yxatdan o&apos;ting
         </Link>
       </p>
     </div>

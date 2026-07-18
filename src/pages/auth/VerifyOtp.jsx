@@ -15,14 +15,15 @@ const VerifyOtp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const phone = location.state?.phone;
+  const isRecovery = location.state?.mode === 'recovery';
 
   const [code, setCode] = useState('');
   const [loading, setLoading] = useState(false);
   const [seconds, setSeconds] = useState(RESEND_SECONDS);
 
   useEffect(() => {
-    if (!phone) navigate('/register', { replace: true });
-  }, [phone, navigate]);
+    if (!phone) navigate(isRecovery ? '/forgot-password' : '/register', { replace: true });
+  }, [phone, isRecovery, navigate]);
 
   useEffect(() => {
     if (seconds <= 0) return;
@@ -37,7 +38,7 @@ const VerifyOtp = () => {
       const data = await authService.verifyOtp({ phone, code });
       const user = data.user ?? data;
       dispatch(setUser(user));
-      toast.success('Telefon tasdiqlandi!');
+      toast.success(isRecovery ? 'Hisobingizga muvaffaqiyatli kirdingiz!' : 'Telefon tasdiqlandi!');
       navigate(ROLE_HOME[user?.role] || '/', { replace: true });
     } catch (err) {
       toast.error(err.response?.data?.message || "Kod noto'g'ri");
@@ -58,7 +59,7 @@ const VerifyOtp = () => {
 
   return (
     <div className="text-center">
-      <h2 className="text-2xl font-bold">Telefonni tasdiqlang</h2>
+      <h2 className="text-2xl font-bold">{isRecovery ? 'Hisobga qaytish' : 'Telefonni tasdiqlang'}</h2>
       <p className="mt-1 text-sm text-gray-500">
         <span className="font-medium text-gray-700 dark:text-gray-300">{phone}</span> raqamiga
         yuborilgan 6 xonali kodni kiriting.

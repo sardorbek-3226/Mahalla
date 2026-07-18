@@ -44,12 +44,6 @@ const realAuthService = {
   sendOtp: (payload) => api.post(ENDPOINTS.AUTH.OTP_SEND, payload).then((r) => r.data),
   verifyOtp: ({ phone, code }) =>
     api.post(ENDPOINTS.AUTH.OTP_VERIFY, { phone, code }).then((r) => persist(r.data)),
-
-  // Not in the backend spec — kept so the demo pages still resolve.
-  forgotPassword: (payload) => api.post(ENDPOINTS.AUTH.FORGOT_PASSWORD, payload).then((r) => r.data),
-  resetPassword: (payload) => api.post(ENDPOINTS.AUTH.RESET_PASSWORD, payload).then((r) => r.data),
-  changePassword: (payload) => api.post(ENDPOINTS.AUTH.CHANGE_PASSWORD, payload).then((r) => r.data),
-  verifyEmail: (payload) => api.post(ENDPOINTS.AUTH.VERIFY_EMAIL, payload).then((r) => r.data),
 };
 
 // Offline demo mode swaps in the mock backend with the same interface.

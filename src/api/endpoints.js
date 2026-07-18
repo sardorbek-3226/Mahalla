@@ -10,11 +10,6 @@ export const ENDPOINTS = {
     OTP_SEND: '/auth/otp/send',
     OTP_VERIFY: '/auth/otp/verify',
     GOOGLE: '/auth/google',
-    // Endpoints below are not in the backend spec; kept for mock/demo only.
-    FORGOT_PASSWORD: '/auth/forgot-password',
-    RESET_PASSWORD: '/auth/reset-password',
-    CHANGE_PASSWORD: '/auth/change-password',
-    VERIFY_EMAIL: '/auth/verify-email',
   },
   REGIONS: {
     BASE: '/regions',

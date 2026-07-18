@@ -49,7 +49,7 @@ const ChartCard = ({ title, subtitle, type = 'line', data, options, height = 280
           <ChartComp data={data} options={opts} />
         ) : (
           <div className="flex h-full items-center justify-center text-sm text-gray-400">
-            Ma'lumot yo'q
+            Ma&apos;lumot yo&apos;q
           </div>
         )}
       </div>

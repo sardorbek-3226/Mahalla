@@ -20,17 +20,21 @@ const Workers = () => {
 
   const { data: categories } = useQuery({ queryKey: ['categories'], queryFn: categoryService.list });
   const { data, isLoading } = useQuery({
-    queryKey: ['workers', { q, category, sort, onlyAvailable }],
+    queryKey: ['workers', { q, category, onlyAvailable }],
     queryFn: () =>
       workerService.list({
         q: q || undefined,
         category_id: category || undefined,
-        sort: sort || undefined,
         available: onlyAvailable || undefined,
       }),
   });
 
-  const workers = data?.items || data || [];
+  // The backend has no sort param for GET /providers, so sort client-side.
+  const workers = [...(data?.items || data || [])].sort((a, b) => {
+    if (sort === 'rating') return (b.rating_avg ?? 0) - (a.rating_avg ?? 0);
+    if (sort === 'price') return (a.price_from ?? 0) - (b.price_from ?? 0);
+    return 0;
+  });
   const cats = categories?.items || categories || [];
 
   return (

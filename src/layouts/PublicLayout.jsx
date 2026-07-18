@@ -3,6 +3,7 @@ import Logo from '@/components/common/Logo';
 import { Button } from '@/components/ui';
 import { useTheme } from '@/hooks/useTheme';
 import { useAuth } from '@/hooks/useAuth';
+import { ROLE_HOME } from '@/constants/roles';
 
 const NAV = [
   { to: '/about', label: 'Biz haqimizda' },
@@ -23,7 +24,7 @@ const FOOTER_LINKS = [
 // complete and stay navigable. Renders the active page via <Outlet />.
 const PublicLayout = () => {
   const { isDark, toggle } = useTheme();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-50 dark:bg-gray-950">
@@ -52,7 +53,7 @@ const PublicLayout = () => {
               {isDark ? '☀️' : '🌙'}
             </button>
             {isAuthenticated ? (
-              <Link to="/dashboard/citizen"><Button>Kabinet</Button></Link>
+              <Link to={ROLE_HOME[user?.role] || '/'}><Button>Kabinet</Button></Link>
             ) : (
               <>
                 <Link to="/login"><Button variant="ghost">Kirish</Button></Link>

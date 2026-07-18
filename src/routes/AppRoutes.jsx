@@ -17,7 +17,6 @@ const Login = lazy(() => import('@/pages/auth/Login'));
 const Register = lazy(() => import('@/pages/auth/Register'));
 const VerifyOtp = lazy(() => import('@/pages/auth/VerifyOtp'));
 const ForgotPassword = lazy(() => import('@/pages/auth/ForgotPassword'));
-const ResetPassword = lazy(() => import('@/pages/auth/ResetPassword'));
 
 // Static info / legal pages
 const About = lazy(() => import('@/pages/public/About'));
@@ -88,7 +87,6 @@ const AppRoutes = () => (
         <Route path="/register" element={<Register />} />
         <Route path="/verify-otp" element={<VerifyOtp />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
       </Route>
     </Route>
 

@@ -27,36 +27,34 @@ const Chat = () => {
   });
   const conversations = convData?.items || convData || [];
 
-  // Default to the first conversation once loaded.
-  useEffect(() => {
-    if (!activeId && conversations.length) setActiveId(conversations[0].id);
-  }, [conversations, activeId]);
+  // Default to the first conversation once loaded, without an extra render pass.
+  const currentActiveId = activeId ?? conversations[0]?.id ?? null;
 
   const { data: msgData } = useQuery({
-    queryKey: ['messages', activeId],
-    queryFn: () => chatService.messages(activeId),
-    enabled: !!activeId,
+    queryKey: ['messages', currentActiveId],
+    queryFn: () => chatService.messages(currentActiveId),
+    enabled: !!currentActiveId,
     refetchInterval: 5000,
   });
   const messages = msgData?.items || msgData || [];
-  const active = conversations.find((c) => c.id === activeId);
+  const active = conversations.find((c) => c.id === currentActiveId);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages.length]);
 
   const send = useMutation({
-    mutationFn: (body) => chatService.sendMessage(activeId, { body }),
+    mutationFn: (body) => chatService.sendMessage(currentActiveId, { body }),
     onSuccess: () => {
       setText('');
-      queryClient.invalidateQueries({ queryKey: ['messages', activeId] });
+      queryClient.invalidateQueries({ queryKey: ['messages', currentActiveId] });
       queryClient.invalidateQueries({ queryKey: ['conversations'] });
     },
   });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (text.trim() && activeId) send.mutate(text.trim());
+    if (text.trim() && currentActiveId) send.mutate(text.trim());
   };
 
   return (
@@ -82,7 +80,7 @@ const Chat = () => {
                 <button
                   key={c.id}
                   onClick={() => setActiveId(c.id)}
-                  className={`flex w-full items-center gap-3 px-3 py-3 text-left transition hover:bg-gray-50 dark:hover:bg-gray-800/50 ${activeId === c.id ? 'bg-primary-50 dark:bg-primary-900/20' : ''}`}
+                  className={`flex w-full items-center gap-3 px-3 py-3 text-left transition hover:bg-gray-50 dark:hover:bg-gray-800/50 ${currentActiveId === c.id ? 'bg-primary-50 dark:bg-primary-900/20' : ''}`}
                 >
                   <Avatar name={c.name} src={c.avatar_url} size="sm" />
                   <div className="min-w-0 flex-1">
