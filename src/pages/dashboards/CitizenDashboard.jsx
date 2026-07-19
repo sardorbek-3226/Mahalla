@@ -106,7 +106,6 @@ const CitizenDashboard = () => {
           <CardHeader title="Tezkor amallar" />
           <div className="flex flex-col space-y-4 ">
             <Link to="/workers"><Button variant="secondary" className="w-full justify-start">Ustalarni ko&apos;rish</Button></Link>
-            <Link to="/complaints"><Button variant="secondary" className="w-full justify-start">Murojaat yuborish</Button></Link>
             <Link to="/news"><Button variant="secondary" className="w-full justify-start">Mahalla yangiliklari</Button></Link>
             <Link to="/chat"><Button variant="secondary" className="w-full justify-start">Suhbatlar</Button></Link>
           </div>

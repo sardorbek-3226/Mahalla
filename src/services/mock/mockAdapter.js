@@ -76,9 +76,6 @@ async function route(config) {
   // ---- CATEGORIES -----------------------------------------------------------
   if (path === '/categories') return CATEGORIES;
 
-  // ---- REVIEWS (all) --------------------------------------------------------
-  if (path === '/reviews' && method === 'get') return paginate(db.reviews, params);
-
   // ---- ORDERS / BOOKINGS ----------------------------------------------------
   if (path === '/orders' && method === 'get') {
     let list = [...db.bookings];
@@ -148,21 +145,6 @@ async function route(config) {
     }
     return paginate(db.news, params);
   }
-
-  // ---- EVENTS ---------------------------------------------------------------
-  if (path === '/events') return paginate(db.events, params);
-
-  // ---- COMPLAINTS -----------------------------------------------------------
-  if (path === '/complaints' && method === 'get') return paginate(db.complaints, params);
-  if (path === '/complaints' && method === 'post') {
-    const c = { id: newId('cmp'), status: 'new', created_at: new Date().toISOString(), ...body };
-    db.complaints.unshift(c);
-    save();
-    return c;
-  }
-
-  // ---- PAYMENTS -------------------------------------------------------------
-  if (path === '/payments' || path === '/payments/invoices') return paginate(db.payments, params);
 
   // ---- NOTIFICATIONS --------------------------------------------------------
   if (path === '/notifications' && method === 'get') return paginate(db.notifications, params);

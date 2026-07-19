@@ -36,10 +36,6 @@ const BookingDetail = lazy(() => import('@/pages/features/BookingDetail'));
 const Chat = lazy(() => import('@/pages/features/Chat'));
 const Notifications = lazy(() => import('@/pages/features/Notifications'));
 const News = lazy(() => import('@/pages/features/News'));
-const Events = lazy(() => import('@/pages/features/Events'));
-const Complaints = lazy(() => import('@/pages/features/Complaints'));
-const Reviews = lazy(() => import('@/pages/features/Reviews'));
-const Payments = lazy(() => import('@/pages/features/Payments'));
 const Family = lazy(() => import('@/pages/features/Family'));
 const Documents = lazy(() => import('@/pages/features/Documents'));
 const Emergency = lazy(() => import('@/pages/features/Emergency'));
@@ -133,9 +129,6 @@ const AppRoutes = () => (
         <Route path="/chat" element={<Chat />} />
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/news" element={<News />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/complaints" element={<Complaints />} />
-        <Route path="/reviews" element={<Reviews />} />
         <Route path="/family" element={<Family />} />
         <Route path="/documents" element={<Documents />} />
         <Route path="/emergency" element={<Emergency />} />
@@ -147,7 +140,6 @@ const AppRoutes = () => (
         <Route element={<RoleRoute allow={[ROLES.MAHALLA_ADMIN, ROLES.DISTRICT_ADMIN, ROLES.REGION_ADMIN, ROLES.SUPER_ADMIN]} />}>
           <Route path="/admin/users" element={<AdminUsers />} />
           <Route path="/admin/workers" element={<AdminWorkers />} />
-          <Route path="/payments" element={<Payments />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/reports" element={<Reports />} />
         </Route>

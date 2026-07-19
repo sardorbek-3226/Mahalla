@@ -18,13 +18,6 @@ const FEATURES = [
   { icon: HiOutlineChatBubbleLeftRight, title: 'Real-time aloqa', desc: 'Ustalar bilan to\'g\'ridan-to\'g\'ri yozishing.' },
 ];
 
-const STATS = [
-  { value: '12 400+', label: 'Faol ustalar' },
-  { value: '86 000+', label: 'Bajarilgan buyurtmalar' },
-  { value: '210 000+', label: 'Ro\'yxatdan o\'tgan aholi' },
-  { value: '1 840+', label: 'Mahallalar' },
-];
-
 const Landing = () => {
   const { isDark, toggle } = useTheme();
   const { isAuthenticated, user } = useAuth();
@@ -37,7 +30,6 @@ const Landing = () => {
           <Logo />
           <nav className="hidden items-center gap-6 text-sm font-medium text-gray-600 dark:text-gray-300 md:flex">
             <a href="#features" className="hover:text-primary-600">Imkoniyatlar</a>
-            <a href="#stats" className="hover:text-primary-600">Statistika</a>
             <Link to="/about" className="hover:text-primary-600">Biz haqimizda</Link>
           </nav>
           <div className="flex items-center gap-2">
@@ -103,18 +95,6 @@ const Landing = () => {
               <h3 className="mt-4 text-lg font-semibold">{f.title}</h3>
               <p className="mt-2 text-sm text-gray-500">{f.desc}</p>
             </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* Stats */}
-      <section id="stats" className="bg-gradient-to-br from-primary-600 to-accent-700 py-16">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-8 px-4 text-center text-white sm:px-6 lg:grid-cols-4">
-          {STATS.map((s) => (
-            <div key={s.label}>
-              <p className="text-3xl font-extrabold sm:text-4xl">{s.value}</p>
-              <p className="mt-1 text-sm text-white/80">{s.label}</p>
-            </div>
           ))}
         </div>
       </section>

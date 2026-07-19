@@ -57,18 +57,6 @@ export const ENDPOINTS = {
     byId: (id) => `/announcements/${id}`,
     byMahalla: (id) => `/mahallas/${id}/announcements`,
   },
-  COMPLAINTS: {
-    BASE: '/complaints',
-    byId: (id) => `/complaints/${id}`,
-  },
-  EVENTS: {
-    BASE: '/events',
-  },
-  PAYMENTS: {
-    BASE: '/payments',
-    INVOICES: '/payments/invoices',
-    byId: (id) => `/payments/${id}`,
-  },
   NOTIFICATIONS: {
     BASE: '/notifications',
     read: (id) => `/notifications/${id}/read`,

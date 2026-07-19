@@ -109,37 +109,6 @@ const buildNews = () =>
     { type: 'recommendation', title: 'Qishki tayyorgarlik', body: 'Konditsioner va isitish tizimlarini oldindan tekshirtirishni unutmang.' },
   ].map((n, i) => ({ id: `news-${i + 1}`, author_name: 'Mahalla ma’muriyati', created_at: daysAgo(i * 2), ...n }));
 
-const buildEvents = () =>
-  [
-    { title: 'Mahalla yig‘ilishi', place: 'Mahalla markazi', date: hoursAhead(48), attendees: 64 },
-    { title: 'Navro‘z bayrami', place: 'Markaziy maydon', date: hoursAhead(120), attendees: 230 },
-    { title: 'Qon topshirish aksiyasi', place: 'Poliklinika', date: hoursAhead(72), attendees: 41 },
-    { title: 'Bolalar uchun sport musobaqasi', place: 'Maktab stadioni', date: hoursAhead(200), attendees: 88 },
-  ].map((e, i) => ({ id: `evt-${i + 1}`, ...e }));
-
-const buildComplaints = () =>
-  [
-    { subject: 'Ko‘chada chiroq yonmayapti', category: 'Yoritish', status: 'in_review' },
-    { subject: 'Axlat o‘z vaqtida olib ketilmayapti', category: 'Tozalik', status: 'resolved' },
-    { subject: 'Yo‘l qatlami buzilgan', category: 'Infratuzilma', status: 'new' },
-  ].map((c, i) => ({
-    id: `cmp-${i + 1}`,
-    body: 'Iltimos, ushbu masalani ko‘rib chiqishingizni so‘rayman.',
-    created_at: daysAgo(rint(1, 15)),
-    ...c,
-  }));
-
-const buildPayments = () =>
-  Array.from({ length: 8 }).map((_, i) => ({
-    id: `pay-${i + 1}`,
-    invoice_no: `INV-${2026000 + i}`,
-    description: `${rnd(CATEGORIES).name} xizmati uchun to‘lov`,
-    amount: rint(50, 350) * 1000,
-    method: rnd(['Payme', 'Click', 'Naqd']),
-    status: rnd(['paid', 'paid', 'pending', 'failed']),
-    created_at: daysAgo(rint(0, 40)),
-  }));
-
 const buildNotifications = () =>
   [
     { title: 'Buyurtmangiz qabul qilindi', body: 'Usta buyurtmangizni qabul qildi.', type: 'order' },
@@ -172,9 +141,6 @@ const seed = () => {
     reviews: buildReviews(workers),
     bookings: buildBookings(workers),
     news: buildNews(),
-    events: buildEvents(),
-    complaints: buildComplaints(),
-    payments: buildPayments(),
     notifications: buildNotifications(),
     admins: buildAdmins(),
     auditLogs: buildAuditLogs(),

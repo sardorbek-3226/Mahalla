@@ -8,13 +8,6 @@ import {
 } from 'react-icons/hi2';
 import ContentPage from '@/components/common/ContentPage';
 
-const STATS = [
-  { value: '12 400+', label: 'Faol ustalar' },
-  { value: '86 000+', label: 'Bajarilgan buyurtmalar' },
-  { value: '210 000+', label: 'Ro‘yxatdan o‘tgan aholi' },
-  { value: '1 840+', label: 'Mahallalar' },
-];
-
 const VALUES = [
   { icon: HiOutlineShieldCheck, title: 'Ishonch', desc: 'Har bir usta mahalla administratori tomonidan tekshiriladi.' },
   { icon: HiOutlineUsers, title: 'Hamjamiyat', desc: 'Mahalla aholisini birlashtiruvchi raqamli makon.' },
@@ -45,17 +38,6 @@ const About = () => (
             platformaga jamlaymiz. Aholi buyurtma beradi, ustalar bilan real-time yozishadi,
             xizmatni baholaydi — barchasi bitta ilovada.
           </p>
-        </div>
-      </section>
-
-      <section className="rounded-3xl bg-gradient-to-br from-primary-600 to-accent-700 p-8 text-white">
-        <div className="grid grid-cols-2 gap-6 text-center lg:grid-cols-4">
-          {STATS.map((s) => (
-            <div key={s.label}>
-              <p className="text-3xl font-extrabold sm:text-4xl">{s.value}</p>
-              <p className="mt-1 text-sm text-white/80">{s.label}</p>
-            </div>
-          ))}
         </div>
       </section>
 
