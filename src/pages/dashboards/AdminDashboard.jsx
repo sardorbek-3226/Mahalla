@@ -25,22 +25,23 @@ const AdminDashboard = () => {
   const s = data || {};
   const pendingList = pending?.items || pending || [];
 
-  const ordersChart = {
-    labels: s.orders_chart?.labels || ['Yan', 'Fev', 'Mar', 'Apr', 'May', 'Iyun'],
+  // Only build a chart when the backend actually returned series data — never fabricate one.
+  const ordersChart = s.orders_chart && {
+    labels: s.orders_chart.labels,
     datasets: [
       {
         label: 'Buyurtmalar',
-        data: s.orders_chart?.data || [0, 0, 0, 0, 0, 0],
+        data: s.orders_chart.data,
         backgroundColor: '#2f9c52',
         borderRadius: 8,
       },
     ],
   };
-  const categoriesChart = {
-    labels: s.categories_chart?.labels || ['Elektrik', 'Santexnik', 'Tozalash', 'Repetitor'],
+  const categoriesChart = s.categories_chart && {
+    labels: s.categories_chart.labels,
     datasets: [
       {
-        data: s.categories_chart?.data || [1, 1, 1, 1],
+        data: s.categories_chart.data,
         backgroundColor: ['#1f7d40', '#2563eb', '#f59e0b', '#ef4444'],
       },
     ],

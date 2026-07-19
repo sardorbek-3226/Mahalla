@@ -17,7 +17,8 @@ import { Badge, Button, Skeleton, EmptyState } from '@/components/ui';
 import { bookingService } from '@/services/bookingService';
 import { workerService } from '@/services/workerService';
 import { useAuth } from '@/hooks/useAuth';
-import { formatDateTime } from '@/utils/format';
+import { formatDateTime, formatMoney } from '@/utils/format';
+import { lastMonths, monthKey } from '@/utils/chart';
 
 const WorkerDashboard = () => {
   const { user } = useAuth();
@@ -27,6 +28,12 @@ const WorkerDashboard = () => {
   const { data, isLoading } = useQuery({
     queryKey: ['bookings', 'worker'],
     queryFn: () => bookingService.list({ limit: 6 }),
+  });
+
+  // Real earnings, computed from the worker's own completed orders (no backend earnings endpoint exists).
+  const { data: completedData } = useQuery({
+    queryKey: ['bookings', 'worker', 'completed'],
+    queryFn: () => bookingService.list({ status: 'COMPLETED', scope: 'assigned', limit: 100 }),
   });
 
   // Nudge new workers to set their hourly rate and services until they've done it.
@@ -46,12 +53,20 @@ const WorkerDashboard = () => {
   });
 
   const bookings = data?.items || data || [];
+  const completedOrders = completedData?.items || completedData || [];
+
+  const { labels: monthLabels, keys: monthKeys } = lastMonths(6);
+  const monthlySums = Object.fromEntries(monthKeys.map((k) => [k, 0]));
+  completedOrders.forEach((o) => {
+    const k = monthKey(o.created_at);
+    if (k in monthlySums) monthlySums[k] += o.price_agreed || 0;
+  });
   const earningsChart = {
-    labels: ['Yan', 'Fev', 'Mar', 'Apr', 'May', 'Iyun'],
+    labels: monthLabels,
     datasets: [
       {
         label: 'Daromad',
-        data: data?.earnings || [0, 0, 0, 0, 0, 0],
+        data: monthKeys.map((k) => monthlySums[k]),
         borderColor: '#1f7d40',
         backgroundColor: 'rgba(47,156,82,0.12)',
         fill: true,
@@ -59,6 +74,7 @@ const WorkerDashboard = () => {
       },
     ],
   };
+  const thisMonthEarnings = monthlySums[monthKeys[monthKeys.length - 1]];
 
   return (
     <div>
@@ -100,7 +116,7 @@ const WorkerDashboard = () => {
         <StatCard label="Yangi so'rovlar" value={bookings.filter((b) => b.status === 'new').length} icon={HiOutlineCalendarDays} tone="amber" />
         <StatCard label="Bajarilgan" value={user?.completed_orders ?? '—'} icon={HiOutlineCheckCircle} tone="primary" />
         <StatCard label="Reyting" value={user?.rating_avg ?? '—'} icon={HiOutlineStar} tone="blue" />
-        <StatCard label="Bu oy daromad" value="—" icon={HiOutlineBanknotes} tone="primary" />
+        <StatCard label="Bu oy daromad" value={formatMoney(thisMonthEarnings)} icon={HiOutlineBanknotes} tone="primary" />
       </div>
 
       <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-3">

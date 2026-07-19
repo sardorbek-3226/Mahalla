@@ -12,6 +12,7 @@ import StatCard from '@/components/dashboard/StatCard';
 import Card, { CardHeader } from '@/components/ui/Card';
 import { Button, Badge, Skeleton, EmptyState } from '@/components/ui';
 import { bookingService } from '@/services/bookingService';
+import { workerService } from '@/services/workerService';
 import { useAuth } from '@/hooks/useAuth';
 import { formatDateTime } from '@/utils/format';
 
@@ -36,8 +37,13 @@ const CitizenDashboard = () => {
     queryKey: ['bookings', 'mine'],
     queryFn: () => bookingService.list({ limit: 5 }),
   });
+  const { data: workersData } = useQuery({
+    queryKey: ['workers', 'count'],
+    queryFn: () => workerService.list({ limit: 1 }),
+  });
 
   const bookings = data?.items || data || [];
+  const workersFound = workersData?.total ?? null;
   const stats = {
     total: data?.total ?? bookings.length,
     active: bookings.filter((b) => ['new', 'accepted', 'in_progress'].includes(b.status)).length,
@@ -60,7 +66,7 @@ const CitizenDashboard = () => {
         <StatCard label="Jami buyurtmalar" value={stats.total} icon={HiOutlineCalendarDays} tone="primary" />
         <StatCard label="Faol buyurtmalar" value={stats.active} icon={HiOutlineClock} tone="amber" />
         <StatCard label="Bajarilgan" value={stats.completed} icon={HiOutlineCheckCircle} tone="blue" />
-        <StatCard label="Topilgan ustalar" value="—" icon={HiOutlineUserGroup} tone="primary" />
+        <StatCard label="Ro'yxatdagi ustalar" value={workersFound ?? '—'} icon={HiOutlineUserGroup} tone="primary" />
       </div>
 
       <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-3">

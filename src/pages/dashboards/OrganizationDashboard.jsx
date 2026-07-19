@@ -15,7 +15,12 @@ import Card from '@/components/ui/Card';
 import { Button } from '@/components/ui';
 import WorkerCard from '@/components/common/WorkerCard';
 import { workerService } from '@/services/workerService';
+import { bookingService } from '@/services/bookingService';
 import { useAuth } from '@/hooks/useAuth';
+import { formatMoney } from '@/utils/format';
+import { lastMonths, monthKey } from '@/utils/chart';
+
+const ACTIVE_STATUSES = ['new', 'accepted', 'in_progress'];
 
 const OrganizationDashboard = () => {
   const { user } = useAuth();
@@ -25,11 +30,34 @@ const OrganizationDashboard = () => {
     .sort((a, b) => (b.rating_avg ?? 0) - (a.rating_avg ?? 0))
     .slice(0, 3);
 
+  // The org's own job postings ARE orders (created via /bookings/new) — derive every stat from them.
+  const { data: ordersData } = useQuery({
+    queryKey: ['bookings', 'org', 100],
+    queryFn: () => bookingService.list({ limit: 100 }),
+  });
+  const orders = ordersData?.items || ordersData || [];
+
+  const activeJobs = orders.filter((o) => ACTIVE_STATUSES.includes(o.status)).length;
+  const completedJobs = orders.filter((o) => o.status === 'completed').length;
+  const hiredWorkers = new Set(orders.filter((o) => o.worker_id).map((o) => o.worker_id)).size;
+
+  const { labels: monthLabels, keys: monthKeys } = lastMonths(6);
+  const monthlyCounts = Object.fromEntries(monthKeys.map((k) => [k, 0]));
+  const monthlySpend = Object.fromEntries(monthKeys.map((k) => [k, 0]));
+  orders.forEach((o) => {
+    const k = monthKey(o.created_at);
+    if (k in monthlyCounts) {
+      monthlyCounts[k] += 1;
+      monthlySpend[k] += o.price_agreed || 0;
+    }
+  });
+  const monthlySpendTotal = monthlySpend[monthKeys[monthKeys.length - 1]];
+
   const hiringChart = {
-    labels: ['Yan', 'Fev', 'Mar', 'Apr', 'May', 'Iyun'],
+    labels: monthLabels,
     datasets: [{
-      label: 'Yollangan',
-      data: [3, 5, 4, 7, 6, 9],
+      label: 'Ish e’lonlari',
+      data: monthKeys.map((k) => monthlyCounts[k]),
       backgroundColor: '#2563eb',
       borderRadius: 8,
     }],
@@ -48,10 +76,10 @@ const OrganizationDashboard = () => {
       />
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard label="Faol ish e’lonlari" value="6" icon={HiOutlineBriefcase} tone="primary" trend={10} />
-        <StatCard label="Yollangan ustalar" value="34" icon={HiOutlineUserGroup} tone="blue" trend={8} />
-        <StatCard label="Tugatilgan loyihalar" value="128" icon={HiOutlineClipboardDocumentCheck} tone="amber" trend={15} />
-        <StatCard label="Oylik xarajat" value="12.4 mln" icon={HiOutlineBanknotes} tone="primary" />
+        <StatCard label="Faol ish e’lonlari" value={activeJobs} icon={HiOutlineBriefcase} tone="primary" />
+        <StatCard label="Yollangan ustalar" value={hiredWorkers} icon={HiOutlineUserGroup} tone="blue" />
+        <StatCard label="Tugatilgan loyihalar" value={completedJobs} icon={HiOutlineClipboardDocumentCheck} tone="amber" />
+        <StatCard label="Bu oy xarajat" value={formatMoney(monthlySpendTotal)} icon={HiOutlineBanknotes} tone="primary" />
       </div>
 
       <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-3">

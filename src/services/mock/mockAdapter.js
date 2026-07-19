@@ -81,8 +81,9 @@ async function route(config) {
 
   // ---- ORDERS / BOOKINGS ----------------------------------------------------
   if (path === '/orders' && method === 'get') {
-    const res = paginate(db.bookings, params);
-    return { ...res, earnings: [1.2, 1.8, 2.1, 1.6, 2.4, 2.9].map((n) => Math.round(n * 1e6)) };
+    let list = [...db.bookings];
+    if (params.status) list = list.filter((o) => String(o.status).toUpperCase() === String(params.status).toUpperCase());
+    return paginate(list, params);
   }
   if (path === '/orders' && method === 'post') {
     const worker = db.workers.find((w) => w.id === body.worker_id);
