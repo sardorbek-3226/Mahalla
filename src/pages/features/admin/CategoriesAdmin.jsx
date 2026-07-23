@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useQuery, useMutation } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
 import { HiOutlineRectangleGroup, HiPlus, HiOutlineTrash, HiOutlinePencilSquare } from 'react-icons/hi2';
 import PageHeader from '@/components/common/PageHeader';
@@ -12,6 +13,7 @@ import { queryClient } from '@/config/queryClient';
 const slugify = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
 const CategoriesAdmin = () => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
@@ -29,29 +31,29 @@ const CategoriesAdmin = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['categories'] });
-      toast.success(editing ? 'Yangilandi' : 'Kategoriya qo‘shildi');
+      toast.success(editing ? t('admin.categoriesAdmin.updated') : t('admin.categoriesAdmin.created'));
       setOpen(false);
     },
-    onError: (e) => toast.error(e.response?.data?.message || 'Xatolik'),
+    onError: (e) => toast.error(e.response?.data?.message || t('admin.categoriesAdmin.error')),
   });
   const remove = useMutation({
     mutationFn: (id) => categoryService.remove(id),
-    onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['categories'] }); toast.success('O‘chirildi'); },
-    onError: (e) => toast.error(e.response?.data?.message || 'O‘chirib bo‘lmadi'),
+    onSuccess: () => { queryClient.invalidateQueries({ queryKey: ['categories'] }); toast.success(t('admin.categoriesAdmin.removed')); },
+    onError: (e) => toast.error(e.response?.data?.message || t('admin.categoriesAdmin.removeError')),
   });
 
   return (
     <div>
       <PageHeader
-        title="Kategoriyalar boshqaruvi"
-        subtitle="Xizmat turlarini qo‘shish, tahrirlash, o‘chirish"
-        actions={<Button variant="gradient" leftIcon={<HiPlus className="h-4 w-4" />} onClick={openNew}>Kategoriya</Button>}
+        title={t('admin.categoriesAdmin.title')}
+        subtitle={t('admin.categoriesAdmin.subtitle')}
+        actions={<Button variant="gradient" leftIcon={<HiPlus className="h-4 w-4" />} onClick={openNew}>{t('admin.categoriesAdmin.category')}</Button>}
       />
 
       {isLoading ? (
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} className="h-20 rounded-2xl" />)}</div>
       ) : cats.length === 0 ? (
-        <EmptyState icon={HiOutlineRectangleGroup} title="Kategoriya yo‘q" />
+        <EmptyState icon={HiOutlineRectangleGroup} title={t('admin.categoriesAdmin.empty')} />
       ) : (
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {cats.map((c) => (
@@ -60,7 +62,7 @@ const CategoriesAdmin = () => {
                 <span className="text-2xl">{c.icon}</span>
                 <div>
                   <p className="font-medium">{c.name}</p>
-                  <p className="text-xs text-gray-400">{c.slug} · {c.count} usta</p>
+                  <p className="text-xs text-gray-400">{c.slug} · {t('admin.categoriesAdmin.mastersCount', { count: c.count })}</p>
                 </div>
               </div>
               <div className="flex items-center gap-1">
@@ -72,12 +74,12 @@ const CategoriesAdmin = () => {
         </div>
       )}
 
-      <Modal open={open} onClose={() => setOpen(false)} title={editing ? 'Kategoriyani tahrirlash' : 'Yangi kategoriya'}>
+      <Modal open={open} onClose={() => setOpen(false)} title={editing ? t('admin.categoriesAdmin.editTitle') : t('admin.categoriesAdmin.newTitle')}>
         <form onSubmit={handleSubmit(save.mutate)} className="space-y-4">
-          <Input label="Nomi" error={errors.name?.message} {...register('name', { required: 'Nomini kiriting' })} />
-          <Input label="Slug (ixtiyoriy)" hint="Bo‘sh qoldirsangiz avtomatik yaratiladi" {...register('slug')} />
-          <Input label="Ikonka URL (ixtiyoriy)" {...register('icon_url')} />
-          <Button type="submit" variant="gradient" className="w-full" loading={save.isPending}>Saqlash</Button>
+          <Input label={t('admin.categoriesAdmin.name')} error={errors.name?.message} {...register('name', { required: t('admin.categoriesAdmin.nameRequired') })} />
+          <Input label={t('admin.categoriesAdmin.slug')} hint={t('admin.categoriesAdmin.slugHint')} {...register('slug')} />
+          <Input label={t('admin.categoriesAdmin.iconUrl')} {...register('icon_url')} />
+          <Button type="submit" variant="gradient" className="w-full" loading={save.isPending}>{t('admin.categoriesAdmin.save')}</Button>
         </form>
       </Modal>
     </div>

@@ -1,0 +1,177 @@
+{
+  "features": {
+    "profile": {
+      "title": "Profil",
+      "subtitle": "Shaxsiy ma’lumotlaringiz",
+      "verified": "Tasdiqlangan",
+      "editInfo": "Ma’lumotlarni tahrirlash",
+      "fullName": "To‘liq ism",
+      "email": "Email",
+      "phone": "Telefon",
+      "phoneHint": "Telefon raqamini o‘zgartirib bo‘lmaydi",
+      "save": "Saqlash",
+      "updateSuccess": "Profil yangilandi",
+      "updateError": "Saqlashda xatolik"
+    },
+    "settings": {
+      "title": "Sozlamalar",
+      "subtitle": "Ilova sozlamalarini boshqaring",
+      "theme": "Mavzu",
+      "themeDark": "Tungi rejim",
+      "themeLight": "Kunduzgi rejim",
+      "language": "Til",
+      "languageDesc": "Interfeys tili",
+      "uzbek": "O‘zbekcha",
+      "russian": "Русский",
+      "english": "English",
+      "pushNotifications": "Push bildirishnomalar",
+      "pushNotificationsDesc": "Yangi xabar va buyurtmalar",
+      "logoutTitle": "Hisobdan chiqish",
+      "logoutDesc": "Joriy seansni tugatish.",
+      "logout": "Chiqish",
+      "logoutSuccess": "Tizimdan chiqdingiz"
+    },
+    "notifications": {
+      "title": "Bildirishnomalar",
+      "markAllRead": "Hammasini o‘qildi",
+      "empty": "Bildirishnoma yo‘q"
+    },
+    "search": {
+      "title": "Qidiruv",
+      "subtitle": "Usta, xizmat yoki kasb bo‘yicha qidiring",
+      "placeholder": "Nimani qidiryapsiz?",
+      "popularCategories": "Ommabop kategoriyalar",
+      "noResultsTitle": "Hech narsa topilmadi",
+      "noResultsDescription": "\"{{query}}\" bo‘yicha natija yo‘q."
+    },
+    "categories": {
+      "title": "Kategoriyalar",
+      "subtitle": "Xizmat turini tanlang",
+      "workersCount": "{{count}} usta"
+    },
+    "services": {
+      "title": "Xizmatlar",
+      "subtitle": "Mahalla uchun barcha xizmatlar bir joyda",
+      "serviceTypes": "Xizmat turlari",
+      "workersCount": "{{count}} usta",
+      "ctaTitle": "Kerakli ustani topa olmadingizmi?",
+      "ctaDesc": "So‘rov joylang — mos ustalar siz bilan bog‘lanadi.",
+      "ctaButton": "So‘rov joylash",
+      "steps": {
+        "verifiedWorkers": {
+          "title": "Tekshirilgan ustalar",
+          "desc": "Har bir usta mahalla admini tomonidan tasdiqlanadi."
+        },
+        "fastOrder": {
+          "title": "Tezkor buyurtma",
+          "desc": "Bir necha daqiqada kerakli xizmatni toping."
+        },
+        "directContact": {
+          "title": "To‘g‘ridan-to‘g‘ri aloqa",
+          "desc": "Usta bilan chat orqali bog‘laning."
+        }
+      }
+    },
+    "documents": {
+      "title": "Hujjatlar",
+      "subtitle": "Shaxsiy hujjatlaringizni saqlang",
+      "dropzone": "Fayllarni shu yerga tashlang yoki tanlang",
+      "dropzoneHint": "PDF, JPG, PNG · maksimal 10 MB",
+      "empty": "Hujjat yo‘q",
+      "uploadSuccess": "{{count}} ta fayl yuklandi"
+    },
+    "family": {
+      "title": "Oilam",
+      "subtitle": "Uy xo‘jaligi a’zolari",
+      "addMember": "A’zo qo‘shish",
+      "addSuccess": "A’zo qo‘shildi",
+      "ageLabel": "{{age}} yosh",
+      "addModalTitle": "Oila a’zosini qo‘shish",
+      "fullName": "To‘liq ism",
+      "relation": "Qarindoshlik",
+      "relationPlaceholder": "Farzand",
+      "age": "Yosh",
+      "phone": "Telefon",
+      "submit": "Qo‘shish"
+    },
+    "emergency": {
+      "title": "Favqulodda yordam",
+      "subtitle": "Shoshilinch holatlarda kerakli raqamlar",
+      "warning": "Hayot uchun xavfli vaziyatda darhol tegishli xizmatga qo‘ng‘iroq qiling. Raqam ustiga bosib to‘g‘ridan-to‘g‘ri qo‘ng‘iroq qilishingiz mumkin.",
+      "contacts": {
+        "fire": "Yong‘in xavfsizligi",
+        "police": "Ichki ishlar (Politsiya)",
+        "ambulance": "Tez tibbiy yordam",
+        "gas": "Gaz avariya xizmati",
+        "rescue": "Qutqaruv xizmati",
+        "mahallaDuty": "Mahalla navbatchisi"
+      }
+    },
+    "news": {
+      "title": "Yangiliklar va e’lonlar",
+      "subtitle": "Mahalla ma’muriyatidan so‘nggi xabarlar",
+      "addButton": "E’lon qo‘shish",
+      "noMahalla": "E’lonlarni ko‘rish uchun profilingizda mahalla tanlangan bo‘lishi kerak.",
+      "empty": "E’lon yo‘q",
+      "recommendation": "Tavsiya",
+      "announcement": "E’lon",
+      "newModalTitle": "Yangi e’lon",
+      "titleLabel": "Sarlavha",
+      "titleRequired": "Sarlavhani kiriting",
+      "typeLabel": "Turi",
+      "bodyLabel": "Matn",
+      "publish": "Joylash",
+      "createSuccess": "E’lon joylandi",
+      "deleteSuccess": "O‘chirildi",
+      "genericError": "Xatolik"
+    },
+    "providerServices": {
+      "unitHour": "soat",
+      "unitDay": "kun",
+      "unitProject": "loyiha",
+      "noProfileTitle": "Usta profili",
+      "noProfileSubtitle": "Xizmat ko‘rsatish uchun avval profilingizni yarating",
+      "aboutYou": "O‘zingiz haqingizda",
+      "aboutPlaceholder": "Tajriba va ko‘nikmalaringiz…",
+      "experienceYears": "Tajriba (yil)",
+      "createProfile": "Profil yaratish",
+      "title": "Mening xizmatlarim",
+      "subtitle": "Xizmatlar va narxlarni boshqaring",
+      "addService": "Xizmat qo‘shish",
+      "availabilityStatus": "Ish holati",
+      "availableNow": "Hozir buyurtma qabul qilyapsiz",
+      "busyNow": "Hozir band",
+      "servicesListTitle": "Xizmatlar",
+      "servicesCount": "{{count}} ta",
+      "noServicesTitle": "Xizmat yo‘q",
+      "noServicesDesc": "Birinchi xizmatingizni qo‘shing.",
+      "editServiceTitle": "Xizmatni tahrirlash",
+      "newServiceTitle": "Yangi xizmat",
+      "category": "Kategoriya",
+      "serviceName": "Xizmat nomi",
+      "nameRequired": "Nomini kiriting",
+      "description": "Tavsif",
+      "priceFrom": "Narx (dan)",
+      "unit": "Birlik",
+      "save": "Saqlash",
+      "profileCreated": "Profil yaratildi",
+      "availabilityUpdated": "Holat yangilandi",
+      "saved": "Saqlandi",
+      "deleted": "O‘chirildi",
+      "genericError": "Xatolik"
+    },
+    "providerDocuments": {
+      "docTypePassport": "Pasport",
+      "docTypeLicense": "Litsenziya",
+      "docTypeCertificate": "Sertifikat",
+      "title": "Verifikatsiya hujjatlari",
+      "subtitle": "Tasdiqlanish uchun hujjatlaringizni yuklang",
+      "docType": "Hujjat turi",
+      "uploadButton": "Fayl yuklash",
+      "emptyTitle": "Hujjat yo‘q",
+      "emptyDesc": "Verifikatsiya uchun hujjat yuklang.",
+      "uploadSuccess": "Hujjat yuklandi — tekshiruvga yuborildi",
+      "uploadError": "Yuklashda xatolik"
+    }
+  }
+}

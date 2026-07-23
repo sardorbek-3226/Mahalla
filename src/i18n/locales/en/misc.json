@@ -1,0 +1,195 @@
+{
+  "publicPages": {
+    "about": {
+      "title": "About Us",
+      "subtitle": "Smart Mahalla — a modern digital services platform for neighborhoods (mahallas) in Uzbekistan.",
+      "missionTitle": "Our mission",
+      "missionText": "Smart Mahalla connects neighborhood residents with verified craftsmen and service providers. Our goal is to digitalize neighborhood life and make local services convenient, reliable, and transparent.",
+      "whatWeDoTitle": "What we do",
+      "whatWeDoText": "We bring electricians, plumbers, tutors, cleaners, and many other professionals together on one platform. Residents place orders, chat with providers in real time, and rate the service — all in a single app.",
+      "valuesTitle": "Our values",
+      "values": {
+        "trust": { "title": "Trust", "desc": "Every craftsman is verified by the neighborhood administrator." },
+        "community": { "title": "Community", "desc": "A digital space that brings neighborhood residents together." },
+        "convenience": { "title": "Convenience", "desc": "Find the service you need in just a few minutes." },
+        "transparency": { "title": "Transparency", "desc": "An open rating system through reviews and ratings." }
+      },
+      "coverage": "We currently operate in 8 neighborhoods of Tashkent city and are expanding across the whole republic soon."
+    },
+    "contact": {
+      "title": "Contact",
+      "subtitle": "Have a question, suggestion, or issue? Write to us.",
+      "info": {
+        "phone": "Phone",
+        "email": "Email",
+        "address": "Address",
+        "addressValue": "Tashkent, Chilanzar district",
+        "hours": "Working hours",
+        "hoursValue": "Mon–Sat, 9:00 AM–6:00 PM"
+      },
+      "form": {
+        "name": "Name",
+        "namePlaceholder": "Your name",
+        "nameRequired": "Please enter your name",
+        "phone": "Phone",
+        "phonePlaceholder": "+998 90 123 45 67",
+        "phoneRequired": "Please enter your phone number",
+        "email": "Email",
+        "emailPlaceholder": "email@example.com",
+        "emailInvalid": "Invalid email",
+        "message": "Message",
+        "messagePlaceholder": "Write your message…",
+        "messageRequired": "Please enter a message",
+        "submit": "Send"
+      },
+      "successToast": "Your message has been received! We'll get back to you soon."
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Answers to the most common questions.",
+      "items": {
+        "pricing": {
+          "q": "Is using the platform paid?",
+          "a": "No. Using Smart Mahalla is completely free for neighborhood residents. Workers also list their services for free."
+        },
+        "verification": {
+          "q": "How are workers verified?",
+          "a": "After registering, each worker uploads their documents. The neighborhood administrator reviews and approves them. Only approved workers receive a \"verified\" badge."
+        },
+        "coverage": {
+          "q": "Which areas do you operate in?",
+          "a": "We are currently active in 8 neighborhoods of Tashkent city. We're gradually adding new areas."
+        },
+        "ordering": {
+          "q": "How do I place an order?",
+          "a": "Register, choose the category you need or post a request, pick a suitable worker to place an order with, and get in touch with them via chat."
+        },
+        "becomeWorker": {
+          "q": "How do I register as a worker?",
+          "a": "When registering, select the \"Worker\" role, complete your profile, and upload your documents. Once approved, you can start accepting orders."
+        },
+        "payment": {
+          "q": "How is payment handled?",
+          "a": "For now, payments are arranged directly with the worker. Payment systems such as Payme/Click will be integrated in the future."
+        }
+      },
+      "notFound": "Couldn't find the answer you're looking for?",
+      "contactLink": "Contact us"
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "subtitle": "The security of your data matters to us.",
+      "sections": {
+        "dataCollection": {
+          "title": "1. What data we collect",
+          "body": "When you register, we collect your name, phone number, and (optionally) email address. While using the service, order, address, message, and device data may be stored."
+        },
+        "dataUse": {
+          "title": "2. How we use data",
+          "body": "The data collected is used to provide the service, connect you with workers, ensure security, and improve the platform. We do not sell your data to third parties for advertising purposes."
+        },
+        "dataSharing": {
+          "title": "3. Data sharing",
+          "body": "During the ordering process, necessary data (name, address) is shared with the relevant worker. Where required by law, data may be provided to authorized government bodies."
+        },
+        "security": {
+          "title": "4. Security",
+          "body": "Your data is protected through encryption (HTTPS), secure authentication (HTTP-only cookies), and access restrictions. However, keep in mind that no system on the internet is 100% secure."
+        },
+        "rights": {
+          "title": "5. Your rights",
+          "body": "You have the right to view, edit your data, or request deletion of your account. You can do this from the settings section or by contacting support."
+        },
+        "cookies": {
+          "title": "6. Cookies",
+          "body": "The platform uses cookies to maintain sessions and ensure security. You can manage cookies through your browser settings, though this may affect some features."
+        }
+      }
+    },
+    "terms": {
+      "title": "Terms of Use",
+      "subtitle": "Last updated: June 1, 2026",
+      "sections": {
+        "general": {
+          "title": "1. General provisions",
+          "body": "By using the Smart Mahalla platform, you fully accept these terms of use. If you do not agree with the terms, do not use the platform. The platform operates in accordance with the legislation of the Republic of Uzbekistan."
+        },
+        "account": {
+          "title": "2. Creating an account",
+          "body": "You must provide accurate and correct information when registering. You are responsible for the security of your account (password, phone number). Creating a fake account under another person's identity is prohibited."
+        },
+        "workers": {
+          "title": "3. Workers and services",
+          "body": "Workers are verified by the neighborhood administrator. However, the platform is not directly responsible for the quality of services provided by workers. Order terms and pricing are agreed upon between the user and the worker."
+        },
+        "obligations": {
+          "title": "4. User obligations",
+          "body": "Using the platform for unlawful purposes, insulting others, distributing spam, or engaging in fraud is prohibited. If a violation is detected, the account may be blocked."
+        },
+        "payments": {
+          "title": "5. Payments",
+          "body": "Using the platform is free for residents. Users will be notified in advance about any paid services introduced in the future. Payments to workers are made directly or through an integrated payment system."
+        },
+        "liability": {
+          "title": "6. Limitation of liability",
+          "body": "The platform is provided \"as is\". The platform is not liable for damages caused by technical outages or third-party services."
+        },
+        "changes": {
+          "title": "7. Changes to the terms",
+          "body": "We may update these terms at any time. Users will be notified of significant changes via notification. Continuing to use the platform after an update constitutes acceptance of the changes."
+        }
+      },
+      "contactNote": "If you have any questions, get in touch with us through the",
+      "contactLink": "contact",
+      "contactNoteEnd": "section."
+    }
+  },
+  "errors": {
+    "home": "Home",
+    "back": "Back",
+    "notFound": {
+      "title": "Page not found",
+      "description": "The page you're looking for doesn't exist or has been moved."
+    },
+    "forbidden": {
+      "title": "Access denied",
+      "description": "You don't have sufficient permissions to access this page."
+    },
+    "serverError": {
+      "title": "Server error",
+      "description": "An unexpected error occurred. Please try again later."
+    }
+  },
+  "authFlow": {
+    "verifyOtp": {
+      "title": "Verify your phone",
+      "titleRecovery": "Recover your account",
+      "instructionSuffix": "Enter the 6-digit code sent to this number.",
+      "demoHintPrefix": "Demo mode: enter any 6-digit code (e.g.,",
+      "demoHintSuffix": ")",
+      "submit": "Verify",
+      "resendIn": "Resend in {{seconds}}s",
+      "resend": "Resend code",
+      "backToLogin": "Back to login",
+      "codeIncomplete": "Please enter the full code",
+      "verifiedRecovery": "You've successfully signed back in!",
+      "verified": "Phone verified!",
+      "codeInvalid": "Incorrect code",
+      "codeResent": "Code resent",
+      "resendError": "Error resending code"
+    },
+    "oauthCallback": {
+      "cancelled": "Google sign-in was cancelled",
+      "welcome": "Welcome!"
+    }
+  },
+  "common": {
+    "verified": "Verified",
+    "available": "Available",
+    "busy": "Busy",
+    "priceFrom": "from {{price}}",
+    "mapHint": "Click on the map or drag the marker",
+    "myLocation": "Current location",
+    "loading": "Loading…"
+  }
+}

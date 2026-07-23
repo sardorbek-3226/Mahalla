@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import { HiOutlineUsers, HiPlus } from 'react-icons/hi2';
 import PageHeader from '@/components/common/PageHeader';
 import Card from '@/components/ui/Card';
@@ -13,13 +14,14 @@ const INITIAL = [
 ];
 
 const Family = () => {
+  const { t } = useTranslation();
   const [members, setMembers] = useState(INITIAL);
   const [open, setOpen] = useState(false);
   const { register, handleSubmit, reset } = useForm();
 
   const onAdd = (data) => {
     setMembers((m) => [...m, { id: `f${Date.now()}`, ...data }]);
-    toast.success('A’zo qo‘shildi');
+    toast.success(t('features.family.addSuccess'));
     reset();
     setOpen(false);
   };
@@ -27,9 +29,9 @@ const Family = () => {
   return (
     <div className="mx-auto max-w-3xl">
       <PageHeader
-        title="Oilam"
-        subtitle="Uy xo‘jaligi a’zolari"
-        actions={<Button variant="gradient" leftIcon={<HiPlus className="h-4 w-4" />} onClick={() => setOpen(true)}>A’zo qo‘shish</Button>}
+        title={t('features.family.title')}
+        subtitle={t('features.family.subtitle')}
+        actions={<Button variant="gradient" leftIcon={<HiPlus className="h-4 w-4" />} onClick={() => setOpen(true)}>{t('features.family.addMember')}</Button>}
       />
 
       <div className="grid gap-3 sm:grid-cols-2">
@@ -39,21 +41,21 @@ const Family = () => {
             <div className="min-w-0">
               <p className="font-semibold">{m.full_name}</p>
               <Badge tone="blue" className="my-0.5">{m.relation}</Badge>
-              <p className="text-xs text-gray-400">{m.age} yosh · {m.phone}</p>
+              <p className="text-xs text-gray-400">{t('features.family.ageLabel', { age: m.age })} · {m.phone}</p>
             </div>
           </Card>
         ))}
       </div>
 
-      <Modal open={open} onClose={() => setOpen(false)} title="Oila a’zosini qo‘shish">
+      <Modal open={open} onClose={() => setOpen(false)} title={t('features.family.addModalTitle')}>
         <form onSubmit={handleSubmit(onAdd)} className="space-y-4">
-          <Input label="To‘liq ism" leftIcon={<HiOutlineUsers className="h-4 w-4" />} {...register('full_name', { required: true })} />
+          <Input label={t('features.family.fullName')} leftIcon={<HiOutlineUsers className="h-4 w-4" />} {...register('full_name', { required: true })} />
           <div className="grid grid-cols-2 gap-3">
-            <Input label="Qarindoshlik" placeholder="Farzand" {...register('relation', { required: true })} />
-            <Input label="Yosh" type="number" {...register('age')} />
+            <Input label={t('features.family.relation')} placeholder={t('features.family.relationPlaceholder')} {...register('relation', { required: true })} />
+            <Input label={t('features.family.age')} type="number" {...register('age')} />
           </div>
-          <Input label="Telefon" placeholder="+998…" {...register('phone')} />
-          <Button type="submit" variant="gradient" className="w-full">Qo‘shish</Button>
+          <Input label={t('features.family.phone')} placeholder="+998…" {...register('phone')} />
+          <Button type="submit" variant="gradient" className="w-full">{t('features.family.submit')}</Button>
         </form>
       </Modal>
     </div>

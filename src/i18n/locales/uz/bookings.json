@@ -1,0 +1,130 @@
+{
+  "bookings": {
+    "title": "Buyurtmalar",
+    "subtitleWorker": "Ochiq buyurtmalar va sizga tayinlangan ishlar",
+    "subtitleResident": "Barcha buyurtmalaringiz",
+    "newBooking": "Yangi buyurtma",
+    "tabs": {
+      "all": "Barchasi",
+      "new": "Yangi",
+      "accepted": "Qabul qilingan",
+      "inProgress": "Jarayonda",
+      "completed": "Bajarilgan",
+      "cancelled": "Bekor qilingan"
+    },
+    "scopes": {
+      "available": "Ochiq buyurtmalar",
+      "assigned": "Mening ishlarim"
+    },
+    "empty": {
+      "title": "Buyurtma yo‘q",
+      "workerAvailable": "Hozircha kategoriyangizga mos ochiq buyurtma yo‘q.",
+      "default": "Bu bo‘limda hozircha buyurtma yo‘q."
+    },
+    "new": {
+      "pageTitle": "Yangi buyurtma",
+      "pageSubtitle": "So‘rovingiz tafsilotlarini kiriting",
+      "titleLabel": "Sarlavha",
+      "titlePlaceholder": "Masalan: Rozetka almashtirish kerak",
+      "titleRequired": "Sarlavhani kiriting",
+      "categoryLabel": "Kategoriya",
+      "categoryPlaceholder": "Tanlang…",
+      "addressLabel": "Manzil",
+      "addressPlaceholder": "Mahalla, ko‘cha, uy raqami",
+      "addressRequired": "Manzilni kiriting",
+      "descriptionLabel": "Tavsif",
+      "descriptionPlaceholder": "Muammoni batafsil yozing…",
+      "submit": "Buyurtmani yuborish",
+      "createSuccess": "Buyurtma yaratildi!",
+      "createError": "Buyurtma yaratishda xatolik"
+    },
+    "detail": {
+      "back": "Orqaga",
+      "acceptSuccess": "Buyurtma qabul qilindi",
+      "acceptError": "Buyurtmani qabul qilishda xatolik",
+      "statusUpdated": "Holat yangilandi",
+      "cancelSuccess": "Buyurtma bekor qilindi",
+      "reviewThanks": "Sharhingiz uchun rahmat!",
+      "chatError": "Suhbat ochib bo‘lmadi",
+      "notFound": "Buyurtma topilmadi.",
+      "progress": "Ish jarayoni",
+      "steps": {
+        "new": "Yangi",
+        "accepted": "Qabul",
+        "inProgress": "Jarayon",
+        "completed": "Bajarildi"
+      },
+      "nextLabel": {
+        "accepted": "Ishni boshlash",
+        "inProgress": "Yakunlash"
+      },
+      "orderOwner": "Buyurtma beruvchi",
+      "online": "Onlayn",
+      "offline": "Offlayn",
+      "agreedPrice": "Kelishilgan narx",
+      "startChat": "Suhbatga o‘tish",
+      "acceptOrder": "Buyurtmani qabul qilish",
+      "acceptOrderHint": "Mijoz bilan kelishilgan narxni kiriting.",
+      "pricePlaceholder": "Masalan: 150000",
+      "accept": "Qabul qilish",
+      "cancel": "Bekor qilish",
+      "rateService": "Xizmatni baholang",
+      "reviewPlaceholder": "Fikringizni yozing…",
+      "submitReview": "Sharh qoldirish"
+    }
+  },
+  "workers": {
+    "title": "Ustalar",
+    "subtitle": "Tekshirilgan ustalarni toping va buyurtma bering",
+    "searchPlaceholder": "Usta yoki kasb qidirish…",
+    "allCategories": "Barcha kategoriyalar",
+    "onlyAvailable": "Faqat bo‘sh ustalar",
+    "region": "Viloyat/shahar",
+    "district": "Tuman",
+    "mahalla": "Mahalla",
+    "clearRegion": "Hududni tozalash",
+    "sorts": {
+      "recommended": "Tavsiya etilgan",
+      "rating": "Reyting bo‘yicha",
+      "price": "Narx bo‘yicha"
+    },
+    "empty": {
+      "title": "Usta topilmadi",
+      "regionDescription": "Bu hududda mos usta yo‘q. Boshqa hududlardan ham ko‘rib ko‘ring.",
+      "defaultDescription": "Filtrlarni o‘zgartirib ko‘ring.",
+      "viewAllRegions": "Barcha hududlarni ko‘rish"
+    },
+    "detail": {
+      "back": "Orqaga",
+      "notFound": "Usta topilmadi.",
+      "chatError": "Suhbat ochib bo‘lmadi",
+      "verified": "Tasdiqlangan",
+      "online": "Onlayn",
+      "offline": "Offlayn",
+      "experience": "Tajriba",
+      "years": "yil",
+      "completed": "Bajarilgan",
+      "mahalla": "Mahalla",
+      "servicesAndPrices": "Xizmatlar va narxlar",
+      "reviewsCount": "Sharhlar ({{count}})",
+      "noReviews": "Hozircha sharh yo‘q.",
+      "price": "Narx",
+      "bookNow": "Buyurtma berish",
+      "sendMessage": "Xabar yozish"
+    }
+  },
+  "chat": {
+    "back": "Orqaga",
+    "title": "Suhbatlar",
+    "subtitle": "Ustalar bilan real muloqot",
+    "searchPlaceholder": "Qidirish…",
+    "noConversations": "Suhbatlar yo‘q",
+    "noMessage": "Xabar yo‘q",
+    "selectConversation": "Suhbat tanlang",
+    "selectConversationHint": "Ustaning profilidan 'Xabar yozish' orqali suhbat boshlang.",
+    "online": "Onlayn",
+    "offline": "Offlayn",
+    "lastActive": "So'nggi faollik: {{time}}",
+    "messagePlaceholder": "Xabar yozing…"
+  }
+}

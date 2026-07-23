@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
 import { Button, OtpInput } from '@/components/ui';
 import { authService } from '@/services/authService';
@@ -11,6 +12,7 @@ import { ENV } from '@/config/env';
 const RESEND_SECONDS = 60;
 
 const VerifyOtp = () => {
+  const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,16 +34,16 @@ const VerifyOtp = () => {
   }, [seconds]);
 
   const onVerify = async () => {
-    if (code.length < 6) return toast.error("Kodni to'liq kiriting");
+    if (code.length < 6) return toast.error(t('authFlow.verifyOtp.codeIncomplete'));
     setLoading(true);
     try {
       const data = await authService.verifyOtp({ phone, code });
       const user = data.user ?? data;
       dispatch(setUser(user));
-      toast.success(isRecovery ? 'Hisobingizga muvaffaqiyatli kirdingiz!' : 'Telefon tasdiqlandi!');
+      toast.success(isRecovery ? t('authFlow.verifyOtp.verifiedRecovery') : t('authFlow.verifyOtp.verified'));
       navigate(ROLE_HOME[user?.role] || '/', { replace: true });
     } catch (err) {
-      toast.error(err.response?.data?.message || "Kod noto'g'ri");
+      toast.error(err.response?.data?.message || t('authFlow.verifyOtp.codeInvalid'));
     } finally {
       setLoading(false);
     }
@@ -51,18 +53,18 @@ const VerifyOtp = () => {
     try {
       await authService.sendOtp({ phone });
       setSeconds(RESEND_SECONDS);
-      toast.success('Kod qayta yuborildi');
+      toast.success(t('authFlow.verifyOtp.codeResent'));
     } catch {
-      toast.error('Qayta yuborishda xatolik');
+      toast.error(t('authFlow.verifyOtp.resendError'));
     }
   };
 
   return (
     <div className="text-center">
-      <h2 className="text-2xl font-bold">{isRecovery ? 'Hisobga qaytish' : 'Telefonni tasdiqlang'}</h2>
+      <h2 className="text-2xl font-bold">{isRecovery ? t('authFlow.verifyOtp.titleRecovery') : t('authFlow.verifyOtp.title')}</h2>
       <p className="mt-1 text-sm text-gray-500">
-        <span className="font-medium text-gray-700 dark:text-gray-300">{phone}</span> raqamiga
-        yuborilgan 6 xonali kodni kiriting.
+        <span className="font-medium text-gray-700 dark:text-gray-300">{phone}</span>{' '}
+        {t('authFlow.verifyOtp.instructionSuffix')}
       </p>
 
       <div className="mt-8">
@@ -71,7 +73,7 @@ const VerifyOtp = () => {
 
       {ENV.MOCK_AUTH && (
         <p className="mt-4 rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-700 dark:bg-amber-900/20 dark:text-amber-300">
-          Demo rejimi: istalgan 6 xonali kodni kiriting (masalan, <b>123456</b>)
+          {t('authFlow.verifyOtp.demoHintPrefix')} <b>123456</b>{t('authFlow.verifyOtp.demoHintSuffix')}
         </p>
       )}
 
@@ -82,21 +84,21 @@ const VerifyOtp = () => {
         loading={loading}
         className="mt-8 w-full"
       >
-        Tasdiqlash
+        {t('authFlow.verifyOtp.submit')}
       </Button>
 
       <div className="mt-5 text-sm text-gray-500">
         {seconds > 0 ? (
-          <span>Qayta yuborish {seconds}s</span>
+          <span>{t('authFlow.verifyOtp.resendIn', { seconds })}</span>
         ) : (
           <button onClick={onResend} className="font-medium text-primary-600 hover:underline">
-            Kodni qayta yuborish
+            {t('authFlow.verifyOtp.resend')}
           </button>
         )}
       </div>
 
       <Link to="/login" className="mt-4 inline-block text-sm text-gray-400 hover:underline">
-        Kirishga qaytish
+        {t('authFlow.verifyOtp.backToLogin')}
       </Link>
     </div>
   );

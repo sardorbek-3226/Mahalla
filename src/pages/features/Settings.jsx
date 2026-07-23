@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { HiOutlineSun, HiOutlineMoon, HiOutlineLanguage, HiOutlineBell, HiOutlineArrowRightOnRectangle } from 'react-icons/hi2';
 import PageHeader from '@/components/common/PageHeader';
 import Card from '@/components/ui/Card';
@@ -31,6 +32,7 @@ const Row = ({ icon: Icon, title, desc, children }) => (
 );
 
 const Settings = () => {
+  const { t } = useTranslation();
   const { isDark, toggle } = useTheme();
   const { logout } = useAuth();
   const navigate = useNavigate();
@@ -39,35 +41,35 @@ const Settings = () => {
 
   const onLogout = () => {
     logout();
-    toast.success('Tizimdan chiqdingiz');
+    toast.success(t('features.settings.logoutSuccess'));
     navigate('/login');
   };
 
   return (
     <div className="mx-auto max-w-2xl">
-      <PageHeader title="Sozlamalar" subtitle="Ilova sozlamalarini boshqaring" />
+      <PageHeader title={t('features.settings.title')} subtitle={t('features.settings.subtitle')} />
 
       <Card className="p-6">
-        <Row icon={isDark ? HiOutlineMoon : HiOutlineSun} title="Mavzu" desc={isDark ? 'Tungi rejim' : 'Kunduzgi rejim'}>
+        <Row icon={isDark ? HiOutlineMoon : HiOutlineSun} title={t('features.settings.theme')} desc={isDark ? t('features.settings.themeDark') : t('features.settings.themeLight')}>
           <Toggle on={isDark} onClick={toggle} />
         </Row>
-        <Row icon={HiOutlineLanguage} title="Til" desc="Interfeys tili">
+        <Row icon={HiOutlineLanguage} title={t('features.settings.language')} desc={t('features.settings.languageDesc')}>
           <select className="input-base h-9 w-32 py-0" value={lang} onChange={(e) => setLang(e.target.value)}>
-            <option value="uz">O‘zbekcha</option>
-            <option value="ru">Русский</option>
-            <option value="en">English</option>
+            <option value="uz">{t('features.settings.uzbek')}</option>
+            <option value="ru">{t('features.settings.russian')}</option>
+            <option value="en">{t('features.settings.english')}</option>
           </select>
         </Row>
-        <Row icon={HiOutlineBell} title="Push bildirishnomalar" desc="Yangi xabar va buyurtmalar">
+        <Row icon={HiOutlineBell} title={t('features.settings.pushNotifications')} desc={t('features.settings.pushNotificationsDesc')}>
           <Toggle on={pushOn} onClick={() => setPushOn((v) => !v)} />
         </Row>
       </Card>
 
       <Card className="mt-5 p-6">
-        <h3 className="mb-2 font-semibold text-red-600">Hisobdan chiqish</h3>
-        <p className="mb-4 text-sm text-gray-500">Joriy seansni tugatish.</p>
+        <h3 className="mb-2 font-semibold text-red-600">{t('features.settings.logoutTitle')}</h3>
+        <p className="mb-4 text-sm text-gray-500">{t('features.settings.logoutDesc')}</p>
         <Button variant="danger" leftIcon={<HiOutlineArrowRightOnRectangle className="h-5 w-5" />} onClick={onLogout}>
-          Chiqish
+          {t('features.settings.logout')}
         </Button>
       </Card>
     </div>

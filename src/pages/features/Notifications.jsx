@@ -1,4 +1,5 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import {
   HiOutlineBell,
   HiOutlineClipboardDocumentList,
@@ -21,6 +22,7 @@ const ICONS = {
 };
 
 const Notifications = () => {
+  const { t } = useTranslation();
   const { data, isLoading } = useQuery({ queryKey: ['notifications'], queryFn: () => notificationService.list() });
   const items = data?.items || data || [];
 
@@ -36,14 +38,14 @@ const Notifications = () => {
   return (
     <div className="mx-auto max-w-2xl">
       <PageHeader
-        title="Bildirishnomalar"
-        actions={items.some((n) => !n.is_read) && <Button variant="outline" onClick={() => readAll.mutate()}>Hammasini o‘qildi</Button>}
+        title={t('features.notifications.title')}
+        actions={items.some((n) => !n.is_read) && <Button variant="outline" onClick={() => readAll.mutate()}>{t('features.notifications.markAllRead')}</Button>}
       />
 
       {isLoading ? (
         <div className="space-y-3">{Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-20 rounded-2xl" />)}</div>
       ) : items.length === 0 ? (
-        <EmptyState icon={HiOutlineBell} title="Bildirishnoma yo‘q" />
+        <EmptyState icon={HiOutlineBell} title={t('features.notifications.empty')} />
       ) : (
         <div className="space-y-2">
           {items.map((n) => {

@@ -1,0 +1,177 @@
+{
+  "features": {
+    "profile": {
+      "title": "Profile",
+      "subtitle": "Your personal information",
+      "verified": "Verified",
+      "editInfo": "Edit information",
+      "fullName": "Full name",
+      "email": "Email",
+      "phone": "Phone",
+      "phoneHint": "The phone number cannot be changed",
+      "save": "Save",
+      "updateSuccess": "Profile updated",
+      "updateError": "Error while saving"
+    },
+    "settings": {
+      "title": "Settings",
+      "subtitle": "Manage your app settings",
+      "theme": "Theme",
+      "themeDark": "Dark mode",
+      "themeLight": "Light mode",
+      "language": "Language",
+      "languageDesc": "Interface language",
+      "uzbek": "O‘zbekcha",
+      "russian": "Русский",
+      "english": "English",
+      "pushNotifications": "Push notifications",
+      "pushNotificationsDesc": "New messages and orders",
+      "logoutTitle": "Log out",
+      "logoutDesc": "End the current session.",
+      "logout": "Log out",
+      "logoutSuccess": "You have logged out"
+    },
+    "notifications": {
+      "title": "Notifications",
+      "markAllRead": "Mark all as read",
+      "empty": "No notifications"
+    },
+    "search": {
+      "title": "Search",
+      "subtitle": "Search by worker, service, or profession",
+      "placeholder": "What are you looking for?",
+      "popularCategories": "Popular categories",
+      "noResultsTitle": "Nothing found",
+      "noResultsDescription": "No results for \"{{query}}\"."
+    },
+    "categories": {
+      "title": "Categories",
+      "subtitle": "Choose a service type",
+      "workersCount": "{{count}} workers"
+    },
+    "services": {
+      "title": "Services",
+      "subtitle": "All neighborhood services in one place",
+      "serviceTypes": "Service types",
+      "workersCount": "{{count}} workers",
+      "ctaTitle": "Couldn't find the worker you need?",
+      "ctaDesc": "Post a request — matching workers will contact you.",
+      "ctaButton": "Post a request",
+      "steps": {
+        "verifiedWorkers": {
+          "title": "Verified workers",
+          "desc": "Every worker is verified by the neighborhood administrator."
+        },
+        "fastOrder": {
+          "title": "Fast ordering",
+          "desc": "Find the service you need in minutes."
+        },
+        "directContact": {
+          "title": "Direct contact",
+          "desc": "Get in touch with the worker via chat."
+        }
+      }
+    },
+    "documents": {
+      "title": "Documents",
+      "subtitle": "Store your personal documents",
+      "dropzone": "Drop files here or click to select",
+      "dropzoneHint": "PDF, JPG, PNG · maximum 10 MB",
+      "empty": "No documents",
+      "uploadSuccess": "{{count}} file(s) uploaded"
+    },
+    "family": {
+      "title": "My family",
+      "subtitle": "Household members",
+      "addMember": "Add member",
+      "addSuccess": "Member added",
+      "ageLabel": "{{age}} years old",
+      "addModalTitle": "Add family member",
+      "fullName": "Full name",
+      "relation": "Relation",
+      "relationPlaceholder": "Child",
+      "age": "Age",
+      "phone": "Phone",
+      "submit": "Add"
+    },
+    "emergency": {
+      "title": "Emergency assistance",
+      "subtitle": "Important numbers for urgent situations",
+      "warning": "In a life-threatening situation, call the relevant service immediately. You can call directly by tapping the number.",
+      "contacts": {
+        "fire": "Fire safety",
+        "police": "Internal affairs (Police)",
+        "ambulance": "Emergency medical service",
+        "gas": "Gas emergency service",
+        "rescue": "Rescue service",
+        "mahallaDuty": "Neighborhood duty officer"
+      }
+    },
+    "news": {
+      "title": "News and announcements",
+      "subtitle": "Latest updates from the neighborhood administration",
+      "addButton": "Add announcement",
+      "noMahalla": "You need to select a neighborhood in your profile to view announcements.",
+      "empty": "No announcements",
+      "recommendation": "Recommendation",
+      "announcement": "Announcement",
+      "newModalTitle": "New announcement",
+      "titleLabel": "Title",
+      "titleRequired": "Enter a title",
+      "typeLabel": "Type",
+      "bodyLabel": "Text",
+      "publish": "Publish",
+      "createSuccess": "Announcement published",
+      "deleteSuccess": "Deleted",
+      "genericError": "Error"
+    },
+    "providerServices": {
+      "unitHour": "hour",
+      "unitDay": "day",
+      "unitProject": "project",
+      "noProfileTitle": "Worker profile",
+      "noProfileSubtitle": "Create your profile first to start offering services",
+      "aboutYou": "About you",
+      "aboutPlaceholder": "Your experience and skills…",
+      "experienceYears": "Experience (years)",
+      "createProfile": "Create profile",
+      "title": "My services",
+      "subtitle": "Manage your services and prices",
+      "addService": "Add service",
+      "availabilityStatus": "Work status",
+      "availableNow": "Currently accepting orders",
+      "busyNow": "Currently busy",
+      "servicesListTitle": "Services",
+      "servicesCount": "{{count}} services",
+      "noServicesTitle": "No services",
+      "noServicesDesc": "Add your first service.",
+      "editServiceTitle": "Edit service",
+      "newServiceTitle": "New service",
+      "category": "Category",
+      "serviceName": "Service name",
+      "nameRequired": "Enter a name",
+      "description": "Description",
+      "priceFrom": "Price (from)",
+      "unit": "Unit",
+      "save": "Save",
+      "profileCreated": "Profile created",
+      "availabilityUpdated": "Status updated",
+      "saved": "Saved",
+      "deleted": "Deleted",
+      "genericError": "Error"
+    },
+    "providerDocuments": {
+      "docTypePassport": "Passport",
+      "docTypeLicense": "License",
+      "docTypeCertificate": "Certificate",
+      "title": "Verification documents",
+      "subtitle": "Upload your documents for verification",
+      "docType": "Document type",
+      "uploadButton": "Upload file",
+      "emptyTitle": "No documents",
+      "emptyDesc": "Upload a document for verification.",
+      "uploadSuccess": "Document uploaded — sent for review",
+      "uploadError": "Error while uploading"
+    }
+  }
+}

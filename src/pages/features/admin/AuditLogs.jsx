@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import {
   HiOutlineClipboardDocumentList,
   HiOutlineUserPlus,
@@ -13,11 +14,11 @@ import { auditService } from '@/services/auditService';
 import { ROLE_LABELS } from '@/constants/roles';
 import { formatDateTime } from '@/utils/format';
 
-const ACTION_META = {
-  'admin.create': { icon: HiOutlineUserPlus, tone: 'green', label: 'Admin yaratildi' },
-  'admin.suspend': { icon: HiOutlineNoSymbol, tone: 'red', label: 'Hisob to‘xtatildi' },
-  'worker.verify': { icon: HiOutlineCheckBadge, tone: 'green', label: 'Usta tasdiqlandi' },
-  'settings.update': { icon: HiOutlineCog6Tooth, tone: 'amber', label: 'Sozlama o‘zgartirildi' },
+const ACTION_ICON_META = {
+  'admin.create': { icon: HiOutlineUserPlus, tone: 'green' },
+  'admin.suspend': { icon: HiOutlineNoSymbol, tone: 'red' },
+  'worker.verify': { icon: HiOutlineCheckBadge, tone: 'green' },
+  'settings.update': { icon: HiOutlineCog6Tooth, tone: 'amber' },
 };
 
 const describe = (meta = {}) =>
@@ -26,22 +27,31 @@ const describe = (meta = {}) =>
     .join(' · ');
 
 const AuditLogs = () => {
+  const { t } = useTranslation();
   const { data, isLoading } = useQuery({ queryKey: ['audit-logs'], queryFn: () => auditService.list() });
   const logs = data?.items || data || [];
 
+  const ACTION_LABEL = {
+    'admin.create': t('admin.auditLogs.actions.adminCreate'),
+    'admin.suspend': t('admin.auditLogs.actions.adminSuspend'),
+    'worker.verify': t('admin.auditLogs.actions.workerVerify'),
+    'settings.update': t('admin.auditLogs.actions.settingsUpdate'),
+  };
+
   return (
     <div className="mx-auto max-w-3xl">
-      <PageHeader title="Audit jurnali" subtitle="Barcha administrativ amallar tarixi" />
+      <PageHeader title={t('admin.auditLogs.title')} subtitle={t('admin.auditLogs.subtitle')} />
 
       <Card className="p-0">
         {isLoading ? (
           <div className="space-y-2 p-4">{Array.from({ length: 5 }).map((_, i) => <Skeleton key={i} className="h-16 rounded-xl" />)}</div>
         ) : logs.length === 0 ? (
-          <EmptyState icon={HiOutlineClipboardDocumentList} title="Yozuv yo‘q" />
+          <EmptyState icon={HiOutlineClipboardDocumentList} title={t('admin.auditLogs.empty')} />
         ) : (
           <ul className="divide-y divide-gray-100 dark:divide-gray-800">
             {logs.map((l) => {
-              const cfg = ACTION_META[l.action] || { icon: HiOutlineClipboardDocumentList, tone: 'gray', label: l.action };
+              const iconCfg = ACTION_ICON_META[l.action] || { icon: HiOutlineClipboardDocumentList, tone: 'gray' };
+              const cfg = { ...iconCfg, label: ACTION_LABEL[l.action] || l.action };
               const Icon = cfg.icon;
               return (
                 <li key={l.id} className="flex items-start gap-3 p-4">

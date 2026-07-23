@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { HiMagnifyingGlass, HiOutlineUsers } from 'react-icons/hi2';
 import PageHeader from '@/components/common/PageHeader';
 import WorkerCard from '@/components/common/WorkerCard';
@@ -10,13 +11,14 @@ import { useAuth } from '@/hooks/useAuth';
 import { UZ_REGIONS, districtsOf } from '@/constants/uzbekistan';
 import { getRegisteredLocation } from '@/utils/registeredLocation';
 
-const SORTS = [
-  { value: '', label: 'Tavsiya etilgan' },
-  { value: 'rating', label: 'Reyting bo‘yicha' },
-  { value: 'price', label: 'Narx bo‘yicha' },
-];
-
 const Workers = () => {
+  const { t } = useTranslation();
+  const SORTS = [
+    { value: '', label: t('workers.sorts.recommended') },
+    { value: 'rating', label: t('workers.sorts.rating') },
+    { value: 'price', label: t('workers.sorts.price') },
+  ];
+
   const { user } = useAuth();
   const [q, setQ] = useState('');
   const [category, setCategory] = useState('');
@@ -74,18 +76,18 @@ const Workers = () => {
 
   return (
     <div>
-      <PageHeader title="Ustalar" subtitle="Tekshirilgan ustalarni toping va buyurtma bering" />
+      <PageHeader title={t('workers.title')} subtitle={t('workers.subtitle')} />
 
       {/* Filters */}
       <div className="mb-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <Input
-          placeholder="Usta yoki kasb qidirish…"
+          placeholder={t('workers.searchPlaceholder')}
           leftIcon={<HiMagnifyingGlass className="h-4 w-4" />}
           value={q}
           onChange={(e) => setQ(e.target.value)}
         />
         <select className="input-base" value={category} onChange={(e) => setCategory(e.target.value)}>
-          <option value="">Barcha kategoriyalar</option>
+          <option value="">{t('workers.allCategories')}</option>
           {cats.map((c) => (
             <option key={c.id} value={c.id}>{c.name}</option>
           ))}
@@ -102,7 +104,7 @@ const Workers = () => {
             checked={onlyAvailable}
             onChange={(e) => setOnlyAvailable(e.target.checked)}
           />
-          Faqat bo‘sh ustalar
+          {t('workers.onlyAvailable')}
         </label>
       </div>
 
@@ -117,7 +119,7 @@ const Workers = () => {
             setMahallaId('');
           }}
         >
-          <option value="">Viloyat/shahar</option>
+          <option value="">{t('workers.region')}</option>
           {UZ_REGIONS.map((r) => (
             <option key={r.name} value={r.name}>{r.name}</option>
           ))}
@@ -131,7 +133,7 @@ const Workers = () => {
           }}
           disabled={!viloyat}
         >
-          <option value="">Tuman</option>
+          <option value="">{t('workers.district')}</option>
           {tumanlar.map((d) => (
             <option key={d} value={d}>{d}</option>
           ))}
@@ -142,14 +144,14 @@ const Workers = () => {
           onChange={(e) => setMahallaId(e.target.value)}
           disabled={!viloyat}
         >
-          <option value="">Mahalla</option>
+          <option value="">{t('workers.mahalla')}</option>
           {mahallasInDistrict.map((m) => (
             <option key={m.id} value={m.id}>{m.name}</option>
           ))}
         </select>
         {(viloyat || mahallaId) && (
           <Button variant="outline" onClick={clearRegion}>
-            Hududni tozalash
+            {t('workers.clearRegion')}
           </Button>
         )}
       </div>
@@ -161,16 +163,16 @@ const Workers = () => {
       ) : workers.length === 0 ? (
         <EmptyState
           icon={HiOutlineUsers}
-          title="Usta topilmadi"
+          title={t('workers.empty.title')}
           description={
             mahallaId
-              ? 'Bu hududda mos usta yo‘q. Boshqa hududlardan ham ko‘rib ko‘ring.'
-              : 'Filtrlarni o‘zgartirib ko‘ring.'
+              ? t('workers.empty.regionDescription')
+              : t('workers.empty.defaultDescription')
           }
           action={
             mahallaId && (
               <Button variant="outline" onClick={clearRegion}>
-                Barcha hududlarni ko‘rish
+                {t('workers.empty.viewAllRegions')}
               </Button>
             )
           }

@@ -1,0 +1,130 @@
+{
+  "bookings": {
+    "title": "Заказы",
+    "subtitleWorker": "Открытые заказы и назначенные вам работы",
+    "subtitleResident": "Все ваши заказы",
+    "newBooking": "Новый заказ",
+    "tabs": {
+      "all": "Все",
+      "new": "Новые",
+      "accepted": "Принятые",
+      "inProgress": "В процессе",
+      "completed": "Выполненные",
+      "cancelled": "Отменённые"
+    },
+    "scopes": {
+      "available": "Открытые заказы",
+      "assigned": "Мои работы"
+    },
+    "empty": {
+      "title": "Нет заказов",
+      "workerAvailable": "Пока нет открытых заказов по вашей категории.",
+      "default": "В этом разделе пока нет заказов."
+    },
+    "new": {
+      "pageTitle": "Новый заказ",
+      "pageSubtitle": "Укажите детали вашего запроса",
+      "titleLabel": "Заголовок",
+      "titlePlaceholder": "Например: нужно заменить розетку",
+      "titleRequired": "Введите заголовок",
+      "categoryLabel": "Категория",
+      "categoryPlaceholder": "Выберите…",
+      "addressLabel": "Адрес",
+      "addressPlaceholder": "Махалля, улица, номер дома",
+      "addressRequired": "Введите адрес",
+      "descriptionLabel": "Описание",
+      "descriptionPlaceholder": "Подробно опишите проблему…",
+      "submit": "Отправить заказ",
+      "createSuccess": "Заказ создан!",
+      "createError": "Ошибка при создании заказа"
+    },
+    "detail": {
+      "back": "Назад",
+      "acceptSuccess": "Заказ принят",
+      "acceptError": "Ошибка при принятии заказа",
+      "statusUpdated": "Статус обновлён",
+      "cancelSuccess": "Заказ отменён",
+      "reviewThanks": "Спасибо за ваш отзыв!",
+      "chatError": "Не удалось открыть чат",
+      "notFound": "Заказ не найден.",
+      "progress": "Ход выполнения",
+      "steps": {
+        "new": "Новый",
+        "accepted": "Принят",
+        "inProgress": "В процессе",
+        "completed": "Выполнен"
+      },
+      "nextLabel": {
+        "accepted": "Начать работу",
+        "inProgress": "Завершить"
+      },
+      "orderOwner": "Заказчик",
+      "online": "Онлайн",
+      "offline": "Офлайн",
+      "agreedPrice": "Согласованная цена",
+      "startChat": "Перейти в чат",
+      "acceptOrder": "Принять заказ",
+      "acceptOrderHint": "Укажите цену, согласованную с клиентом.",
+      "pricePlaceholder": "Например: 150000",
+      "accept": "Принять",
+      "cancel": "Отменить",
+      "rateService": "Оцените услугу",
+      "reviewPlaceholder": "Напишите свой отзыв…",
+      "submitReview": "Оставить отзыв"
+    }
+  },
+  "workers": {
+    "title": "Мастера",
+    "subtitle": "Найдите проверенных мастеров и оформите заказ",
+    "searchPlaceholder": "Поиск мастера или профессии…",
+    "allCategories": "Все категории",
+    "onlyAvailable": "Только свободные мастера",
+    "region": "Область/город",
+    "district": "Район",
+    "mahalla": "Махалля",
+    "clearRegion": "Сбросить регион",
+    "sorts": {
+      "recommended": "Рекомендуемые",
+      "rating": "По рейтингу",
+      "price": "По цене"
+    },
+    "empty": {
+      "title": "Мастер не найден",
+      "regionDescription": "В этом регионе нет подходящих мастеров. Попробуйте посмотреть другие регионы.",
+      "defaultDescription": "Попробуйте изменить фильтры.",
+      "viewAllRegions": "Показать все регионы"
+    },
+    "detail": {
+      "back": "Назад",
+      "notFound": "Мастер не найден.",
+      "chatError": "Не удалось открыть чат",
+      "verified": "Подтверждён",
+      "online": "Онлайн",
+      "offline": "Офлайн",
+      "experience": "Опыт",
+      "years": "лет",
+      "completed": "Выполнено",
+      "mahalla": "Махалля",
+      "servicesAndPrices": "Услуги и цены",
+      "reviewsCount": "Отзывы ({{count}})",
+      "noReviews": "Пока нет отзывов.",
+      "price": "Цена",
+      "bookNow": "Оформить заказ",
+      "sendMessage": "Написать сообщение"
+    }
+  },
+  "chat": {
+    "back": "Назад",
+    "title": "Чаты",
+    "subtitle": "Общение с мастерами в реальном времени",
+    "searchPlaceholder": "Поиск…",
+    "noConversations": "Нет чатов",
+    "noMessage": "Нет сообщений",
+    "selectConversation": "Выберите чат",
+    "selectConversationHint": "Начните чат через кнопку «Написать сообщение» в профиле мастера.",
+    "online": "Онлайн",
+    "offline": "Офлайн",
+    "lastActive": "Последняя активность: {{time}}",
+    "messagePlaceholder": "Напишите сообщение…"
+  }
+}

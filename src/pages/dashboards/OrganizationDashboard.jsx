@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import {
   HiOutlineBriefcase,
   HiOutlineUserGroup,
@@ -23,6 +24,7 @@ import { lastMonths, monthKey } from '@/utils/chart';
 const ACTIVE_STATUSES = ['new', 'accepted', 'in_progress'];
 
 const OrganizationDashboard = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   // The backend has no sort param for GET /providers, so fetch a page and sort client-side.
   const { data } = useQuery({ queryKey: ['workers', 'top-rated'], queryFn: () => workerService.list({ limit: 12 }) });
@@ -56,7 +58,7 @@ const OrganizationDashboard = () => {
   const hiringChart = {
     labels: monthLabels,
     datasets: [{
-      label: 'Ish e’lonlari',
+      label: t('dashboard.organization.hiringChartLabel'),
       data: monthKeys.map((k) => monthlyCounts[k]),
       backgroundColor: '#2563eb',
       borderRadius: 8,
@@ -66,39 +68,39 @@ const OrganizationDashboard = () => {
   return (
     <div>
       <PageHeader
-        title={`Salom, ${user?.full_name || 'Tashkilot'}`}
-        subtitle="Tashkilot boshqaruv paneli"
+        title={t('dashboard.organization.greeting', { name: user?.full_name || t('dashboard.organization.defaultName') })}
+        subtitle={t('dashboard.organization.subtitle')}
         actions={
           <Link to="/bookings/new">
-            <Button variant="gradient" leftIcon={<HiPlus className="h-4 w-4" />}>Ish e’loni</Button>
+            <Button variant="gradient" leftIcon={<HiPlus className="h-4 w-4" />}>{t('dashboard.organization.postJob')}</Button>
           </Link>
         }
       />
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard label="Faol ish e’lonlari" value={activeJobs} icon={HiOutlineBriefcase} tone="primary" />
-        <StatCard label="Yollangan ustalar" value={hiredWorkers} icon={HiOutlineUserGroup} tone="blue" />
-        <StatCard label="Tugatilgan loyihalar" value={completedJobs} icon={HiOutlineClipboardDocumentCheck} tone="amber" />
-        <StatCard label="Bu oy xarajat" value={formatMoney(monthlySpendTotal)} icon={HiOutlineBanknotes} tone="primary" />
+        <StatCard label={t('dashboard.organization.activeJobs')} value={activeJobs} icon={HiOutlineBriefcase} tone="primary" />
+        <StatCard label={t('dashboard.organization.hiredWorkers')} value={hiredWorkers} icon={HiOutlineUserGroup} tone="blue" />
+        <StatCard label={t('dashboard.organization.completedProjects')} value={completedJobs} icon={HiOutlineClipboardDocumentCheck} tone="amber" />
+        <StatCard label={t('dashboard.organization.monthlySpend')} value={formatMoney(monthlySpendTotal)} icon={HiOutlineBanknotes} tone="primary" />
       </div>
 
       <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-3">
-        <div className="lg:col-span-2"><ChartCard title="Yollash dinamikasi" type="bar" data={hiringChart} /></div>
+        <div className="lg:col-span-2"><ChartCard title={t('dashboard.organization.hiringChartTitle')} type="bar" data={hiringChart} /></div>
         <Card className="flex flex-col justify-between p-6">
           <div>
-            <h3 className="font-semibold">Tezkor ish e’loni</h3>
-            <p className="mt-1 text-sm text-gray-500">Yangi loyiha uchun ustalar toping va to‘g‘ridan-to‘g‘ri yollang.</p>
+            <h3 className="font-semibold">{t('dashboard.organization.quickJobTitle')}</h3>
+            <p className="mt-1 text-sm text-gray-500">{t('dashboard.organization.quickJobDescription')}</p>
           </div>
           <Link to="/workers" className="mt-4">
-            <Button variant="outline" className="w-full" rightIcon={<HiArrowRight className="h-4 w-4" />}>Ustalarni ko‘rish</Button>
+            <Button variant="outline" className="w-full" rightIcon={<HiArrowRight className="h-4 w-4" />}>{t('dashboard.organization.viewWorkers')}</Button>
           </Link>
         </Card>
       </div>
 
       <div className="mt-6">
         <div className="mb-3 flex items-center justify-between">
-          <h3 className="font-semibold">Tavsiya etilgan ustalar</h3>
-          <Link to="/workers" className="text-sm font-medium text-primary-600 hover:underline">Barchasi</Link>
+          <h3 className="font-semibold">{t('dashboard.organization.recommendedWorkersTitle')}</h3>
+          <Link to="/workers" className="text-sm font-medium text-primary-600 hover:underline">{t('dashboard.organization.viewAll')}</Link>
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {workers.map((w) => <WorkerCard key={w.id} worker={w} />)}

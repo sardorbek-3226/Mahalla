@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import {
   HiOutlineCalendarDays,
   HiOutlineCheckCircle,
@@ -21,6 +22,7 @@ import { formatDateTime, formatMoney } from '@/utils/format';
 import { lastMonths, monthKey } from '@/utils/chart';
 
 const WorkerDashboard = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [available, setAvailable] = useState(user?.is_available ?? true);
   const providerId = user?.provider_profile_id;
@@ -50,7 +52,7 @@ const WorkerDashboard = () => {
     mutationFn: (val) => workerService.setAvailability(val),
     onSuccess: (_, val) => {
       setAvailable(val);
-      toast.success(val ? "Endi buyurtma qabul qilasiz" : 'Buyurtmalar to\'xtatildi');
+      toast.success(val ? t('dashboard.worker.availabilityOnToast') : t('dashboard.worker.availabilityOffToast'));
     },
   });
 
@@ -67,7 +69,7 @@ const WorkerDashboard = () => {
     labels: monthLabels,
     datasets: [
       {
-        label: 'Daromad',
+        label: t('dashboard.worker.earningsChartLabel'),
         data: monthKeys.map((k) => monthlySums[k]),
         borderColor: '#1f7d40',
         backgroundColor: 'rgba(47,156,82,0.12)',
@@ -81,15 +83,15 @@ const WorkerDashboard = () => {
   return (
     <div>
       <PageHeader
-        title="Usta paneli"
-        subtitle="Buyurtmalar va daromadlaringizni boshqaring"
+        title={t('dashboard.worker.title')}
+        subtitle={t('dashboard.worker.subtitle')}
         actions={
           <Button
             variant={available ? 'primary' : 'outline'}
             loading={availabilityMut.isPending}
             onClick={() => availabilityMut.mutate(!available)}
           >
-            {available ? '🟢 Buyurtma qabul qilyapman' : '⚪ Band emasman'}
+            {available ? t('dashboard.worker.availableStatus') : t('dashboard.worker.unavailableStatus')}
           </Button>
         }
       />
@@ -101,40 +103,39 @@ const WorkerDashboard = () => {
               <HiOutlineWrenchScrewdriver className="h-5 w-5" />
             </span>
             <div>
-              <p className="font-semibold">Profilingiz hali to&apos;liq emas</p>
+              <p className="font-semibold">{t('dashboard.worker.onboardingTitle')}</p>
               <p className="text-sm text-gray-500">
-                Buyurtma olish uchun soatiga (yoki kuniga) qancha ish haqi olishingizni va qaysi xizmatlarni
-                bajara olishingizni kiriting.
+                {t('dashboard.worker.onboardingDescription')}
               </p>
             </div>
           </div>
           <Link to="/provider/services">
-            <Button variant="gradient" className="w-full sm:w-auto">Narx va xizmatlarni kiritish</Button>
+            <Button variant="gradient" className="w-full sm:w-auto">{t('dashboard.worker.setPricingButton')}</Button>
           </Link>
         </Card>
       )}
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard label="Yangi so'rovlar" value={bookings.filter((b) => b.status === 'new').length} icon={HiOutlineCalendarDays} tone="amber" />
-        <StatCard label="Bajarilgan" value={provider?.completed_orders ?? '—'} icon={HiOutlineCheckCircle} tone="primary" />
-        <StatCard label="Reyting" value={provider?.rating_avg ?? '—'} icon={HiOutlineStar} tone="blue" />
-        <StatCard label="Bu oy daromad" value={formatMoney(thisMonthEarnings)} icon={HiOutlineBanknotes} tone="primary" />
+        <StatCard label={t('dashboard.worker.newRequests')} value={bookings.filter((b) => b.status === 'new').length} icon={HiOutlineCalendarDays} tone="amber" />
+        <StatCard label={t('dashboard.worker.completed')} value={provider?.completed_orders ?? '—'} icon={HiOutlineCheckCircle} tone="primary" />
+        <StatCard label={t('dashboard.worker.rating')} value={provider?.rating_avg ?? '—'} icon={HiOutlineStar} tone="blue" />
+        <StatCard label={t('dashboard.worker.monthlyEarnings')} value={formatMoney(thisMonthEarnings)} icon={HiOutlineBanknotes} tone="primary" />
       </div>
 
       <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2">
-          <ChartCard title="Daromad dinamikasi" subtitle="So'nggi 6 oy" type="line" data={earningsChart} />
+          <ChartCard title={t('dashboard.worker.earningsChartTitle')} subtitle={t('dashboard.worker.last6Months')} type="line" data={earningsChart} />
         </div>
 
         <Card>
           <CardHeader
-            title="Kelgan buyurtmalar"
-            action={<Link to="/bookings" className="text-sm font-medium text-primary-600 hover:underline">Barchasi</Link>}
+            title={t('dashboard.worker.incomingBookingsTitle')}
+            action={<Link to="/bookings" className="text-sm font-medium text-primary-600 hover:underline">{t('dashboard.worker.viewAll')}</Link>}
           />
           {isLoading ? (
             <div className="space-y-3">{Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} className="h-14 w-full" />)}</div>
           ) : bookings.length === 0 ? (
-            <EmptyState title="Buyurtmalar yo'q" description="Yangi buyurtmalar shu yerda ko'rinadi." />
+            <EmptyState title={t('dashboard.worker.noBookingsTitle')} description={t('dashboard.worker.noBookingsDescription')} />
           ) : (
             <ul className="divide-y divide-gray-100 dark:divide-gray-800">
               {bookings.slice(0, 5).map((b) => (
@@ -144,7 +145,7 @@ const WorkerDashboard = () => {
                     <p className="text-xs text-gray-400">{formatDateTime(b.created_at)}</p>
                   </div>
                   {b.status === 'new' ? (
-                    <Badge tone="amber" dot>Yangi</Badge>
+                    <Badge tone="amber" dot>{t('dashboard.worker.newBadge')}</Badge>
                   ) : (
                     <Badge tone="blue">{b.status}</Badge>
                   )}

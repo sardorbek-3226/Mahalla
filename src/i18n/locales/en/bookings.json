@@ -1,0 +1,130 @@
+{
+  "bookings": {
+    "title": "Bookings",
+    "subtitleWorker": "Open bookings and jobs assigned to you",
+    "subtitleResident": "All your bookings",
+    "newBooking": "New booking",
+    "tabs": {
+      "all": "All",
+      "new": "New",
+      "accepted": "Accepted",
+      "inProgress": "In progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "scopes": {
+      "available": "Open bookings",
+      "assigned": "My jobs"
+    },
+    "empty": {
+      "title": "No bookings",
+      "workerAvailable": "There are no open bookings matching your category yet.",
+      "default": "There are no bookings in this section yet."
+    },
+    "new": {
+      "pageTitle": "New booking",
+      "pageSubtitle": "Enter the details of your request",
+      "titleLabel": "Title",
+      "titlePlaceholder": "e.g. Need to replace an outlet",
+      "titleRequired": "Enter a title",
+      "categoryLabel": "Category",
+      "categoryPlaceholder": "Select…",
+      "addressLabel": "Address",
+      "addressPlaceholder": "Mahalla, street, house number",
+      "addressRequired": "Enter an address",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Describe the problem in detail…",
+      "submit": "Submit booking",
+      "createSuccess": "Booking created!",
+      "createError": "Error creating booking"
+    },
+    "detail": {
+      "back": "Back",
+      "acceptSuccess": "Booking accepted",
+      "acceptError": "Error accepting booking",
+      "statusUpdated": "Status updated",
+      "cancelSuccess": "Booking cancelled",
+      "reviewThanks": "Thanks for your review!",
+      "chatError": "Could not open the chat",
+      "notFound": "Booking not found.",
+      "progress": "Job progress",
+      "steps": {
+        "new": "New",
+        "accepted": "Accepted",
+        "inProgress": "In progress",
+        "completed": "Completed"
+      },
+      "nextLabel": {
+        "accepted": "Start job",
+        "inProgress": "Finish"
+      },
+      "orderOwner": "Client",
+      "online": "Online",
+      "offline": "Offline",
+      "agreedPrice": "Agreed price",
+      "startChat": "Go to chat",
+      "acceptOrder": "Accept booking",
+      "acceptOrderHint": "Enter the price agreed with the client.",
+      "pricePlaceholder": "e.g. 150000",
+      "accept": "Accept",
+      "cancel": "Cancel",
+      "rateService": "Rate the service",
+      "reviewPlaceholder": "Write your feedback…",
+      "submitReview": "Submit review"
+    }
+  },
+  "workers": {
+    "title": "Workers",
+    "subtitle": "Find verified workers and place a booking",
+    "searchPlaceholder": "Search worker or profession…",
+    "allCategories": "All categories",
+    "onlyAvailable": "Available workers only",
+    "region": "Region/city",
+    "district": "District",
+    "mahalla": "Mahalla",
+    "clearRegion": "Clear region",
+    "sorts": {
+      "recommended": "Recommended",
+      "rating": "By rating",
+      "price": "By price"
+    },
+    "empty": {
+      "title": "No workers found",
+      "regionDescription": "No matching workers in this area. Try browsing other areas too.",
+      "defaultDescription": "Try changing the filters.",
+      "viewAllRegions": "View all regions"
+    },
+    "detail": {
+      "back": "Back",
+      "notFound": "Worker not found.",
+      "chatError": "Could not open the chat",
+      "verified": "Verified",
+      "online": "Online",
+      "offline": "Offline",
+      "experience": "Experience",
+      "years": "years",
+      "completed": "Completed",
+      "mahalla": "Mahalla",
+      "servicesAndPrices": "Services & prices",
+      "reviewsCount": "Reviews ({{count}})",
+      "noReviews": "No reviews yet.",
+      "price": "Price",
+      "bookNow": "Book now",
+      "sendMessage": "Send message"
+    }
+  },
+  "chat": {
+    "back": "Back",
+    "title": "Conversations",
+    "subtitle": "Real-time chat with workers",
+    "searchPlaceholder": "Search…",
+    "noConversations": "No conversations",
+    "noMessage": "No messages",
+    "selectConversation": "Select a conversation",
+    "selectConversationHint": "Start a chat via 'Send message' on a worker's profile.",
+    "online": "Online",
+    "offline": "Offline",
+    "lastActive": "Last active: {{time}}",
+    "messagePlaceholder": "Type a message…"
+  }
+}

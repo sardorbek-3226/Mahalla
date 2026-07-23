@@ -1,0 +1,177 @@
+{
+  "features": {
+    "profile": {
+      "title": "Профиль",
+      "subtitle": "Ваши личные данные",
+      "verified": "Подтверждён",
+      "editInfo": "Редактировать данные",
+      "fullName": "Полное имя",
+      "email": "Email",
+      "phone": "Телефон",
+      "phoneHint": "Номер телефона изменить нельзя",
+      "save": "Сохранить",
+      "updateSuccess": "Профиль обновлён",
+      "updateError": "Ошибка при сохранении"
+    },
+    "settings": {
+      "title": "Настройки",
+      "subtitle": "Управляйте настройками приложения",
+      "theme": "Тема",
+      "themeDark": "Ночной режим",
+      "themeLight": "Дневной режим",
+      "language": "Язык",
+      "languageDesc": "Язык интерфейса",
+      "uzbek": "O‘zbekcha",
+      "russian": "Русский",
+      "english": "English",
+      "pushNotifications": "Push-уведомления",
+      "pushNotificationsDesc": "Новые сообщения и заказы",
+      "logoutTitle": "Выход из аккаунта",
+      "logoutDesc": "Завершить текущую сессию.",
+      "logout": "Выйти",
+      "logoutSuccess": "Вы вышли из системы"
+    },
+    "notifications": {
+      "title": "Уведомления",
+      "markAllRead": "Отметить все прочитанными",
+      "empty": "Уведомлений нет"
+    },
+    "search": {
+      "title": "Поиск",
+      "subtitle": "Ищите мастера, услугу или профессию",
+      "placeholder": "Что вы ищете?",
+      "popularCategories": "Популярные категории",
+      "noResultsTitle": "Ничего не найдено",
+      "noResultsDescription": "Нет результатов по запросу \"{{query}}\"."
+    },
+    "categories": {
+      "title": "Категории",
+      "subtitle": "Выберите тип услуги",
+      "workersCount": "{{count}} мастеров"
+    },
+    "services": {
+      "title": "Услуги",
+      "subtitle": "Все услуги для махалли в одном месте",
+      "serviceTypes": "Виды услуг",
+      "workersCount": "{{count}} мастеров",
+      "ctaTitle": "Не нашли нужного мастера?",
+      "ctaDesc": "Разместите заявку — подходящие мастера свяжутся с вами.",
+      "ctaButton": "Разместить заявку",
+      "steps": {
+        "verifiedWorkers": {
+          "title": "Проверенные мастера",
+          "desc": "Каждый мастер проверяется администратором махалли."
+        },
+        "fastOrder": {
+          "title": "Быстрый заказ",
+          "desc": "Найдите нужную услугу за несколько минут."
+        },
+        "directContact": {
+          "title": "Прямая связь",
+          "desc": "Свяжитесь с мастером через чат."
+        }
+      }
+    },
+    "documents": {
+      "title": "Документы",
+      "subtitle": "Храните свои личные документы",
+      "dropzone": "Перетащите файлы сюда или выберите",
+      "dropzoneHint": "PDF, JPG, PNG · максимум 10 МБ",
+      "empty": "Документов нет",
+      "uploadSuccess": "Загружено файлов: {{count}}"
+    },
+    "family": {
+      "title": "Моя семья",
+      "subtitle": "Члены домохозяйства",
+      "addMember": "Добавить члена",
+      "addSuccess": "Член семьи добавлен",
+      "ageLabel": "{{age}} лет",
+      "addModalTitle": "Добавить члена семьи",
+      "fullName": "Полное имя",
+      "relation": "Родство",
+      "relationPlaceholder": "Ребёнок",
+      "age": "Возраст",
+      "phone": "Телефон",
+      "submit": "Добавить"
+    },
+    "emergency": {
+      "title": "Экстренная помощь",
+      "subtitle": "Нужные номера для срочных случаев",
+      "warning": "В опасной для жизни ситуации немедленно звоните в соответствующую службу. Вы можете позвонить напрямую, нажав на номер.",
+      "contacts": {
+        "fire": "Пожарная безопасность",
+        "police": "Внутренние дела (Полиция)",
+        "ambulance": "Скорая медицинская помощь",
+        "gas": "Аварийная газовая служба",
+        "rescue": "Служба спасения",
+        "mahallaDuty": "Дежурный по махалле"
+      }
+    },
+    "news": {
+      "title": "Новости и объявления",
+      "subtitle": "Последние новости от администрации махалли",
+      "addButton": "Добавить объявление",
+      "noMahalla": "Чтобы просматривать объявления, в профиле должна быть выбрана махалля.",
+      "empty": "Объявлений нет",
+      "recommendation": "Рекомендация",
+      "announcement": "Объявление",
+      "newModalTitle": "Новое объявление",
+      "titleLabel": "Заголовок",
+      "titleRequired": "Введите заголовок",
+      "typeLabel": "Тип",
+      "bodyLabel": "Текст",
+      "publish": "Опубликовать",
+      "createSuccess": "Объявление опубликовано",
+      "deleteSuccess": "Удалено",
+      "genericError": "Ошибка"
+    },
+    "providerServices": {
+      "unitHour": "час",
+      "unitDay": "день",
+      "unitProject": "проект",
+      "noProfileTitle": "Профиль мастера",
+      "noProfileSubtitle": "Сначала создайте профиль, чтобы предоставлять услуги",
+      "aboutYou": "О себе",
+      "aboutPlaceholder": "Ваш опыт и навыки…",
+      "experienceYears": "Опыт (лет)",
+      "createProfile": "Создать профиль",
+      "title": "Мои услуги",
+      "subtitle": "Управляйте услугами и ценами",
+      "addService": "Добавить услугу",
+      "availabilityStatus": "Статус работы",
+      "availableNow": "Сейчас принимаете заказы",
+      "busyNow": "Сейчас заняты",
+      "servicesListTitle": "Услуги",
+      "servicesCount": "{{count}} шт.",
+      "noServicesTitle": "Услуг нет",
+      "noServicesDesc": "Добавьте свою первую услугу.",
+      "editServiceTitle": "Редактировать услугу",
+      "newServiceTitle": "Новая услуга",
+      "category": "Категория",
+      "serviceName": "Название услуги",
+      "nameRequired": "Введите название",
+      "description": "Описание",
+      "priceFrom": "Цена (от)",
+      "unit": "Единица",
+      "save": "Сохранить",
+      "profileCreated": "Профиль создан",
+      "availabilityUpdated": "Статус обновлён",
+      "saved": "Сохранено",
+      "deleted": "Удалено",
+      "genericError": "Ошибка"
+    },
+    "providerDocuments": {
+      "docTypePassport": "Паспорт",
+      "docTypeLicense": "Лицензия",
+      "docTypeCertificate": "Сертификат",
+      "title": "Документы верификации",
+      "subtitle": "Загрузите документы для подтверждения",
+      "docType": "Тип документа",
+      "uploadButton": "Загрузить файл",
+      "emptyTitle": "Документов нет",
+      "emptyDesc": "Загрузите документ для верификации.",
+      "uploadSuccess": "Документ загружен — отправлен на проверку",
+      "uploadError": "Ошибка при загрузке"
+    }
+  }
+}

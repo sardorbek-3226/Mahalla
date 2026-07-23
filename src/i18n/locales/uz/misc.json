@@ -1,0 +1,195 @@
+{
+  "publicPages": {
+    "about": {
+      "title": "Biz haqimizda",
+      "subtitle": "Smart Mahalla — O‘zbekiston mahallalari uchun zamonaviy raqamli xizmatlar platformasi.",
+      "missionTitle": "Bizning maqsadimiz",
+      "missionText": "Smart Mahalla mahalla aholisini tekshirilgan ustalar va xizmat ko‘rsatuvchilar bilan bog‘laydi. Maqsadimiz — mahalla hayotini raqamlashtirish, mahalliy xizmatlarni qulay, ishonchli va shaffof qilish.",
+      "whatWeDoTitle": "Biz nima qilamiz",
+      "whatWeDoText": "Elektrik, santexnik, repetitor, tozalovchi va boshqa ko‘plab kasb egalarini bir platformaga jamlaymiz. Aholi buyurtma beradi, ustalar bilan real-time yozishadi, xizmatni baholaydi — barchasi bitta ilovada.",
+      "valuesTitle": "Qadriyatlarimiz",
+      "values": {
+        "trust": { "title": "Ishonch", "desc": "Har bir usta mahalla administratori tomonidan tekshiriladi." },
+        "community": { "title": "Hamjamiyat", "desc": "Mahalla aholisini birlashtiruvchi raqamli makon." },
+        "convenience": { "title": "Qulaylik", "desc": "Kerakli xizmatni bir necha daqiqada toping." },
+        "transparency": { "title": "Shaffoflik", "desc": "Reyting va sharhlar orqali ochiq baholash tizimi." }
+      },
+      "coverage": "Hozirda Toshkent shahrining 8 ta mahallasida faoliyat yuritmoqdamiz va tez orada butun respublika bo‘ylab kengaymoqdamiz."
+    },
+    "contact": {
+      "title": "Aloqa",
+      "subtitle": "Savol, taklif yoki muammo bo‘lsa — bizga yozing.",
+      "info": {
+        "phone": "Telefon",
+        "email": "Email",
+        "address": "Manzil",
+        "addressValue": "Toshkent sh., Chilonzor tumani",
+        "hours": "Ish vaqti",
+        "hoursValue": "Dush–Shan, 9:00–18:00"
+      },
+      "form": {
+        "name": "Ism",
+        "namePlaceholder": "Ismingiz",
+        "nameRequired": "Ismni kiriting",
+        "phone": "Telefon",
+        "phonePlaceholder": "+998 90 123 45 67",
+        "phoneRequired": "Telefon raqamini kiriting",
+        "email": "Email",
+        "emailPlaceholder": "email@example.com",
+        "emailInvalid": "Email noto‘g‘ri",
+        "message": "Xabar",
+        "messagePlaceholder": "Xabaringizni yozing…",
+        "messageRequired": "Xabar matnini kiriting",
+        "submit": "Yuborish"
+      },
+      "successToast": "Xabaringiz qabul qilindi! Tez orada bog‘lanamiz."
+    },
+    "faq": {
+      "title": "Ko‘p so‘raladigan savollar",
+      "subtitle": "Eng ko‘p beriladigan savollarga javoblar.",
+      "items": {
+        "pricing": {
+          "q": "Platformadan foydalanish pullikmi?",
+          "a": "Yo‘q. Mahalla aholisi uchun Smart Mahalla’dan foydalanish mutlaqo bepul. Ustalar ham o‘z xizmatlarini bepul joylashtiradi."
+        },
+        "verification": {
+          "q": "Ustalar qanday tekshiriladi?",
+          "a": "Har bir usta ro‘yxatdan o‘tgach hujjatlarini yuklaydi. Mahalla administratori ularni ko‘rib chiqib tasdiqlaydi. Faqat tasdiqlangan ustalar “tekshirilgan” belgisini oladi."
+        },
+        "coverage": {
+          "q": "Qaysi hududlarda ishlaysiz?",
+          "a": "Hozirda Toshkent shahrining 8 ta mahallasida faolmiz. Yangi hududlarni bosqichma-bosqich qo‘shib bormoqdamiz."
+        },
+        "ordering": {
+          "q": "Buyurtma qanday beriladi?",
+          "a": "Ro‘yxatdan o‘ting, kerakli kategoriyani tanlang yoki so‘rov joylang, mos ustani tanlab buyurtma bering va u bilan chat orqali bog‘laning."
+        },
+        "becomeWorker": {
+          "q": "Usta sifatida qanday ro‘yxatdan o‘taman?",
+          "a": "Ro‘yxatdan o‘tishda “Usta” rolini tanlang, profilingizni to‘ldiring va hujjatlaringizni yuklang. Tasdiqlangach buyurtmalar qabul qila olasiz."
+        },
+        "payment": {
+          "q": "To‘lov qanday amalga oshiriladi?",
+          "a": "Hozircha to‘lovlar usta bilan to‘g‘ridan-to‘g‘ri kelishiladi. Kelajakda Payme/Click kabi to‘lov tizimlari integratsiya qilinadi."
+        }
+      },
+      "notFound": "Javobini topa olmadingizmi?",
+      "contactLink": "Biz bilan bog‘laning"
+    },
+    "privacy": {
+      "title": "Maxfiylik siyosati",
+      "subtitle": "Sizning ma’lumotlaringiz xavfsizligi biz uchun muhim.",
+      "sections": {
+        "dataCollection": {
+          "title": "1. Qanday ma’lumotlarni yig‘amiz",
+          "body": "Ro‘yxatdan o‘tishda ism, telefon raqami va (ixtiyoriy) email manzilingizni yig‘amiz. Xizmatdan foydalanish jarayonida buyurtmalar, manzillar, xabarlar va qurilma ma’lumotlari saqlanishi mumkin."
+        },
+        "dataUse": {
+          "title": "2. Ma’lumotlardan foydalanish",
+          "body": "Yig‘ilgan ma’lumotlar xizmatni ko‘rsatish, ustalar bilan bog‘lash, xavfsizlikni ta’minlash va platformani yaxshilash uchun ishlatiladi. Ma’lumotlaringizni reklama maqsadida uchinchi tomonlarga sotmaymiz."
+        },
+        "dataSharing": {
+          "title": "3. Ma’lumotlarni ulashish",
+          "body": "Buyurtma jarayonida zarur ma’lumotlar (ism, manzil) tegishli usta bilan ulashiladi. Qonun talab qilgan hollarda vakolatli organlarga ma’lumot taqdim etilishi mumkin."
+        },
+        "security": {
+          "title": "4. Xavfsizlik",
+          "body": "Ma’lumotlaringiz shifrlash (HTTPS), xavfsiz autentifikatsiya (HTTP-only cookie) va kirishni cheklash orqali himoyalanadi. Biroq internetda hech bir tizim 100% xavfsiz emasligini yodda tuting."
+        },
+        "rights": {
+          "title": "5. Sizning huquqlaringiz",
+          "body": "Siz o‘z ma’lumotlaringizni ko‘rish, tahrirlash yoki hisobingizni o‘chirishni so‘rash huquqiga egasiz. Buning uchun sozlamalar bo‘limidan yoki qo‘llab-quvvatlash xizmatidan foydalaning."
+        },
+        "cookies": {
+          "title": "6. Cookie fayllari",
+          "body": "Platforma sessiyani saqlash va xavfsizlik uchun cookie fayllaridan foydalanadi. Brauzer sozlamalaridan cookie‘larni boshqarishingiz mumkin, ammo bu ba’zi funksiyalarga ta’sir qilishi mumkin."
+        }
+      }
+    },
+    "terms": {
+      "title": "Foydalanish shartlari",
+      "subtitle": "Oxirgi yangilanish: 2026-yil 1-iyun",
+      "sections": {
+        "general": {
+          "title": "1. Umumiy qoidalar",
+          "body": "Smart Mahalla platformasidan foydalanish orqali siz ushbu foydalanish shartlarini to‘liq qabul qilasiz. Shartlarga rozi bo‘lmasangiz, platformadan foydalanmang. Platforma O‘zbekiston Respublikasi qonunchiligiga muvofiq faoliyat yuritadi."
+        },
+        "account": {
+          "title": "2. Hisob yaratish",
+          "body": "Ro‘yxatdan o‘tishda haqiqiy va to‘g‘ri ma’lumotlarni kiritishingiz shart. Hisobingiz xavfsizligi (parol, telefon raqami) uchun siz javobgarsiz. Boshqa shaxs nomidan soxta hisob yaratish taqiqlanadi."
+        },
+        "workers": {
+          "title": "3. Ustalar va xizmatlar",
+          "body": "Ustalar mahalla administratori tomonidan tekshiriladi (verifikatsiya). Biroq platforma ustalar tomonidan ko‘rsatilgan xizmat sifati uchun bevosita javobgar emas. Buyurtma shartlari va narxi foydalanuvchi bilan usta o‘rtasida kelishiladi."
+        },
+        "obligations": {
+          "title": "4. Foydalanuvchi majburiyatlari",
+          "body": "Platformadan qonunga zid maqsadlarda foydalanish, boshqalarni haqorat qilish, spam tarqatish yoki firibgarlik taqiqlanadi. Qoidabuzarlik aniqlansa, hisob bloklanishi mumkin."
+        },
+        "payments": {
+          "title": "5. To‘lovlar",
+          "body": "Aholi uchun platformadan foydalanish bepul. Kelajakda joriy etiladigan pullik xizmatlar haqida foydalanuvchilar oldindan xabardor qilinadi. Ustalar bilan to‘lovlar to‘g‘ridan-to‘g‘ri yoki integratsiyalashgan to‘lov tizimi orqali amalga oshiriladi."
+        },
+        "liability": {
+          "title": "6. Javobgarlikni cheklash",
+          "body": "Platforma “bor holicha” taqdim etiladi. Texnik uzilishlar yoki uchinchi tomon xizmatlari sabab yuzaga kelgan zararlar uchun platforma javobgar bo‘lmaydi."
+        },
+        "changes": {
+          "title": "7. Shartlarga o‘zgartirish",
+          "body": "Biz ushbu shartlarni istalgan vaqtda yangilashimiz mumkin. Muhim o‘zgarishlar haqida foydalanuvchilar bildirishnoma orqali ogohlantiriladi. Yangilanishdan keyin platformadan foydalanishni davom ettirish o‘zgartirishlarni qabul qilish hisoblanadi."
+        }
+      },
+      "contactNote": "Savollaringiz bo‘lsa, biz bilan",
+      "contactLink": "aloqa",
+      "contactNoteEnd": "bo‘limi orqali bog‘laning."
+    }
+  },
+  "errors": {
+    "home": "Bosh sahifa",
+    "back": "Orqaga",
+    "notFound": {
+      "title": "Sahifa topilmadi",
+      "description": "Siz qidirayotgan sahifa mavjud emas yoki ko'chirilgan."
+    },
+    "forbidden": {
+      "title": "Ruxsat yo'q",
+      "description": "Bu sahifaga kirish uchun yetarli huquqingiz yo'q."
+    },
+    "serverError": {
+      "title": "Server xatosi",
+      "description": "Kutilmagan xatolik yuz berdi. Keyinroq urinib ko'ring."
+    }
+  },
+  "authFlow": {
+    "verifyOtp": {
+      "title": "Telefonni tasdiqlang",
+      "titleRecovery": "Hisobga qaytish",
+      "instructionSuffix": "raqamiga yuborilgan 6 xonali kodni kiriting.",
+      "demoHintPrefix": "Demo rejimi: istalgan 6 xonali kodni kiriting (masalan,",
+      "demoHintSuffix": ")",
+      "submit": "Tasdiqlash",
+      "resendIn": "Qayta yuborish {{seconds}}s",
+      "resend": "Kodni qayta yuborish",
+      "backToLogin": "Kirishga qaytish",
+      "codeIncomplete": "Kodni to'liq kiriting",
+      "verifiedRecovery": "Hisobingizga muvaffaqiyatli kirdingiz!",
+      "verified": "Telefon tasdiqlandi!",
+      "codeInvalid": "Kod noto'g'ri",
+      "codeResent": "Kod qayta yuborildi",
+      "resendError": "Qayta yuborishda xatolik"
+    },
+    "oauthCallback": {
+      "cancelled": "Google orqali kirish bekor qilindi",
+      "welcome": "Xush kelibsiz!"
+    }
+  },
+  "common": {
+    "verified": "Tasdiqlangan",
+    "available": "Bo‘sh",
+    "busy": "Band",
+    "priceFrom": "{{price}}dan",
+    "mapHint": "Xaritada bosing yoki belgini suring",
+    "myLocation": "Joriy joylashuv",
+    "loading": "Yuklanmoqda…"
+  }
+}

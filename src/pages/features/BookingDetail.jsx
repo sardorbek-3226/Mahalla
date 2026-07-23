@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
 import { HiArrowLeft, HiOutlineMapPin, HiOutlineCalendarDays, HiOutlineChatBubbleLeftRight } from 'react-icons/hi2';
 import PageHeader from '@/components/common/PageHeader';
@@ -15,9 +16,16 @@ import { ROLES } from '@/constants/roles';
 import { formatMoney, formatDateTime } from '@/utils/format';
 
 const FLOW = ['new', 'accepted', 'in_progress', 'completed'];
-const NEXT_LABEL = { accepted: 'Ishni boshlash', in_progress: 'Yakunlash' };
 
 const BookingDetail = () => {
+  const { t } = useTranslation();
+  const NEXT_LABEL = { accepted: t('bookings.detail.nextLabel.accepted'), in_progress: t('bookings.detail.nextLabel.inProgress') };
+  const STEP_LABELS = [
+    t('bookings.detail.steps.new'),
+    t('bookings.detail.steps.accepted'),
+    t('bookings.detail.steps.inProgress'),
+    t('bookings.detail.steps.completed'),
+  ];
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -42,20 +50,20 @@ const BookingDetail = () => {
   // only accepts IN_PROGRESS / COMPLETED / CANCELLED, never ACCEPTED.
   const accept = useMutation({
     mutationFn: (price) => bookingService.accept(id, price),
-    onSuccess: () => { refresh(); toast.success('Buyurtma qabul qilindi'); },
-    onError: () => toast.error('Buyurtmani qabul qilishda xatolik'),
+    onSuccess: () => { refresh(); toast.success(t('bookings.detail.acceptSuccess')); },
+    onError: () => toast.error(t('bookings.detail.acceptError')),
   });
   const status = useMutation({
     mutationFn: (s) => bookingService.updateStatus(id, s),
-    onSuccess: () => { refresh(); toast.success('Holat yangilandi'); },
+    onSuccess: () => { refresh(); toast.success(t('bookings.detail.statusUpdated')); },
   });
   const cancel = useMutation({
     mutationFn: () => bookingService.cancel(id),
-    onSuccess: () => { refresh(); toast.success('Buyurtma bekor qilindi'); },
+    onSuccess: () => { refresh(); toast.success(t('bookings.detail.cancelSuccess')); },
   });
   const review = useMutation({
     mutationFn: () => bookingService.review(id, { rating, comment }),
-    onSuccess: () => { toast.success('Sharhingiz uchun rahmat!'); setComment(''); },
+    onSuccess: () => { toast.success(t('bookings.detail.reviewThanks')); setComment(''); },
   });
   // Who is looking at this order determines their chat partner (if any) —
   // computed defensively before `booking` is guaranteed loaded, since hooks
@@ -65,11 +73,11 @@ const BookingDetail = () => {
   const startChat = useMutation({
     mutationFn: () => chatService.createConversation({ participant_id: chatPartnerId, order_id: id }),
     onSuccess: (conv) => navigate('/chat', { state: { conversationId: conv.id } }),
-    onError: () => toast.error('Suhbat ochib bo‘lmadi'),
+    onError: () => toast.error(t('bookings.detail.chatError')),
   });
 
   if (isLoading) return <Skeleton className="h-96 w-full rounded-2xl" />;
-  if (!booking) return <p className="text-gray-500">Buyurtma topilmadi.</p>;
+  if (!booking) return <p className="text-gray-500">{t('bookings.detail.notFound')}</p>;
 
   const stepIdx = FLOW.indexOf(booking.status);
   const nextStatus = stepIdx >= 0 && stepIdx < 3 ? FLOW[stepIdx + 1] : null;
@@ -88,7 +96,7 @@ const BookingDetail = () => {
   return (
     <div className="mx-auto max-w-3xl">
       <button onClick={() => navigate(-1)} className="mb-4 inline-flex items-center gap-1 text-sm text-gray-500 hover:text-primary-600">
-        <HiArrowLeft className="h-4 w-4" /> Orqaga
+        <HiArrowLeft className="h-4 w-4" /> {t('bookings.detail.back')}
       </button>
 
       <PageHeader title={booking.title} subtitle={booking.category_name} actions={<StatusBadge status={booking.status} />} />
@@ -96,7 +104,7 @@ const BookingDetail = () => {
       {/* Progress — visible to everyone, including the resident, as a read-only tracker. */}
       {!isCancelled && (
         <Card className="mb-5 p-6">
-          <h3 className="mb-4 text-sm font-semibold text-gray-500">Ish jarayoni</h3>
+          <h3 className="mb-4 text-sm font-semibold text-gray-500">{t('bookings.detail.progress')}</h3>
           <div className="flex items-center justify-between">
             {FLOW.map((s, i) => (
               <div key={s} className="flex flex-1 flex-col items-center">
@@ -104,7 +112,7 @@ const BookingDetail = () => {
                   {i + 1}
                 </div>
                 <span className="mt-2 text-center text-xs text-gray-500">
-                  {['Yangi', 'Qabul', 'Jarayon', 'Bajarildi'][i]}
+                  {STEP_LABELS[i]}
                 </span>
               </div>
             ))}
@@ -118,9 +126,9 @@ const BookingDetail = () => {
             <Avatar name={booking.resident_name} src={booking.resident_avatar} size="sm" online={isResidentOnline} />
             <div>
               <p className="text-xs text-gray-400">
-                Buyurtma beruvchi ·{' '}
+                {t('bookings.detail.orderOwner')} ·{' '}
                 <span className={isResidentOnline ? 'text-green-600' : 'text-gray-400'}>
-                  {isResidentOnline ? 'Onlayn' : 'Offlayn'}
+                  {isResidentOnline ? t('bookings.detail.online') : t('bookings.detail.offline')}
                 </span>
               </p>
               <p className="text-sm font-medium">{booking.resident_name}</p>
@@ -131,7 +139,7 @@ const BookingDetail = () => {
         <div className="flex items-center gap-2 text-sm text-gray-500"><HiOutlineMapPin className="h-4 w-4" /> {booking.address}</div>
         <div className="flex items-center gap-2 text-sm text-gray-500"><HiOutlineCalendarDays className="h-4 w-4" /> {formatDateTime(booking.scheduled_at)}</div>
         <div className="flex items-center justify-between border-t border-gray-100 pt-3 dark:border-gray-800">
-          <span className="text-gray-400">Kelishilgan narx</span>
+          <span className="text-gray-400">{t('bookings.detail.agreedPrice')}</span>
           <span className="text-lg font-bold text-primary-600">{formatMoney(booking.price_agreed)}</span>
         </div>
       </Card>
@@ -145,19 +153,19 @@ const BookingDetail = () => {
           loading={startChat.isPending}
           onClick={() => startChat.mutate()}
         >
-          Suhbatga o‘tish
+          {t('bookings.detail.startChat')}
         </Button>
       )}
 
       {/* "new" order — worker sets the price they agreed on with the resident and claims it. */}
       {canAcceptAsWorker && (
         <Card className="mt-5 p-6">
-          <h3 className="font-semibold">Buyurtmani qabul qilish</h3>
-          <p className="mt-1 text-sm text-gray-500">Mijoz bilan kelishilgan narxni kiriting.</p>
+          <h3 className="font-semibold">{t('bookings.detail.acceptOrder')}</h3>
+          <p className="mt-1 text-sm text-gray-500">{t('bookings.detail.acceptOrderHint')}</p>
           <div className="mt-3 flex gap-3">
             <Input
               type="number"
-              placeholder="Masalan: 150000"
+              placeholder={t('bookings.detail.pricePlaceholder')}
               value={priceInput}
               onChange={(e) => setPriceInput(e.target.value)}
               className="flex-1"
@@ -168,7 +176,7 @@ const BookingDetail = () => {
               disabled={!priceInput}
               onClick={() => accept.mutate(priceInput)}
             >
-              Qabul qilish
+              {t('bookings.detail.accept')}
             </Button>
           </div>
         </Card>
@@ -183,7 +191,7 @@ const BookingDetail = () => {
             </Button>
           )}
           <Button variant="outline" loading={cancel.isPending} onClick={() => cancel.mutate()}>
-            Bekor qilish
+            {t('bookings.detail.cancel')}
           </Button>
         </div>
       )}
@@ -192,7 +200,7 @@ const BookingDetail = () => {
       {isOwner && !isCancelled && booking.status !== 'completed' && (
         <div className="mt-5">
           <Button variant="outline" loading={cancel.isPending} onClick={() => cancel.mutate()}>
-            Bekor qilish
+            {t('bookings.detail.cancel')}
           </Button>
         </div>
       )}
@@ -200,17 +208,17 @@ const BookingDetail = () => {
       {/* Review after completion (resident only). */}
       {isOwner && booking.status === 'completed' && (
         <Card className="mt-5 p-6">
-          <h3 className="font-semibold">Xizmatni baholang</h3>
+          <h3 className="font-semibold">{t('bookings.detail.rateService')}</h3>
           <div className="mt-3"><Rating value={rating} onChange={setRating} size="lg" /></div>
           <textarea
             rows={3}
             value={comment}
             onChange={(e) => setComment(e.target.value)}
-            placeholder="Fikringizni yozing…"
+            placeholder={t('bookings.detail.reviewPlaceholder')}
             className="input-base mt-3 resize-none"
           />
           <Button variant="gradient" className="mt-3" loading={review.isPending} onClick={() => review.mutate()}>
-            Sharh qoldirish
+            {t('bookings.detail.submitReview')}
           </Button>
         </Card>
       )}

@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import {
   HiOutlinePaperAirplane, HiMagnifyingGlass, HiCheck, HiArrowLeft, HiOutlineChatBubbleLeftRight,
 } from 'react-icons/hi2';
@@ -14,6 +15,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { timeAgo } from '@/utils/format';
 
 const Chat = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useAuth();
@@ -64,21 +66,21 @@ const Chat = () => {
   return (
     <div>
       <button onClick={() => navigate(-1)} className="mb-4 inline-flex items-center gap-1 text-sm text-gray-500 hover:text-primary-600">
-        <HiArrowLeft className="h-4 w-4" /> Orqaga
+        <HiArrowLeft className="h-4 w-4" /> {t('chat.back')}
       </button>
-      <PageHeader title="Suhbatlar" subtitle="Ustalar bilan real muloqot" />
+      <PageHeader title={t('chat.title')} subtitle={t('chat.subtitle')} />
 
       <Card className="grid h-[70vh] grid-cols-1 overflow-hidden p-0 md:grid-cols-[300px_1fr]">
         {/* Conversation list */}
         <div className="hidden flex-col border-r border-gray-100 dark:border-gray-800 md:flex">
           <div className="p-3">
-            <Input placeholder="Qidirish…" leftIcon={<HiMagnifyingGlass className="h-4 w-4" />} />
+            <Input placeholder={t('chat.searchPlaceholder')} leftIcon={<HiMagnifyingGlass className="h-4 w-4" />} />
           </div>
           <div className="flex-1 overflow-y-auto">
             {isLoading ? (
               <div className="space-y-2 p-3">{Array.from({ length: 5 }).map((_, i) => <Skeleton key={i} className="h-14 rounded-xl" />)}</div>
             ) : conversations.length === 0 ? (
-              <p className="p-4 text-center text-sm text-gray-400">Suhbatlar yo‘q</p>
+              <p className="p-4 text-center text-sm text-gray-400">{t('chat.noConversations')}</p>
             ) : (
               conversations.map((c) => (
                 <button
@@ -89,7 +91,7 @@ const Chat = () => {
                   <Avatar name={c.name} src={c.avatar_url} size="sm" online={onlineIds.includes(c.participant_id)} />
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-medium">{c.name}</p>
-                    <p className="truncate text-xs text-gray-400">{c.last_message || 'Xabar yo‘q'}</p>
+                    <p className="truncate text-xs text-gray-400">{c.last_message || t('chat.noMessage')}</p>
                   </div>
                   {c.unread > 0 && (
                     <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-primary-600 px-1.5 text-xs font-bold text-white">{c.unread}</span>
@@ -104,7 +106,7 @@ const Chat = () => {
         <div className="flex flex-col">
           {!active ? (
             <div className="flex flex-1 items-center justify-center">
-              <EmptyState icon={HiOutlineChatBubbleLeftRight} title="Suhbat tanlang" description="Ustaning profilidan 'Xabar yozish' orqali suhbat boshlang." />
+              <EmptyState icon={HiOutlineChatBubbleLeftRight} title={t('chat.selectConversation')} description={t('chat.selectConversationHint')} />
             </div>
           ) : (
             <>
@@ -114,10 +116,10 @@ const Chat = () => {
                   <p className="text-sm font-semibold">{active.name}</p>
                   <p className={`text-xs ${onlineIds.includes(active.participant_id) ? 'text-green-600' : 'text-gray-400'}`}>
                     {onlineIds.includes(active.participant_id)
-                      ? 'Onlayn'
+                      ? t('chat.online')
                       : active.last_message_at
-                        ? `So'nggi faollik: ${timeAgo(active.last_message_at)}`
-                        : 'Offlayn'}
+                        ? t('chat.lastActive', { time: timeAgo(active.last_message_at) })
+                        : t('chat.offline')}
                   </p>
                 </div>
               </div>
@@ -143,7 +145,7 @@ const Chat = () => {
                 <input
                   value={text}
                   onChange={(e) => setText(e.target.value)}
-                  placeholder="Xabar yozing…"
+                  placeholder={t('chat.messagePlaceholder')}
                   className="input-base flex-1"
                 />
                 <button type="submit" disabled={send.isPending} className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-600 text-white transition hover:bg-primary-700 disabled:opacity-60">

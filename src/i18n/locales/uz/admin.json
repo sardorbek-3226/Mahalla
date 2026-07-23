@@ -1,0 +1,162 @@
+{
+  "admin": {
+    "management": {
+      "title": "Administratorlar boshqaruvi",
+      "subtitle": "Quyi darajadagi adminlarni yarating va boshqaring",
+      "addAdmin": "Admin qo‘shish",
+      "noCreateNotice": "Sizning rolingiz yangi administrator yarata olmaydi. Yaratish huquqi yuqori darajadagi adminlarda.",
+      "empty": "Administrator yo‘q",
+      "columns": {
+        "administrator": "Administrator",
+        "role": "Rol",
+        "region": "Hudud",
+        "created": "Yaratilgan",
+        "status": "Holat",
+        "action": "Amal"
+      },
+      "active": "Faol",
+      "suspended": "To‘xtatilgan",
+      "suspend": "To‘xtatish",
+      "newAdmin": "Yangi administrator",
+      "fullName": "To‘liq ism",
+      "fullNameRequired": "Ismni kiriting",
+      "phone": "Telefon",
+      "phoneRequired": "Telefon majburiy",
+      "role": "Rol",
+      "scopeLabels": {
+        "region": "Viloyat",
+        "district": "Tuman",
+        "mahalla": "Mahalla"
+      },
+      "scopeAssignLabel": "{{scope}} (tayinlash)",
+      "scopeNamePlaceholder": "{{scope}} nomi",
+      "scopeRequired": "Hududni kiriting",
+      "create": "Yaratish",
+      "createSuccess": "Administrator yaratildi",
+      "createError": "Yaratishda xatolik",
+      "suspendSuccess": "Hisob to‘xtatildi",
+      "noPermission": "Bu rolni yaratishga ruxsatingiz yo‘q"
+    },
+    "users": {
+      "title": "Foydalanuvchilar",
+      "subtitle": "Platforma foydalanuvchilarini boshqarish",
+      "empty": "Foydalanuvchi yo‘q",
+      "columns": {
+        "user": "Foydalanuvchi",
+        "phone": "Telefon",
+        "role": "Rol",
+        "mahalla": "Mahalla",
+        "action": "Amal"
+      },
+      "block": "Bloklash",
+      "unblock": "Blokdan chiqarish",
+      "blockedToast": "{{name}} bloklandi",
+      "unblockedToast": "{{name}} blokdan chiqarildi",
+      "error": "Xatolik"
+    },
+    "workers": {
+      "title": "Ustalarni tasdiqlash",
+      "subtitle": "Verifikatsiya kutayotgan ustalar",
+      "emptyTitle": "Hammasi tasdiqlangan",
+      "emptyDescription": "Kutilayotgan ariza yo‘q.",
+      "pending": "Kutilmoqda",
+      "verify": "Tasdiqlash",
+      "reject": "Rad etish",
+      "verifiedToast": "Usta tasdiqlandi",
+      "rejectedToast": "Usta rad etildi"
+    },
+    "analytics": {
+      "title": "Analitika",
+      "subtitle": "Platforma bo‘yicha umumiy ko‘rsatkichlar",
+      "residents": "Aholi",
+      "workers": "Ustalar",
+      "orders": "Buyurtmalar",
+      "mahallas": "Mahallalar",
+      "ordersDynamics": "Buyurtmalar dinamikasi",
+      "categories": "Kategoriyalar",
+      "distribution": "Taqsimot",
+      "monthlyGrowth": "Oylik o‘sish",
+      "growth": "O‘sish"
+    },
+    "auditLogs": {
+      "title": "Audit jurnali",
+      "subtitle": "Barcha administrativ amallar tarixi",
+      "empty": "Yozuv yo‘q",
+      "actions": {
+        "adminCreate": "Admin yaratildi",
+        "adminSuspend": "Hisob to‘xtatildi",
+        "workerVerify": "Usta tasdiqlandi",
+        "settingsUpdate": "Sozlama o‘zgartirildi"
+      }
+    },
+    "categoriesAdmin": {
+      "title": "Kategoriyalar boshqaruvi",
+      "subtitle": "Xizmat turlarini qo‘shish, tahrirlash, o‘chirish",
+      "category": "Kategoriya",
+      "empty": "Kategoriya yo‘q",
+      "mastersCount": "{{count}} usta",
+      "editTitle": "Kategoriyani tahrirlash",
+      "newTitle": "Yangi kategoriya",
+      "name": "Nomi",
+      "nameRequired": "Nomini kiriting",
+      "slug": "Slug (ixtiyoriy)",
+      "slugHint": "Bo‘sh qoldirsangiz avtomatik yaratiladi",
+      "iconUrl": "Ikonka URL (ixtiyoriy)",
+      "save": "Saqlash",
+      "updated": "Yangilandi",
+      "created": "Kategoriya qo‘shildi",
+      "error": "Xatolik",
+      "removed": "O‘chirildi",
+      "removeError": "O‘chirib bo‘lmadi"
+    },
+    "locationsAdmin": {
+      "title": "Hududlar boshqaruvi",
+      "subtitle": "Viloyatlar va mahallalarni boshqaring",
+      "regions": "Viloyatlar",
+      "mahallas": "Mahallalar",
+      "count": "{{count}} ta",
+      "add": "Qo‘shish",
+      "noRegions": "Viloyat yo‘q",
+      "noMahallas": "Mahalla yo‘q",
+      "mahallaCount": "{{count}} mahalla",
+      "newRegion": "Yangi viloyat",
+      "regionName": "Viloyat nomi",
+      "nameRequired": "Nomini kiriting",
+      "newMahalla": "Yangi mahalla",
+      "mahallaName": "Mahalla nomi",
+      "region": "Viloyat",
+      "district": "Tuman",
+      "lat": "Lat",
+      "lng": "Lng",
+      "regionAdded": "Viloyat qo‘shildi",
+      "mahallaAdded": "Mahalla qo‘shildi",
+      "error": "Xatolik"
+    },
+    "reports": {
+      "title": "Hisobotlar",
+      "subtitle": "Tayyor hisobotlarni yuklab oling",
+      "generate": "Hisobot yaratish",
+      "generatingToast": "Yangi hisobot tayyorlanmoqda…",
+      "downloadingToast": "Yuklab olinmoqda…",
+      "download": "Yuklab olish",
+      "items": {
+        "monthlyOrders": {
+          "title": "Oylik buyurtmalar hisoboti",
+          "desc": "Iyun 2026 · barcha buyurtmalar"
+        },
+        "workersActivity": {
+          "title": "Ustalar faolligi",
+          "desc": "Faollik va reyting statistikasi"
+        },
+        "payments": {
+          "title": "To‘lovlar hisoboti",
+          "desc": "Tranzaksiyalar va daromad"
+        },
+        "requests": {
+          "title": "Murojaatlar tahlili",
+          "desc": "Hal qilingan va kutilayotgan"
+        }
+      }
+    }
+  }
+}

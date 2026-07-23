@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import {
   HiOutlineUsers,
   HiOutlineWrenchScrewdriver,
@@ -15,6 +16,7 @@ import { ROLE_LABELS } from '@/constants/roles';
 import { useAuth } from '@/hooks/useAuth';
 
 const AdminDashboard = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { data, isLoading } = useQuery({ queryKey: ['admin', 'stats'], queryFn: adminService.stats });
   const { data: pending } = useQuery({
@@ -30,7 +32,7 @@ const AdminDashboard = () => {
     labels: s.orders_chart.labels,
     datasets: [
       {
-        label: 'Buyurtmalar',
+        label: t('dashboard.admin.ordersChartLabel'),
         data: s.orders_chart.data,
         backgroundColor: '#2f9c52',
         borderRadius: 8,
@@ -49,36 +51,36 @@ const AdminDashboard = () => {
 
   return (
     <div>
-      <PageHeader title="Boshqaruv paneli" subtitle={`${ROLE_LABELS[user?.role]} · umumiy ko'rsatkichlar`} />
+      <PageHeader title={t('dashboard.admin.title')} subtitle={t('dashboard.admin.subtitle', { role: ROLE_LABELS[user?.role] })} />
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard label="Aholi" value={s.residents ?? '—'} icon={HiOutlineUsers} tone="primary" />
-        <StatCard label="Ustalar" value={s.workers ?? '—'} icon={HiOutlineWrenchScrewdriver} tone="blue" />
-        <StatCard label="Buyurtmalar" value={s.orders ?? '—'} icon={HiOutlineClipboardDocumentList} tone="amber" />
-        <StatCard label="Mahallalar" value={s.mahallas ?? '—'} icon={HiOutlineBuildingOffice2} tone="primary" />
+        <StatCard label={t('dashboard.admin.residents')} value={s.residents ?? '—'} icon={HiOutlineUsers} tone="primary" />
+        <StatCard label={t('dashboard.admin.workers')} value={s.workers ?? '—'} icon={HiOutlineWrenchScrewdriver} tone="blue" />
+        <StatCard label={t('dashboard.admin.orders')} value={s.orders ?? '—'} icon={HiOutlineClipboardDocumentList} tone="amber" />
+        <StatCard label={t('dashboard.admin.mahallas')} value={s.mahallas ?? '—'} icon={HiOutlineBuildingOffice2} tone="primary" />
       </div>
 
       <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2">
-          <ChartCard title="Buyurtmalar dinamikasi" type="bar" data={ordersChart} />
+          <ChartCard title={t('dashboard.admin.ordersChartTitle')} type="bar" data={ordersChart} />
         </div>
-        <ChartCard title="Kategoriyalar bo'yicha" type="doughnut" data={categoriesChart} height={280} />
+        <ChartCard title={t('dashboard.admin.categoriesChartTitle')} type="doughnut" data={categoriesChart} height={280} />
       </div>
 
       <Card className="mt-6">
-        <CardHeader title="Tasdiqlash kutayotgan ustalar" />
+        <CardHeader title={t('dashboard.admin.pendingWorkersTitle')} />
         {isLoading ? (
           <div className="space-y-3">{Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} className="h-12 w-full" />)}</div>
         ) : pendingList.length === 0 ? (
-          <EmptyState title="Kutayotgan ariza yo'q" description="Barcha ustalar tasdiqlangan." />
+          <EmptyState title={t('dashboard.admin.noPendingTitle')} description={t('dashboard.admin.noPendingDescription')} />
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-gray-100 text-left text-xs uppercase text-gray-400 dark:border-gray-800">
-                  <th className="py-2 font-medium">Usta</th>
-                  <th className="py-2 font-medium">Kasb</th>
-                  <th className="py-2 font-medium">Holat</th>
+                  <th className="py-2 font-medium">{t('dashboard.admin.tableWorker')}</th>
+                  <th className="py-2 font-medium">{t('dashboard.admin.tableCategory')}</th>
+                  <th className="py-2 font-medium">{t('dashboard.admin.tableStatus')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -86,7 +88,7 @@ const AdminDashboard = () => {
                   <tr key={w.id} className="border-b border-gray-50 dark:border-gray-800/60">
                     <td className="py-3 font-medium">{w.full_name || w.user?.full_name}</td>
                     <td className="py-3 text-gray-500">{w.category?.name || '—'}</td>
-                    <td className="py-3"><Badge tone="amber" dot>Kutilmoqda</Badge></td>
+                    <td className="py-3"><Badge tone="amber" dot>{t('dashboard.admin.pendingBadge')}</Badge></td>
                   </tr>
                 ))}
               </tbody>

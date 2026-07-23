@@ -1,4 +1,5 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
 import { HiOutlineUsers } from 'react-icons/hi2';
 import PageHeader from '@/components/common/PageHeader';
@@ -9,6 +10,7 @@ import { queryClient } from '@/config/queryClient';
 import { ROLE_LABELS } from '@/constants/roles';
 
 const AdminUsers = () => {
+  const { t } = useTranslation();
   const { data, isLoading } = useQuery({ queryKey: ['admin', 'users'], queryFn: () => adminService.users() });
   const users = data?.items || data || [];
 
@@ -16,29 +18,29 @@ const AdminUsers = () => {
     mutationFn: ({ id, blocked }) => adminService.blockUser(id, blocked),
     onSuccess: (_, { fullName, blocked }) => {
       queryClient.invalidateQueries({ queryKey: ['admin', 'users'] });
-      toast.success(blocked ? `${fullName} bloklandi` : `${fullName} blokdan chiqarildi`);
+      toast.success(blocked ? t('admin.users.blockedToast', { name: fullName }) : t('admin.users.unblockedToast', { name: fullName }));
     },
-    onError: (e) => toast.error(e.response?.data?.message || 'Xatolik'),
+    onError: (e) => toast.error(e.response?.data?.message || t('admin.users.error')),
   });
 
   return (
     <div>
-      <PageHeader title="Foydalanuvchilar" subtitle="Platforma foydalanuvchilarini boshqarish" />
+      <PageHeader title={t('admin.users.title')} subtitle={t('admin.users.subtitle')} />
       <Card className="p-0">
         {isLoading ? (
           <div className="space-y-2 p-4">{Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} className="h-14 rounded-xl" />)}</div>
         ) : users.length === 0 ? (
-          <EmptyState icon={HiOutlineUsers} title="Foydalanuvchi yo‘q" />
+          <EmptyState icon={HiOutlineUsers} title={t('admin.users.empty')} />
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="border-b border-gray-100 text-left text-gray-400 dark:border-gray-800">
                 <tr>
-                  <th className="px-5 py-3 font-medium">Foydalanuvchi</th>
-                  <th className="px-5 py-3 font-medium">Telefon</th>
-                  <th className="px-5 py-3 font-medium">Rol</th>
-                  <th className="px-5 py-3 font-medium">Mahalla</th>
-                  <th className="px-5 py-3 text-right font-medium">Amal</th>
+                  <th className="px-5 py-3 font-medium">{t('admin.users.columns.user')}</th>
+                  <th className="px-5 py-3 font-medium">{t('admin.users.columns.phone')}</th>
+                  <th className="px-5 py-3 font-medium">{t('admin.users.columns.role')}</th>
+                  <th className="px-5 py-3 font-medium">{t('admin.users.columns.mahalla')}</th>
+                  <th className="px-5 py-3 text-right font-medium">{t('admin.users.columns.action')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -60,7 +62,7 @@ const AdminUsers = () => {
                         loading={block.isPending}
                         onClick={() => block.mutate({ id: u.id, blocked: u.is_active, fullName: u.full_name })}
                       >
-                        {u.is_active ? 'Bloklash' : 'Blokdan chiqarish'}
+                        {u.is_active ? t('admin.users.block') : t('admin.users.unblock')}
                       </Button>
                     </td>
                   </tr>

@@ -1,0 +1,162 @@
+{
+  "admin": {
+    "management": {
+      "title": "Administrator management",
+      "subtitle": "Create and manage lower-level admins",
+      "addAdmin": "Add admin",
+      "noCreateNotice": "Your role cannot create new administrators. Only higher-level admins have this right.",
+      "empty": "No administrators",
+      "columns": {
+        "administrator": "Administrator",
+        "role": "Role",
+        "region": "Region",
+        "created": "Created",
+        "status": "Status",
+        "action": "Action"
+      },
+      "active": "Active",
+      "suspended": "Suspended",
+      "suspend": "Suspend",
+      "newAdmin": "New administrator",
+      "fullName": "Full name",
+      "fullNameRequired": "Enter the name",
+      "phone": "Phone",
+      "phoneRequired": "Phone is required",
+      "role": "Role",
+      "scopeLabels": {
+        "region": "Region",
+        "district": "District",
+        "mahalla": "Mahalla"
+      },
+      "scopeAssignLabel": "{{scope}} (assign)",
+      "scopeNamePlaceholder": "{{scope}} name",
+      "scopeRequired": "Enter the region",
+      "create": "Create",
+      "createSuccess": "Administrator created",
+      "createError": "Error while creating",
+      "suspendSuccess": "Account suspended",
+      "noPermission": "You don't have permission to create this role"
+    },
+    "users": {
+      "title": "Users",
+      "subtitle": "Manage platform users",
+      "empty": "No users",
+      "columns": {
+        "user": "User",
+        "phone": "Phone",
+        "role": "Role",
+        "mahalla": "Mahalla",
+        "action": "Action"
+      },
+      "block": "Block",
+      "unblock": "Unblock",
+      "blockedToast": "{{name}} was blocked",
+      "unblockedToast": "{{name}} was unblocked",
+      "error": "Error"
+    },
+    "workers": {
+      "title": "Worker verification",
+      "subtitle": "Workers awaiting verification",
+      "emptyTitle": "All verified",
+      "emptyDescription": "No pending applications.",
+      "pending": "Pending",
+      "verify": "Verify",
+      "reject": "Reject",
+      "verifiedToast": "Worker verified",
+      "rejectedToast": "Worker rejected"
+    },
+    "analytics": {
+      "title": "Analytics",
+      "subtitle": "Overall platform metrics",
+      "residents": "Residents",
+      "workers": "Workers",
+      "orders": "Orders",
+      "mahallas": "Mahallas",
+      "ordersDynamics": "Orders dynamics",
+      "categories": "Categories",
+      "distribution": "Distribution",
+      "monthlyGrowth": "Monthly growth",
+      "growth": "Growth"
+    },
+    "auditLogs": {
+      "title": "Audit log",
+      "subtitle": "History of all administrative actions",
+      "empty": "No records",
+      "actions": {
+        "adminCreate": "Admin created",
+        "adminSuspend": "Account suspended",
+        "workerVerify": "Worker verified",
+        "settingsUpdate": "Setting updated"
+      }
+    },
+    "categoriesAdmin": {
+      "title": "Category management",
+      "subtitle": "Add, edit and remove service types",
+      "category": "Category",
+      "empty": "No categories",
+      "mastersCount": "{{count}} workers",
+      "editTitle": "Edit category",
+      "newTitle": "New category",
+      "name": "Name",
+      "nameRequired": "Enter the name",
+      "slug": "Slug (optional)",
+      "slugHint": "Leave empty to generate automatically",
+      "iconUrl": "Icon URL (optional)",
+      "save": "Save",
+      "updated": "Updated",
+      "created": "Category added",
+      "error": "Error",
+      "removed": "Removed",
+      "removeError": "Could not remove"
+    },
+    "locationsAdmin": {
+      "title": "Location management",
+      "subtitle": "Manage regions and mahallas",
+      "regions": "Regions",
+      "mahallas": "Mahallas",
+      "count": "{{count}}",
+      "add": "Add",
+      "noRegions": "No regions",
+      "noMahallas": "No mahallas",
+      "mahallaCount": "{{count}} mahallas",
+      "newRegion": "New region",
+      "regionName": "Region name",
+      "nameRequired": "Enter the name",
+      "newMahalla": "New mahalla",
+      "mahallaName": "Mahalla name",
+      "region": "Region",
+      "district": "District",
+      "lat": "Lat",
+      "lng": "Lng",
+      "regionAdded": "Region added",
+      "mahallaAdded": "Mahalla added",
+      "error": "Error"
+    },
+    "reports": {
+      "title": "Reports",
+      "subtitle": "Download ready-made reports",
+      "generate": "Generate report",
+      "generatingToast": "Preparing a new report…",
+      "downloadingToast": "Downloading…",
+      "download": "Download",
+      "items": {
+        "monthlyOrders": {
+          "title": "Monthly orders report",
+          "desc": "June 2026 · all orders"
+        },
+        "workersActivity": {
+          "title": "Worker activity",
+          "desc": "Activity and rating statistics"
+        },
+        "payments": {
+          "title": "Payments report",
+          "desc": "Transactions and revenue"
+        },
+        "requests": {
+          "title": "Requests analysis",
+          "desc": "Resolved and pending"
+        }
+      }
+    }
+  }
+}

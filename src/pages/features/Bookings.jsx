@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { HiOutlineClipboardDocumentList, HiPlus, HiOutlineMapPin } from 'react-icons/hi2';
 import PageHeader from '@/components/common/PageHeader';
 import Card from '@/components/ui/Card';
@@ -10,21 +11,22 @@ import { useAuth } from '@/hooks/useAuth';
 import { ROLES } from '@/constants/roles';
 import { formatMoney, formatDateTime } from '@/utils/format';
 
-const TABS = [
-  { value: '', label: 'Barchasi' },
-  { value: 'new', label: 'Yangi' },
-  { value: 'accepted', label: 'Qabul qilingan' },
-  { value: 'in_progress', label: 'Jarayonda' },
-  { value: 'completed', label: 'Bajarilgan' },
-  { value: 'cancelled', label: 'Bekor qilingan' },
-];
-
-const SCOPES = [
-  { value: 'available', label: 'Ochiq buyurtmalar' },
-  { value: 'assigned', label: 'Mening ishlarim' },
-];
-
 const Bookings = () => {
+  const { t } = useTranslation();
+  const TABS = [
+    { value: '', label: t('bookings.tabs.all') },
+    { value: 'new', label: t('bookings.tabs.new') },
+    { value: 'accepted', label: t('bookings.tabs.accepted') },
+    { value: 'in_progress', label: t('bookings.tabs.inProgress') },
+    { value: 'completed', label: t('bookings.tabs.completed') },
+    { value: 'cancelled', label: t('bookings.tabs.cancelled') },
+  ];
+
+  const SCOPES = [
+    { value: 'available', label: t('bookings.scopes.available') },
+    { value: 'assigned', label: t('bookings.scopes.assigned') },
+  ];
+
   const { user } = useAuth();
   const isWorker = user?.role === ROLES.WORKER;
   const [tab, setTab] = useState('');
@@ -44,12 +46,12 @@ const Bookings = () => {
   return (
     <div>
       <PageHeader
-        title="Buyurtmalar"
-        subtitle={isWorker ? 'Ochiq buyurtmalar va sizga tayinlangan ishlar' : 'Barcha buyurtmalaringiz'}
+        title={t('bookings.title')}
+        subtitle={isWorker ? t('bookings.subtitleWorker') : t('bookings.subtitleResident')}
         actions={
           !isWorker && (
             <Link to="/bookings/new">
-              <Button variant="gradient" leftIcon={<HiPlus className="h-4 w-4" />}>Yangi buyurtma</Button>
+              <Button variant="gradient" leftIcon={<HiPlus className="h-4 w-4" />}>{t('bookings.newBooking')}</Button>
             </Link>
           )
         }
@@ -75,17 +77,17 @@ const Bookings = () => {
 
       {showStatusTabs && (
         <div className="mb-5 flex flex-wrap gap-2">
-          {TABS.map((t) => (
+          {TABS.map((tabItem) => (
             <button
-              key={t.value}
-              onClick={() => setTab(t.value)}
+              key={tabItem.value}
+              onClick={() => setTab(tabItem.value)}
               className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${
-                tab === t.value
+                tab === tabItem.value
                   ? 'bg-primary-600 text-white'
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300'
               }`}
             >
-              {t.label}
+              {tabItem.label}
             </button>
           ))}
         </div>
@@ -97,11 +99,11 @@ const Bookings = () => {
         <Card className="p-0">
           <EmptyState
             icon={HiOutlineClipboardDocumentList}
-            title="Buyurtma yo‘q"
+            title={t('bookings.empty.title')}
             description={
               isWorker && scope === 'available'
-                ? 'Hozircha kategoriyangizga mos ochiq buyurtma yo‘q.'
-                : 'Bu bo‘limda hozircha buyurtma yo‘q.'
+                ? t('bookings.empty.workerAvailable')
+                : t('bookings.empty.default')
             }
           />
         </Card>

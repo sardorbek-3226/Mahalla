@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import { HiOutlineDocumentCheck, HiOutlineCloudArrowUp } from 'react-icons/hi2';
 import PageHeader from '@/components/common/PageHeader';
 import Card from '@/components/ui/Card';
@@ -9,15 +10,16 @@ import { workerService } from '@/services/workerService';
 import { queryClient } from '@/config/queryClient';
 import { formatDate } from '@/utils/format';
 
-const DOC_TYPES = [
-  { value: 'PASSPORT', label: 'Pasport' },
-  { value: 'LICENSE', label: 'Litsenziya' },
-  { value: 'CERTIFICATE', label: 'Sertifikat' },
-];
-
 const ProviderDocuments = () => {
+  const { t } = useTranslation();
   const [docType, setDocType] = useState('PASSPORT');
   const fileRef = useRef(null);
+
+  const DOC_TYPES = [
+    { value: 'PASSPORT', label: t('features.providerDocuments.docTypePassport') },
+    { value: 'LICENSE', label: t('features.providerDocuments.docTypeLicense') },
+    { value: 'CERTIFICATE', label: t('features.providerDocuments.docTypeCertificate') },
+  ];
 
   const { data, isLoading } = useQuery({ queryKey: ['provider-documents'], queryFn: workerService.listDocuments });
   const docs = data?.items || data || [];
@@ -31,17 +33,17 @@ const ProviderDocuments = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['provider-documents'] });
-      toast.success('Hujjat yuklandi — tekshiruvga yuborildi');
+      toast.success(t('features.providerDocuments.uploadSuccess'));
     },
-    onError: (e) => toast.error(e.response?.data?.message || 'Yuklashda xatolik'),
+    onError: (e) => toast.error(e.response?.data?.message || t('features.providerDocuments.uploadError')),
   });
 
   return (
     <div className="mx-auto max-w-3xl">
-      <PageHeader title="Verifikatsiya hujjatlari" subtitle="Tasdiqlanish uchun hujjatlaringizni yuklang" />
+      <PageHeader title={t('features.providerDocuments.title')} subtitle={t('features.providerDocuments.subtitle')} />
 
       <Card className="mb-6 p-5">
-        <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">Hujjat turi</label>
+        <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">{t('features.providerDocuments.docType')}</label>
         <div className="flex flex-col gap-3 sm:flex-row">
           <select className="input-base sm:max-w-xs" value={docType} onChange={(e) => setDocType(e.target.value)}>
             {DOC_TYPES.map((d) => <option key={d.value} value={d.value}>{d.label}</option>)}
@@ -52,7 +54,7 @@ const ProviderDocuments = () => {
             loading={upload.isPending}
             onClick={() => fileRef.current?.click()}
           >
-            Fayl yuklash
+            {t('features.providerDocuments.uploadButton')}
           </Button>
           <input ref={fileRef} type="file" hidden accept="image/*,application/pdf" onChange={(e) => e.target.files[0] && upload.mutate(e.target.files[0])} />
         </div>
@@ -61,7 +63,7 @@ const ProviderDocuments = () => {
       {isLoading ? (
         <div className="space-y-2">{Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} className="h-16 rounded-2xl" />)}</div>
       ) : docs.length === 0 ? (
-        <EmptyState icon={HiOutlineDocumentCheck} title="Hujjat yo‘q" description="Verifikatsiya uchun hujjat yuklang." />
+        <EmptyState icon={HiOutlineDocumentCheck} title={t('features.providerDocuments.emptyTitle')} description={t('features.providerDocuments.emptyDesc')} />
       ) : (
         <div className="space-y-2">
           {docs.map((d) => (

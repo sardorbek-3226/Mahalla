@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import { HiOutlineDocumentText, HiOutlineCloudArrowUp, HiOutlineTrash } from 'react-icons/hi2';
 import PageHeader from '@/components/common/PageHeader';
 import Card from '@/components/ui/Card';
@@ -13,6 +14,7 @@ const INITIAL = [
 ];
 
 const Documents = () => {
+  const { t } = useTranslation();
   const [docs, setDocs] = useState(INITIAL);
   const inputRef = useRef(null);
 
@@ -25,12 +27,12 @@ const Documents = () => {
       date: new Date(),
     }));
     setDocs((d) => [...added, ...d]);
-    toast.success(`${added.length} ta fayl yuklandi`);
+    toast.success(t('features.documents.uploadSuccess', { count: added.length }));
   };
 
   return (
     <div className="mx-auto max-w-3xl">
-      <PageHeader title="Hujjatlar" subtitle="Shaxsiy hujjatlaringizni saqlang" />
+      <PageHeader title={t('features.documents.title')} subtitle={t('features.documents.subtitle')} />
 
       {/* Upload zone */}
       <div
@@ -40,13 +42,13 @@ const Documents = () => {
         className="mb-6 flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-300 py-10 text-center transition hover:border-primary-400 hover:bg-primary-50/30 dark:border-gray-700"
       >
         <HiOutlineCloudArrowUp className="h-10 w-10 text-primary-500" />
-        <p className="mt-2 font-medium">Fayllarni shu yerga tashlang yoki tanlang</p>
-        <p className="text-sm text-gray-400">PDF, JPG, PNG · maksimal 10 MB</p>
+        <p className="mt-2 font-medium">{t('features.documents.dropzone')}</p>
+        <p className="text-sm text-gray-400">{t('features.documents.dropzoneHint')}</p>
         <input ref={inputRef} type="file" multiple hidden onChange={(e) => onFiles(e.target.files)} />
       </div>
 
       {docs.length === 0 ? (
-        <EmptyState icon={HiOutlineDocumentText} title="Hujjat yo‘q" />
+        <EmptyState icon={HiOutlineDocumentText} title={t('features.documents.empty')} />
       ) : (
         <div className="space-y-2">
           {docs.map((d) => (
