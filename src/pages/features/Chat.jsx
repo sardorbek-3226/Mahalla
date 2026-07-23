@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useQuery, useMutation } from '@tanstack/react-query';
+import { useSelector } from 'react-redux';
 import {
   HiOutlinePaperAirplane, HiMagnifyingGlass, HiCheck, HiArrowLeft, HiOutlineChatBubbleLeftRight,
 } from 'react-icons/hi2';
@@ -16,6 +17,7 @@ const Chat = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useAuth();
+  const onlineIds = useSelector((s) => s.chat.onlineUserIds);
   const [activeId, setActiveId] = useState(location.state?.conversationId || null);
   const [text, setText] = useState('');
   const endRef = useRef(null);
@@ -36,7 +38,9 @@ const Chat = () => {
     enabled: !!currentActiveId,
     refetchInterval: 5000,
   });
-  const messages = msgData?.items || msgData || [];
+  // Backend returns newest-first (for pagination) — reverse to normal chat
+  // reading order (oldest at top, newest at bottom) before rendering.
+  const messages = [...(msgData?.items || msgData || [])].reverse();
   const active = conversations.find((c) => c.id === currentActiveId);
 
   useEffect(() => {
@@ -82,7 +86,7 @@ const Chat = () => {
                   onClick={() => setActiveId(c.id)}
                   className={`flex w-full items-center gap-3 px-3 py-3 text-left transition hover:bg-gray-50 dark:hover:bg-gray-800/50 ${currentActiveId === c.id ? 'bg-primary-50 dark:bg-primary-900/20' : ''}`}
                 >
-                  <Avatar name={c.name} src={c.avatar_url} size="sm" />
+                  <Avatar name={c.name} src={c.avatar_url} size="sm" online={onlineIds.includes(c.participant_id)} />
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-medium">{c.name}</p>
                     <p className="truncate text-xs text-gray-400">{c.last_message || 'Xabar yo‘q'}</p>
@@ -105,8 +109,17 @@ const Chat = () => {
           ) : (
             <>
               <div className="flex items-center gap-3 border-b border-gray-100 px-4 py-3 dark:border-gray-800">
-                <Avatar name={active.name} src={active.avatar_url} size="sm" />
-                <p className="text-sm font-semibold">{active.name}</p>
+                <Avatar name={active.name} src={active.avatar_url} size="sm" online={onlineIds.includes(active.participant_id)} />
+                <div>
+                  <p className="text-sm font-semibold">{active.name}</p>
+                  <p className={`text-xs ${onlineIds.includes(active.participant_id) ? 'text-green-600' : 'text-gray-400'}`}>
+                    {onlineIds.includes(active.participant_id)
+                      ? 'Onlayn'
+                      : active.last_message_at
+                        ? `So'nggi faollik: ${timeAgo(active.last_message_at)}`
+                        : 'Offlayn'}
+                  </p>
+                </div>
               </div>
 
               <div className="flex-1 space-y-3 overflow-y-auto bg-gray-50/50 p-4 dark:bg-gray-900/30">

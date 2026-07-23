@@ -10,7 +10,8 @@ export const regionService = {
 
 export const mahallaService = {
   list: (params) => api.get(ENDPOINTS.MAHALLAS.BASE, { params }).then((r) => mapList(r.data, normalizeMahalla)),
-  nearest: (params) => api.get(ENDPOINTS.MAHALLAS.NEAREST, { params }).then((r) => mapList(r.data, normalizeMahalla)),
+  // Returns a single closest match, not a list.
+  nearest: (params) => api.get(ENDPOINTS.MAHALLAS.NEAREST, { params }).then((r) => normalizeMahalla(r.data)),
   getById: (id) => api.get(ENDPOINTS.MAHALLAS.byId(id)).then((r) => normalizeMahalla(r.data)),
   create: ({ name, region_id, district, lat, lng }) =>
     api

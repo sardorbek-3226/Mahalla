@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import {
   HiOutlineShieldCheck,
   HiOutlineBolt,
@@ -7,20 +8,22 @@ import {
   HiArrowRight,
 } from 'react-icons/hi2';
 import Logo from '@/components/common/Logo';
+import LanguageSwitcher from '@/components/common/LanguageSwitcher';
 import { Button } from '@/components/ui';
 import { useTheme } from '@/hooks/useTheme';
 import { useAuth } from '@/hooks/useAuth';
 import { ROLE_HOME } from '@/constants/roles';
 
-const FEATURES = [
-  { icon: HiOutlineShieldCheck, title: 'Tekshirilgan ustalar', desc: 'Har bir usta mahalla admini tomonidan tasdiqlanadi.' },
-  { icon: HiOutlineBolt, title: 'Tezkor buyurtma', desc: 'Bir necha daqiqada kerakli xizmatni toping va buyurtma bering.' },
-  { icon: HiOutlineChatBubbleLeftRight, title: 'Real-time aloqa', desc: 'Ustalar bilan to\'g\'ridan-to\'g\'ri yozishing.' },
-];
-
 const Landing = () => {
+  const { t } = useTranslation();
   const { isDark, toggle } = useTheme();
   const { isAuthenticated, user } = useAuth();
+
+  const FEATURES = [
+    { icon: HiOutlineShieldCheck, title: t('landing.feature1Title'), desc: t('landing.feature1Desc') },
+    { icon: HiOutlineBolt, title: t('landing.feature2Title'), desc: t('landing.feature2Desc') },
+    { icon: HiOutlineChatBubbleLeftRight, title: t('landing.feature3Title'), desc: t('landing.feature3Desc') },
+  ];
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
@@ -29,19 +32,20 @@ const Landing = () => {
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
           <Logo />
           <nav className="hidden items-center gap-6 text-sm font-medium text-gray-600 dark:text-gray-300 md:flex">
-            <a href="#features" className="hover:text-primary-600">Imkoniyatlar</a>
-            <Link to="/about" className="hover:text-primary-600">Biz haqimizda</Link>
+            <a href="#features" className="hover:text-primary-600">{t('landing.navFeatures')}</a>
+            <Link to="/about" className="hover:text-primary-600">{t('landing.navAbout')}</Link>
           </nav>
           <div className="flex items-center gap-2">
+            <LanguageSwitcher />
             <button onClick={toggle} className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800">
               {isDark ? '☀️' : '🌙'}
             </button>
             {isAuthenticated ? (
-              <Link to={ROLE_HOME[user?.role] || '/'}><Button>Kabinet</Button></Link>
+              <Link to={ROLE_HOME[user?.role] || '/'}><Button>{t('common.cabinet')}</Button></Link>
             ) : (
               <>
-                <Link to="/login"><Button variant="ghost">Kirish</Button></Link>
-                <Link to="/register"><Button variant="gradient">Boshlash</Button></Link>
+                <Link to="/login"><Button variant="ghost">{t('common.login')}</Button></Link>
+                <Link to="/register"><Button variant="gradient">{t('common.start')}</Button></Link>
               </>
             )}
           </div>
@@ -54,23 +58,22 @@ const Landing = () => {
         <div className="mx-auto max-w-7xl px-4 py-20 text-center sm:px-6 sm:py-28">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <span className="inline-flex items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-4 py-1.5 text-sm font-medium text-primary-700 dark:border-primary-800 dark:bg-primary-900/30 dark:text-primary-300">
-              🏘️ Mahallangiz uchun raqamli platforma
+              {t('landing.badge')}
             </span>
             <h1 className="mx-auto mt-6 max-w-3xl text-4xl font-extrabold leading-tight tracking-tight sm:text-6xl">
-              Mahalla xizmatlari <span className="gradient-text">bir joyda</span>
+              {t('landing.titleLine1')} <span className="gradient-text">{t('landing.titleLine2')}</span>
             </h1>
             <p className="mx-auto mt-5 max-w-2xl text-lg text-gray-500">
-              Tekshirilgan ustalarni toping, buyurtma bering va mahalla hayotida faol ishtirok eting —
-              barchasi Smart Mahalla orqali.
+              {t('landing.subtitle')}
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Link to="/register">
                 <Button variant="gradient" size="lg" rightIcon={<HiArrowRight className="h-4 w-4" />}>
-                  Hoziroq boshlash
+                  {t('landing.ctaStart')}
                 </Button>
               </Link>
               <Link to="/workers">
-                <Button variant="outline" size="lg">Xizmatlarni ko&apos;rish</Button>
+                <Button variant="outline" size="lg">{t('landing.ctaServices')}</Button>
               </Link>
             </div>
           </motion.div>
@@ -104,12 +107,12 @@ const Landing = () => {
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-8 text-sm text-gray-500 sm:flex-row sm:px-6">
           <Logo />
           <div className="flex gap-6">
-            <Link to="/about" className="hover:text-primary-600">Biz haqimizda</Link>
-            <Link to="/contact" className="hover:text-primary-600">Aloqa</Link>
-            <Link to="/privacy" className="hover:text-primary-600">Maxfiylik</Link>
-            <Link to="/terms" className="hover:text-primary-600">Shartlar</Link>
+            <Link to="/about" className="hover:text-primary-600">{t('footer.about')}</Link>
+            <Link to="/contact" className="hover:text-primary-600">{t('footer.contact')}</Link>
+            <Link to="/privacy" className="hover:text-primary-600">{t('footer.privacy')}</Link>
+            <Link to="/terms" className="hover:text-primary-600">{t('footer.terms')}</Link>
           </div>
-          <p>© 2026 Smart Mahalla</p>
+          <p>{t('footer.copyright')}</p>
         </div>
       </footer>
     </div>

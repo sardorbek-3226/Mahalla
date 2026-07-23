@@ -13,6 +13,7 @@ import PageHeader from '@/components/common/PageHeader';
 import Card from '@/components/ui/Card';
 import { Avatar, Badge, Button, Rating, Skeleton, StatusBadge } from '@/components/ui';
 import { workerService } from '@/services/workerService';
+import { useIsOnline } from '@/hooks/useOnlineStatus';
 import { formatMoney, timeAgo } from '@/utils/format';
 
 const Stat = ({ icon: Icon, label, value }) => (
@@ -32,6 +33,7 @@ const WorkerDetail = () => {
     queryKey: ['worker', id],
     queryFn: () => workerService.getById(id),
   });
+  const isOnline = useIsOnline(worker?.user_id);
 
   const startChat = useMutation({
     mutationFn: () => chatService.createConversation({ participant_id: worker.user_id }),
@@ -55,7 +57,7 @@ const WorkerDetail = () => {
         <div className="space-y-6 lg:col-span-2">
           <Card className="p-6">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-              <Avatar name={worker.full_name} src={worker.avatar_url} size="lg" online={worker.is_available} />
+              <Avatar name={worker.full_name} src={worker.avatar_url} size="lg" online={isOnline} />
               <div className="flex-1">
                 <div className="flex items-center gap-2">
                   <h2 className="text-xl font-bold">{worker.full_name}</h2>
@@ -64,6 +66,9 @@ const WorkerDetail = () => {
                       <HiOutlineCheckBadge className="h-3.5 w-3.5" /> Tasdiqlangan
                     </Badge>
                   )}
+                  <span className={`text-xs font-medium ${isOnline ? 'text-green-600' : 'text-gray-400'}`}>
+                    {isOnline ? 'Onlayn' : 'Offlayn'}
+                  </span>
                 </div>
                 <p className="text-primary-600">{worker.category_name}</p>
                 <div className="mt-1"><Rating value={worker.rating_avg} count={worker.rating_count} size="sm" /></div>
@@ -121,9 +126,9 @@ const WorkerDetail = () => {
         {/* Sidebar */}
         <div className="lg:col-span-1">
           <Card className="sticky top-24 p-6">
-            <p className="text-sm text-gray-400">Boshlang‘ich narx</p>
+            <p className="text-sm text-gray-400">Narx</p>
             <p className="text-2xl font-extrabold text-gray-900 dark:text-white">{formatMoney(worker.price_from)}</p>
-            <div className="mt-2"><StatusBadge status={worker.is_available ? 'completed' : 'new'} dot /></div>
+            <div className="mt-2"></div>
             <Link to="/bookings/new" state={{ worker }}>
               <Button variant="gradient" size="lg" className="mt-5 w-full">Buyurtma berish</Button>
             </Link>

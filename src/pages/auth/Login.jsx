@@ -2,15 +2,18 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
-import { HiOutlinePhone, HiOutlineLockClosed, HiOutlineEye, HiOutlineEyeSlash } from 'react-icons/hi2';
-import { Button, Input } from '@/components/ui';
+import { HiOutlineLockClosed, HiOutlineEye, HiOutlineEyeSlash } from 'react-icons/hi2';
+import { Button, Input, PhoneInput } from '@/components/ui';
 import GoogleButton from '@/components/common/GoogleButton';
 import { login } from '@/redux/slices/authSlice';
 import { ROLE_HOME, ROLES, ROLE_LABELS } from '@/constants/roles';
 import { ENV } from '@/config/env';
+import { toApiPhone, isValidLocalPhone } from '@/utils/phone';
 
 const Login = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,7 +25,7 @@ const Login = () => {
   } = useForm({ defaultValues: { role: ROLES.CITIZEN } });
 
   const onSubmit = async (values) => {
-    const result = await dispatch(login(values));
+    const result = await dispatch(login({ ...values, phone: toApiPhone(values.phone) }));
     if (login.fulfilled.match(result)) {
       toast.success('Xush kelibsiz!');
       const role = result.payload?.role;
@@ -35,22 +38,20 @@ const Login = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold">Hisobingizga kiring</h2>
-      <p className="mt-1 text-sm text-gray-500">Telefon raqam va parolingizni kiriting.</p>
+      <h2 className="text-2xl font-bold">{t('auth.login.title')}</h2>
+      <p className="mt-1 text-sm text-gray-500">{t('auth.login.subtitle')}</p>
 
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-4">
-        <Input
-          label="Telefon raqam"
-          placeholder="+998 90 123 45 67"
-          leftIcon={<HiOutlinePhone className="h-4 w-4" />}
+        <PhoneInput
+          label={t('auth.login.phone')}
           error={errors.phone?.message}
           {...register('phone', {
             required: 'Telefon raqam majburiy',
-            pattern: { value: /^\+?\d{9,15}$/, message: "Noto'g'ri format" },
+            validate: (v) => isValidLocalPhone(v) || "Noto'g'ri format",
           })}
         />
         <Input
-          label="Parol"
+          label={t('auth.login.password')}
           type={showPassword ? 'text' : 'password'}
           placeholder="••••••••"
           leftIcon={<HiOutlineLockClosed className="h-4 w-4" />}
@@ -85,24 +86,24 @@ const Login = () => {
 
         <div className="flex justify-end">
           <Link to="/forgot-password" className="text-sm font-medium text-primary-600 hover:underline">
-            Parolni unutdingizmi?
+            {t('auth.login.forgot')}
           </Link>
         </div>
 
         <Button type="submit" variant="gradient" size="lg" loading={isSubmitting} className="w-full">
-          Kirish
+          {t('auth.login.submit')}
         </Button>
       </form>
 
       <div className="my-5 flex items-center gap-3 text-xs text-gray-400">
-        <span className="h-px flex-1 bg-gray-200 dark:bg-gray-700" /> yoki <span className="h-px flex-1 bg-gray-200 dark:bg-gray-700" />
+        <span className="h-px flex-1 bg-gray-200 dark:bg-gray-700" /> {t('auth.login.or')} <span className="h-px flex-1 bg-gray-200 dark:bg-gray-700" />
       </div>
-      <GoogleButton label="Google bilan kirish" />
+      <GoogleButton label={t('auth.login.google')} />
 
       <p className="mt-6 text-center text-sm text-gray-500">
-        Hisobingiz yo&apos;qmi?{' '}
+        {t('auth.login.noAccount')}{' '}
         <Link to="/register" className="font-semibold text-primary-600 hover:underline">
-          Ro&apos;yxatdan o&apos;ting
+          {t('auth.login.registerLink')}
         </Link>
       </p>
     </div>

@@ -1,11 +1,13 @@
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
-import { HiOutlinePhone } from 'react-icons/hi2';
-import { Button, Input } from '@/components/ui';
+import { Button, PhoneInput } from '@/components/ui';
 import { authService } from '@/services/authService';
+import { toApiPhone, isValidLocalPhone } from '@/utils/phone';
 
 const ForgotPassword = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const {
     register,
@@ -15,7 +17,8 @@ const ForgotPassword = () => {
 
   // Backend has no reset-password endpoint — recovery works by verifying an SMS
   // code for the phone, which logs the user straight back into their account.
-  const onSubmit = async ({ phone }) => {
+  const onSubmit = async ({ phone: rawPhone }) => {
+    const phone = toApiPhone(rawPhone);
     try {
       await authService.sendOtp({ phone });
       toast.success('Tasdiqlash kodi yuborildi');
@@ -27,31 +30,28 @@ const ForgotPassword = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold">Hisobga qaytish</h2>
+      <h2 className="text-2xl font-bold">{t('auth.forgotPassword.title')}</h2>
       <p className="mt-1 text-sm text-gray-500">
-        Parolni eslay olmayapsizmi? Telefon raqamingizni kiriting — sizga SMS orqali kod
-        yuboramiz va kod bilan hisobingizga qayta kirasiz.
+        {t('auth.forgotPassword.subtitle')}
       </p>
 
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-4">
-        <Input
-          label="Telefon raqam"
-          placeholder="+998 90 123 45 67"
-          leftIcon={<HiOutlinePhone className="h-4 w-4" />}
+        <PhoneInput
+          label={t('auth.forgotPassword.phone')}
           error={errors.phone?.message}
           {...register('phone', {
             required: 'Telefon raqam majburiy',
-            pattern: { value: /^\+?\d{9,15}$/, message: "Noto'g'ri format" },
+            validate: (v) => isValidLocalPhone(v) || "Noto'g'ri format",
           })}
         />
         <Button type="submit" variant="gradient" size="lg" loading={isSubmitting} className="w-full">
-          Kod yuborish
+          {t('auth.forgotPassword.submit')}
         </Button>
       </form>
 
       <p className="mt-6 text-center text-sm text-gray-500">
         <Link to="/login" className="font-semibold text-primary-600 hover:underline">
-          Kirishga qaytish
+          {t('auth.forgotPassword.backToLogin')}
         </Link>
       </p>
     </div>

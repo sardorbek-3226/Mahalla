@@ -1,30 +1,33 @@
 import { Link, NavLink, Outlet } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Logo from '@/components/common/Logo';
+import LanguageSwitcher from '@/components/common/LanguageSwitcher';
 import { Button } from '@/components/ui';
 import { useTheme } from '@/hooks/useTheme';
 import { useAuth } from '@/hooks/useAuth';
 import { ROLE_HOME } from '@/constants/roles';
 
-const NAV = [
-  { to: '/about', label: 'Biz haqimizda' },
-  { to: '/faq', label: 'FAQ' },
-  { to: '/terms', label: 'Shartlar' },
-  { to: '/contact', label: 'Aloqa' },
-];
-
-const FOOTER_LINKS = [
-  { to: '/about', label: 'Biz haqimizda' },
-  { to: '/contact', label: 'Aloqa' },
-  { to: '/faq', label: 'FAQ' },
-  { to: '/privacy', label: 'Maxfiylik' },
-  { to: '/terms', label: 'Shartlar' },
-];
-
 // Public shell (navbar + footer) for static info/legal pages so they look
 // complete and stay navigable. Renders the active page via <Outlet />.
 const PublicLayout = () => {
+  const { t } = useTranslation();
   const { isDark, toggle } = useTheme();
   const { isAuthenticated, user } = useAuth();
+
+  const NAV = [
+    { to: '/about', label: t('footer.about') },
+    { to: '/faq', label: t('footer.faq') },
+    { to: '/terms', label: t('footer.terms') },
+    { to: '/contact', label: t('footer.contact') },
+  ];
+
+  const FOOTER_LINKS = [
+    { to: '/about', label: t('footer.about') },
+    { to: '/contact', label: t('footer.contact') },
+    { to: '/faq', label: t('footer.faq') },
+    { to: '/privacy', label: t('footer.privacy') },
+    { to: '/terms', label: t('footer.terms') },
+  ];
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-50 dark:bg-gray-950">
@@ -45,6 +48,7 @@ const PublicLayout = () => {
             ))}
           </nav>
           <div className="flex items-center gap-2">
+            <LanguageSwitcher />
             <button
               onClick={toggle}
               aria-label="Mavzuni almashtirish"
@@ -53,11 +57,11 @@ const PublicLayout = () => {
               {isDark ? '☀️' : '🌙'}
             </button>
             {isAuthenticated ? (
-              <Link to={ROLE_HOME[user?.role] || '/'}><Button>Kabinet</Button></Link>
+              <Link to={ROLE_HOME[user?.role] || '/'}><Button>{t('common.cabinet')}</Button></Link>
             ) : (
               <>
-                <Link to="/login"><Button variant="ghost">Kirish</Button></Link>
-                <Link to="/register"><Button variant="gradient">Boshlash</Button></Link>
+                <Link to="/login"><Button variant="ghost">{t('common.login')}</Button></Link>
+                <Link to="/register"><Button variant="gradient">{t('common.start')}</Button></Link>
               </>
             )}
           </div>
@@ -78,7 +82,7 @@ const PublicLayout = () => {
               </Link>
             ))}
           </div>
-          <p>© 2026 Smart Mahalla</p>
+          <p>{t('footer.copyright')}</p>
         </div>
       </footer>
     </div>

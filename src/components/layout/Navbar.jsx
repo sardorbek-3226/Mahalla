@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import {
   HiOutlineBars3,
   HiOutlineBell,
@@ -10,12 +11,14 @@ import {
   HiOutlineArrowRightOnRectangle,
 } from 'react-icons/hi2';
 import Avatar from '@/components/ui/Avatar';
+import LanguageSwitcher from '@/components/common/LanguageSwitcher';
 import { setSidebarMobile } from '@/redux/slices/uiSlice';
 import { useTheme } from '@/hooks/useTheme';
 import { useAuth } from '@/hooks/useAuth';
 import { ROLE_LABELS } from '@/constants/roles';
 
 const Navbar = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isDark, toggle } = useTheme();
@@ -38,14 +41,15 @@ const Navbar = () => {
         className="hidden items-center gap-2 rounded-xl border border-gray-200 px-3 py-2 text-sm text-gray-400 transition hover:border-gray-300 dark:border-gray-700 sm:flex"
       >
         <HiOutlineMagnifyingGlass className="h-4 w-4" />
-        Qidirish…
+        {t('common.search')}
       </button>
 
       <div className="ml-auto flex items-center gap-1 sm:gap-2">
+        <LanguageSwitcher className="hidden rounded-lg border border-transparent bg-transparent px-2 py-1.5 text-sm text-gray-500 outline-none transition hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 sm:block" />
         <button
           onClick={toggle}
           className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800"
-          aria-label="Mavzu"
+          aria-label={t('common.theme')}
         >
           {isDark ? <HiOutlineSun className="h-5 w-5" /> : <HiOutlineMoon className="h-5 w-5" />}
         </button>
@@ -53,7 +57,7 @@ const Navbar = () => {
         <button
           onClick={() => navigate('/notifications')}
           className="relative rounded-lg p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800"
-          aria-label="Bildirishnomalar"
+          aria-label={t('common.notifications')}
         >
           <HiOutlineBell className="h-5 w-5" />
           {unreadCount > 0 && (
@@ -80,20 +84,20 @@ const Navbar = () => {
                   onClick={() => { setMenuOpen(false); navigate('/profile'); }}
                   className="block w-full px-4 py-2 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
-                  Profil
+                  {t('common.profile')}
                 </button>
                 <button
                   onClick={() => { setMenuOpen(false); navigate('/settings'); }}
                   className="block w-full px-4 py-2 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
-                  Sozlamalar
+                  {t('common.settings')}
                 </button>
                 <button
                   onClick={() => logout()}
                   className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
                 >
                   <HiOutlineArrowRightOnRectangle className="h-4 w-4" />
-                  Chiqish
+                  {t('common.logout')}
                 </button>
               </div>
             </>

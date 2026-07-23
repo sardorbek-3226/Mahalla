@@ -6,12 +6,14 @@ import { fetchCurrentUser, clearAuth } from '@/redux/slices/authSlice';
 import { registerUnauthHandler } from '@/api/axiosInstance';
 import { SocketProvider } from '@/context/SocketProvider';
 import { useTheme } from '@/hooks/useTheme';
+import { useLanguage } from '@/hooks/useLanguage';
 import AppRoutes from '@/routes/AppRoutes';
 import { store } from '@/redux/store';
 
 const App = () => {
   const dispatch = useDispatch();
   useTheme(); // applies the theme class to <html>
+  useLanguage(); // keeps i18next in sync with the persisted language
 
   useEffect(() => {
     // Restore session from the stored access token (if any) on first load.

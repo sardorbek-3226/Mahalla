@@ -1,0 +1,104 @@
+{
+  "common": {
+    "search": "Qidirish…",
+    "theme": "Mavzu",
+    "notifications": "Bildirishnomalar",
+    "profile": "Profil",
+    "settings": "Sozlamalar",
+    "logout": "Chiqish",
+    "login": "Kirish",
+    "start": "Boshlash",
+    "cabinet": "Kabinet",
+    "language": "Til"
+  },
+  "nav": {
+    "dashboard": "Boshqaruv",
+    "workers": "Ustalar",
+    "categories": "Kategoriyalar",
+    "bookings": "Buyurtmalar",
+    "jobPostings": "Ish e'lonlari",
+    "chat": "Suhbatlar",
+    "news": "Yangiliklar",
+    "announcements": "E'lonlar",
+    "family": "Oilam",
+    "emergency": "Favqulodda",
+    "notifications": "Bildirishnomalar",
+    "settings": "Sozlamalar",
+    "providerServices": "Xizmatlarim",
+    "providerDocuments": "Hujjatlar",
+    "orgProfile": "Tashkilot profili",
+    "workersVerify": "Ustalar (tasdiq)",
+    "residents": "Aholi",
+    "admins": "Administratorlar",
+    "users": "Foydalanuvchilar",
+    "reports": "Hisobotlar",
+    "analytics": "Statistika",
+    "analyticsShort": "Analitika",
+    "categoriesAdmin": "Kategoriyalar",
+    "locationsAdmin": "Hududlar",
+    "auditLogs": "Audit jurnali"
+  },
+  "landing": {
+    "navFeatures": "Imkoniyatlar",
+    "navAbout": "Biz haqimizda",
+    "badge": "🏘️ Mahallangiz uchun raqamli platforma",
+    "titleLine1": "Mahalla xizmatlari",
+    "titleLine2": "bir joyda",
+    "subtitle": "Tekshirilgan ustalarni toping, buyurtma bering va mahalla hayotida faol ishtirok eting — barchasi Smart Mahalla orqali.",
+    "ctaStart": "Hoziroq boshlash",
+    "ctaServices": "Xizmatlarni ko'rish",
+    "feature1Title": "Tekshirilgan ustalar",
+    "feature1Desc": "Har bir usta mahalla admini tomonidan tasdiqlanadi.",
+    "feature2Title": "Tezkor buyurtma",
+    "feature2Desc": "Bir necha daqiqada kerakli xizmatni toping va buyurtma bering.",
+    "feature3Title": "Real-time aloqa",
+    "feature3Desc": "Ustalar bilan to'g'ridan-to'g'ri yozishing."
+  },
+  "footer": {
+    "about": "Biz haqimizda",
+    "contact": "Aloqa",
+    "faq": "FAQ",
+    "privacy": "Maxfiylik",
+    "terms": "Shartlar",
+    "copyright": "© 2026 Smart Mahalla"
+  },
+  "auth": {
+    "brand": {
+      "title": "Mahallangiz uchun raqamli platforma",
+      "subtitle": "Tekshirilgan ustalar, tezkor buyurtmalar va mahalla xizmatlari — barchasi bir joyda."
+    },
+    "login": {
+      "title": "Hisobingizga kiring",
+      "subtitle": "Telefon raqam va parolingizni kiriting.",
+      "phone": "Telefon raqam",
+      "password": "Parol",
+      "forgot": "Parolni unutdingizmi?",
+      "submit": "Kirish",
+      "or": "yoki",
+      "google": "Google bilan kirish",
+      "noAccount": "Hisobingiz yo'qmi?",
+      "registerLink": "Ro'yxatdan o'ting"
+    },
+    "register": {
+      "title": "Ro'yxatdan o'tish",
+      "subtitle": "Mahalla platformasiga qo'shiling.",
+      "fullName": "To'liq ism",
+      "phone": "Telefon raqam",
+      "location": "Manzil",
+      "optional": "(ixtiyoriy)",
+      "accountType": "Hisob turi",
+      "password": "Parol",
+      "confirmPassword": "Parolni tasdiqlang",
+      "submit": "Ro'yxatdan o'tish",
+      "haveAccount": "Hisobingiz bormi?",
+      "loginLink": "Kiring"
+    },
+    "forgotPassword": {
+      "title": "Hisobga qaytish",
+      "subtitle": "Parolni eslay olmayapsizmi? Telefon raqamingizni kiriting — sizga SMS orqali kod yuboramiz va kod bilan hisobingizga qayta kirasiz.",
+      "phone": "Telefon raqam",
+      "submit": "Kod yuborish",
+      "backToLogin": "Kirishga qaytish"
+    }
+  }
+}

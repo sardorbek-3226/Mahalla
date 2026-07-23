@@ -1,0 +1,104 @@
+{
+  "common": {
+    "search": "Search…",
+    "theme": "Theme",
+    "notifications": "Notifications",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Log out",
+    "login": "Log in",
+    "start": "Get started",
+    "cabinet": "Dashboard",
+    "language": "Language"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "workers": "Workers",
+    "categories": "Categories",
+    "bookings": "Bookings",
+    "jobPostings": "Job postings",
+    "chat": "Chats",
+    "news": "News",
+    "announcements": "Announcements",
+    "family": "My family",
+    "emergency": "Emergency",
+    "notifications": "Notifications",
+    "settings": "Settings",
+    "providerServices": "My services",
+    "providerDocuments": "Documents",
+    "orgProfile": "Organization profile",
+    "workersVerify": "Workers (verify)",
+    "residents": "Residents",
+    "admins": "Admins",
+    "users": "Users",
+    "reports": "Reports",
+    "analytics": "Analytics",
+    "analyticsShort": "Analytics",
+    "categoriesAdmin": "Categories",
+    "locationsAdmin": "Locations",
+    "auditLogs": "Audit log"
+  },
+  "landing": {
+    "navFeatures": "Features",
+    "navAbout": "About us",
+    "badge": "🏘️ A digital platform for your neighborhood",
+    "titleLine1": "Neighborhood services,",
+    "titleLine2": "all in one place",
+    "subtitle": "Find verified workers, place orders, and take part in neighborhood life — all through Smart Mahalla.",
+    "ctaStart": "Get started now",
+    "ctaServices": "Browse services",
+    "feature1Title": "Verified workers",
+    "feature1Desc": "Every worker is approved by the neighborhood admin.",
+    "feature2Title": "Fast booking",
+    "feature2Desc": "Find the service you need and place an order in minutes.",
+    "feature3Title": "Real-time chat",
+    "feature3Desc": "Message workers directly."
+  },
+  "footer": {
+    "about": "About us",
+    "contact": "Contact",
+    "faq": "FAQ",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "copyright": "© 2026 Smart Mahalla"
+  },
+  "auth": {
+    "brand": {
+      "title": "A digital platform for your neighborhood",
+      "subtitle": "Verified workers, fast bookings, and neighborhood services — all in one place."
+    },
+    "login": {
+      "title": "Sign in to your account",
+      "subtitle": "Enter your phone number and password.",
+      "phone": "Phone number",
+      "password": "Password",
+      "forgot": "Forgot your password?",
+      "submit": "Log in",
+      "or": "or",
+      "google": "Sign in with Google",
+      "noAccount": "Don't have an account?",
+      "registerLink": "Sign up"
+    },
+    "register": {
+      "title": "Create an account",
+      "subtitle": "Join the neighborhood platform.",
+      "fullName": "Full name",
+      "phone": "Phone number",
+      "location": "Address",
+      "optional": "(optional)",
+      "accountType": "Account type",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "submit": "Sign up",
+      "haveAccount": "Already have an account?",
+      "loginLink": "Log in"
+    },
+    "forgotPassword": {
+      "title": "Recover access",
+      "subtitle": "Can't remember your password? Enter your phone number — we'll text you a code, and you can sign back in with it.",
+      "phone": "Phone number",
+      "submit": "Send code",
+      "backToLogin": "Back to log in"
+    }
+  }
+}

@@ -6,6 +6,8 @@ import PageHeader from '@/components/common/PageHeader';
 import Card from '@/components/ui/Card';
 import { Button, EmptyState, Skeleton, StatusBadge } from '@/components/ui';
 import { bookingService } from '@/services/bookingService';
+import { useAuth } from '@/hooks/useAuth';
+import { ROLES } from '@/constants/roles';
 import { formatMoney, formatDateTime } from '@/utils/format';
 
 const TABS = [
@@ -17,45 +19,91 @@ const TABS = [
   { value: 'cancelled', label: 'Bekor qilingan' },
 ];
 
+const SCOPES = [
+  { value: 'available', label: 'Ochiq buyurtmalar' },
+  { value: 'assigned', label: 'Mening ishlarim' },
+];
+
 const Bookings = () => {
+  const { user } = useAuth();
+  const isWorker = user?.role === ROLES.WORKER;
   const [tab, setTab] = useState('');
-  const { data, isLoading } = useQuery({ queryKey: ['bookings'], queryFn: () => bookingService.list() });
+  const [scope, setScope] = useState('available');
+
+  const effectiveScope = isWorker ? scope : undefined;
+  const { data, isLoading } = useQuery({
+    queryKey: ['bookings', effectiveScope],
+    queryFn: () => bookingService.list(effectiveScope ? { scope: effectiveScope } : undefined),
+  });
   const all = data?.items || data || [];
-  const list = tab ? all.filter((b) => b.status === tab) : all;
+  // The open-jobs pool is always status "new" by definition — only filter by
+  // status within "Mening ishlarim" (assigned) or for non-worker roles.
+  const showStatusTabs = !isWorker || scope === 'assigned';
+  const list = showStatusTabs && tab ? all.filter((b) => b.status === tab) : all;
 
   return (
     <div>
       <PageHeader
         title="Buyurtmalar"
-        subtitle="Barcha buyurtmalaringiz"
+        subtitle={isWorker ? 'Ochiq buyurtmalar va sizga tayinlangan ishlar' : 'Barcha buyurtmalaringiz'}
         actions={
-          <Link to="/bookings/new">
-            <Button variant="gradient" leftIcon={<HiPlus className="h-4 w-4" />}>Yangi buyurtma</Button>
-          </Link>
+          !isWorker && (
+            <Link to="/bookings/new">
+              <Button variant="gradient" leftIcon={<HiPlus className="h-4 w-4" />}>Yangi buyurtma</Button>
+            </Link>
+          )
         }
       />
 
-      <div className="mb-5 flex flex-wrap gap-2">
-        {TABS.map((t) => (
-          <button
-            key={t.value}
-            onClick={() => setTab(t.value)}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${
-              tab === t.value
-                ? 'bg-primary-600 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300'
-            }`}
-          >
-            {t.label}
-          </button>
-        ))}
-      </div>
+      {isWorker && (
+        <div className="mb-3 flex flex-wrap gap-2">
+          {SCOPES.map((s) => (
+            <button
+              key={s.value}
+              onClick={() => { setScope(s.value); setTab(''); }}
+              className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${
+                scope === s.value
+                  ? 'bg-primary-600 text-white'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300'
+              }`}
+            >
+              {s.label}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {showStatusTabs && (
+        <div className="mb-5 flex flex-wrap gap-2">
+          {TABS.map((t) => (
+            <button
+              key={t.value}
+              onClick={() => setTab(t.value)}
+              className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${
+                tab === t.value
+                  ? 'bg-primary-600 text-white'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300'
+              }`}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+      )}
 
       {isLoading ? (
         <div className="space-y-3">{Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-24 rounded-2xl" />)}</div>
       ) : list.length === 0 ? (
         <Card className="p-0">
-          <EmptyState icon={HiOutlineClipboardDocumentList} title="Buyurtma yo‘q" description="Bu bo‘limda hozircha buyurtma yo‘q." />
+          <EmptyState
+            icon={HiOutlineClipboardDocumentList}
+            title="Buyurtma yo‘q"
+            description={
+              isWorker && scope === 'available'
+                ? 'Hozircha kategoriyangizga mos ochiq buyurtma yo‘q.'
+                : 'Bu bo‘limda hozircha buyurtma yo‘q.'
+            }
+          />
         </Card>
       ) : (
         <div className="space-y-3">
@@ -70,11 +118,14 @@ const Bookings = () => {
                   <p className="mt-1 flex items-center gap-1 text-sm text-gray-400">
                     <HiOutlineMapPin className="h-4 w-4" /> {b.address}
                   </p>
-                  <p className="mt-0.5 text-xs text-gray-400">{formatDateTime(b.created_at)}</p>
+                  <p className="mt-0.5 text-xs text-gray-400">
+                    {formatDateTime(b.created_at)}
+                    {isWorker && b.resident_name && ` · ${b.resident_name}`}
+                  </p>
                 </div>
                 <div className="text-right">
                   <p className="font-semibold text-primary-600">{formatMoney(b.price_agreed)}</p>
-                  {b.worker_name && <p className="text-xs text-gray-400">{b.worker_name}</p>}
+                  {!isWorker && b.worker_name && <p className="text-xs text-gray-400">{b.worker_name}</p>}
                 </div>
               </Card>
             </Link>

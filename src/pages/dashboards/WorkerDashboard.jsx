@@ -25,9 +25,11 @@ const WorkerDashboard = () => {
   const [available, setAvailable] = useState(user?.is_available ?? true);
   const providerId = user?.provider_profile_id;
 
+  // Open jobs anyone can claim (no provider assigned yet) — visible to every
+  // worker whose service category matches, not just a specific one.
   const { data, isLoading } = useQuery({
-    queryKey: ['bookings', 'worker'],
-    queryFn: () => bookingService.list({ limit: 6 }),
+    queryKey: ['bookings', 'worker', 'available'],
+    queryFn: () => bookingService.list({ scope: 'available', limit: 6 }),
   });
 
   // Real earnings, computed from the worker's own completed orders (no backend earnings endpoint exists).
@@ -114,8 +116,8 @@ const WorkerDashboard = () => {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard label="Yangi so'rovlar" value={bookings.filter((b) => b.status === 'new').length} icon={HiOutlineCalendarDays} tone="amber" />
-        <StatCard label="Bajarilgan" value={user?.completed_orders ?? '—'} icon={HiOutlineCheckCircle} tone="primary" />
-        <StatCard label="Reyting" value={user?.rating_avg ?? '—'} icon={HiOutlineStar} tone="blue" />
+        <StatCard label="Bajarilgan" value={provider?.completed_orders ?? '—'} icon={HiOutlineCheckCircle} tone="primary" />
+        <StatCard label="Reyting" value={provider?.rating_avg ?? '—'} icon={HiOutlineStar} tone="blue" />
         <StatCard label="Bu oy daromad" value={formatMoney(thisMonthEarnings)} icon={HiOutlineBanknotes} tone="primary" />
       </div>
 

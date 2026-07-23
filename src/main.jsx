@@ -9,6 +9,7 @@ import { store, persistor } from '@/redux/store';
 import { queryClient } from '@/config/queryClient';
 import FullPageLoader from '@/components/common/FullPageLoader';
 import App from './App';
+import '@/i18n';
 import '@/styles/index.css';
 
 createRoot(document.getElementById('root')).render(

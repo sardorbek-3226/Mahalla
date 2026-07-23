@@ -14,19 +14,22 @@ const persist = (data = {}) => {
 
 // Real backend (MahallaOS API). camelCase + UPPERCASE roles + Bearer tokens.
 const realAuthService = {
+  // suppressErrorToast: the calling page already shows its own contextual
+  // error message, so the global interceptor toast is skipped here to avoid
+  // showing the same error twice.
   register: ({ full_name, phone, password, role, ...rest }) =>
     api
-      .post(ENDPOINTS.AUTH.REGISTER, {
-        fullName: full_name,
-        phone,
-        password,
-        role: roleToApi(role),
-        ...rest,
-      })
+      .post(
+        ENDPOINTS.AUTH.REGISTER,
+        { fullName: full_name, phone, password, role: roleToApi(role), ...rest },
+        { suppressErrorToast: true }
+      )
       .then((r) => persist(r.data)),
 
   login: ({ phone, password }) =>
-    api.post(ENDPOINTS.AUTH.LOGIN, { phone, password }).then((r) => persist(r.data)),
+    api
+      .post(ENDPOINTS.AUTH.LOGIN, { phone, password }, { suppressErrorToast: true })
+      .then((r) => persist(r.data)),
 
   logout: () =>
     api
@@ -41,9 +44,12 @@ const realAuthService = {
       .post(ENDPOINTS.AUTH.REFRESH, { refreshToken: tokenStore.refresh }, { suppressErrorToast: true })
       .then((r) => persist(r.data)),
 
-  sendOtp: (payload) => api.post(ENDPOINTS.AUTH.OTP_SEND, payload).then((r) => r.data),
+  sendOtp: (payload) =>
+    api.post(ENDPOINTS.AUTH.OTP_SEND, payload, { suppressErrorToast: true }).then((r) => r.data),
   verifyOtp: ({ phone, code }) =>
-    api.post(ENDPOINTS.AUTH.OTP_VERIFY, { phone, code }).then((r) => persist(r.data)),
+    api
+      .post(ENDPOINTS.AUTH.OTP_VERIFY, { phone, code }, { suppressErrorToast: true })
+      .then((r) => persist(r.data)),
 };
 
 // Offline demo mode swaps in the mock backend with the same interface.

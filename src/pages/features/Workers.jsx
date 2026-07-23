@@ -3,8 +3,12 @@ import { useQuery } from '@tanstack/react-query';
 import { HiMagnifyingGlass, HiOutlineUsers } from 'react-icons/hi2';
 import PageHeader from '@/components/common/PageHeader';
 import WorkerCard from '@/components/common/WorkerCard';
-import { Input, EmptyState, SkeletonCard } from '@/components/ui';
+import { Button, Input, EmptyState, SkeletonCard } from '@/components/ui';
 import { workerService, categoryService } from '@/services/workerService';
+import { regionService, mahallaService } from '@/services/geoService';
+import { useAuth } from '@/hooks/useAuth';
+import { UZ_REGIONS, districtsOf } from '@/constants/uzbekistan';
+import { getRegisteredLocation } from '@/utils/registeredLocation';
 
 const SORTS = [
   { value: '', label: 'Tavsiya etilgan' },
@@ -13,19 +17,44 @@ const SORTS = [
 ];
 
 const Workers = () => {
+  const { user } = useAuth();
   const [q, setQ] = useState('');
   const [category, setCategory] = useState('');
   const [sort, setSort] = useState('');
   const [onlyAvailable, setOnlyAvailable] = useState(false);
+  // Same viloyat/tuman picker as Register — defaults to what the user picked at
+  // registration (the backend doesn't reliably persist it yet — see
+  // registeredLocation.js). User can widen the search below.
+  const [saved] = useState(() => getRegisteredLocation(user?.phone));
+  const [viloyat, setViloyat] = useState(saved?.viloyat || '');
+  const [tuman, setTuman] = useState(saved?.tuman || '');
+  const [mahallaId, setMahallaId] = useState(saved?.mahallaId || user?.mahalla_id || '');
+
+  const tumanlar = districtsOf(viloyat);
+
+  // The backend has real mahalla records for some viloyat (matched by name) —
+  // fetch them when available so the mahalla dropdown/filter uses a real id.
+  const { data: regionsData } = useQuery({ queryKey: ['regions'], queryFn: regionService.list });
+  const regions = regionsData?.items || regionsData || [];
+  const matchedRegion = regions.find((r) => r.name.toLowerCase() === viloyat.toLowerCase());
+
+  const { data: mahallasData } = useQuery({
+    queryKey: ['mahallas', matchedRegion?.id],
+    queryFn: () => mahallaService.list({ regionId: matchedRegion.id }),
+    enabled: !!matchedRegion,
+  });
+  const mahallas = mahallasData?.items || mahallasData || [];
+  const mahallasInDistrict = tuman ? mahallas.filter((m) => m.district === tuman) : mahallas;
 
   const { data: categories } = useQuery({ queryKey: ['categories'], queryFn: categoryService.list });
   const { data, isLoading } = useQuery({
-    queryKey: ['workers', { q, category, onlyAvailable }],
+    queryKey: ['workers', { q, category, onlyAvailable, mahallaId }],
     queryFn: () =>
       workerService.list({
         q: q || undefined,
         category_id: category || undefined,
         available: onlyAvailable || undefined,
+        mahalla_id: mahallaId || undefined,
       }),
   });
 
@@ -37,12 +66,18 @@ const Workers = () => {
   });
   const cats = categories?.items || categories || [];
 
+  const clearRegion = () => {
+    setViloyat('');
+    setTuman('');
+    setMahallaId('');
+  };
+
   return (
     <div>
       <PageHeader title="Ustalar" subtitle="Tekshirilgan ustalarni toping va buyurtma bering" />
 
       {/* Filters */}
-      <div className="mb-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mb-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <Input
           placeholder="Usta yoki kasb qidirish…"
           leftIcon={<HiMagnifyingGlass className="h-4 w-4" />}
@@ -71,12 +106,75 @@ const Workers = () => {
         </label>
       </div>
 
+      {/* Viloyat / tuman / mahalla bo'yicha saralash — ro'yxatdan o'tishdagi kabi */}
+      <div className="mb-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <select
+          className="input-base"
+          value={viloyat}
+          onChange={(e) => {
+            setViloyat(e.target.value);
+            setTuman('');
+            setMahallaId('');
+          }}
+        >
+          <option value="">Viloyat/shahar</option>
+          {UZ_REGIONS.map((r) => (
+            <option key={r.name} value={r.name}>{r.name}</option>
+          ))}
+        </select>
+        <select
+          className="input-base"
+          value={tuman}
+          onChange={(e) => {
+            setTuman(e.target.value);
+            setMahallaId('');
+          }}
+          disabled={!viloyat}
+        >
+          <option value="">Tuman</option>
+          {tumanlar.map((d) => (
+            <option key={d} value={d}>{d}</option>
+          ))}
+        </select>
+        <select
+          className="input-base"
+          value={mahallaId}
+          onChange={(e) => setMahallaId(e.target.value)}
+          disabled={!viloyat}
+        >
+          <option value="">Mahalla</option>
+          {mahallasInDistrict.map((m) => (
+            <option key={m.id} value={m.id}>{m.name}</option>
+          ))}
+        </select>
+        {(viloyat || mahallaId) && (
+          <Button variant="outline" onClick={clearRegion}>
+            Hududni tozalash
+          </Button>
+        )}
+      </div>
+
       {isLoading ? (
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
         </div>
       ) : workers.length === 0 ? (
-        <EmptyState icon={HiOutlineUsers} title="Usta topilmadi" description="Filtrlarni o‘zgartirib ko‘ring." />
+        <EmptyState
+          icon={HiOutlineUsers}
+          title="Usta topilmadi"
+          description={
+            mahallaId
+              ? 'Bu hududda mos usta yo‘q. Boshqa hududlardan ham ko‘rib ko‘ring.'
+              : 'Filtrlarni o‘zgartirib ko‘ring.'
+          }
+          action={
+            mahallaId && (
+              <Button variant="outline" onClick={clearRegion}>
+                Barcha hududlarni ko‘rish
+              </Button>
+            )
+          }
+        />
       ) : (
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {workers.map((w) => <WorkerCard key={w.id} worker={w} />)}

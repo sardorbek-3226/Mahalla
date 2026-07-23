@@ -4,6 +4,7 @@ import { connectSocket, disconnectSocket, getSocket, SOCKET_EVENTS } from '@/soc
 import { useAuth } from '@/hooks/useAuth';
 import { pushNotification } from '@/redux/slices/notificationSlice';
 import { setOnlineUsers, setTyping, incrementUnread } from '@/redux/slices/chatSlice';
+import { playMessageSound, playOrderSound } from '@/utils/sound';
 
 const SocketContext = createContext(null);
 
@@ -12,7 +13,7 @@ export const useSocket = () => useContext(SocketContext);
 // Owns the socket lifecycle: connects when authenticated, wires global events
 // into Redux, and tears down on logout.
 export const SocketProvider = ({ children }) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const dispatch = useDispatch();
   const socketRef = useRef(null);
 
@@ -27,6 +28,9 @@ export const SocketProvider = ({ children }) => {
 
     socket.on(SOCKET_EVENTS.NOTIFICATION_NEW, (payload) => {
       dispatch(pushNotification(payload));
+      // Rings for new orders and any other server-pushed alert — plays even
+      // while the tab is in the background, as long as it's still open.
+      playOrderSound();
     });
     socket.on(SOCKET_EVENTS.PRESENCE_UPDATE, (ids) => {
       dispatch(setOnlineUsers(Array.isArray(ids) ? ids : ids?.online || []));
@@ -36,6 +40,8 @@ export const SocketProvider = ({ children }) => {
     });
     socket.on(SOCKET_EVENTS.MESSAGE_NEW, (msg) => {
       if (msg?.conversation_id) dispatch(incrementUnread(msg.conversation_id));
+      // Don't ring for your own message echoing back.
+      if (msg?.sender_id && msg.sender_id !== user?.id) playMessageSound();
     });
 
     return () => {
@@ -44,7 +50,7 @@ export const SocketProvider = ({ children }) => {
       socket.off(SOCKET_EVENTS.TYPING);
       socket.off(SOCKET_EVENTS.MESSAGE_NEW);
     };
-  }, [isAuthenticated, dispatch]);
+  }, [isAuthenticated, user?.id, dispatch]);
 
   return (
     <SocketContext.Provider value={{ socket: getSocket() }}>{children}</SocketContext.Provider>

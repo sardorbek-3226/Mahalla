@@ -25,6 +25,9 @@ export const roleFromApi = (r) => ROLE_FROM_API[r] || r;
 export const roleToApi = (r) => ROLE_TO_API[r] || r;
 
 const lower = (v) => (typeof v === 'string' ? v.toLowerCase() : v);
+// Backend serializes decimal columns (price, rating, …) as strings — cast so
+// `+=` sums numerically instead of concatenating ("100" + "200" = "100200").
+const num = (v) => (v == null ? null : Number(v));
 
 export const normalizeUser = (u = {}) => ({
   ...u,
@@ -54,21 +57,21 @@ export const normalizeCategory = (c = {}) => ({
   name: c.name,
   slug: c.slug,
   icon: c.icon ?? c.iconUrl ?? '🧰',
-  count: c.count ?? c._count?.services ?? 0,
+  count: num(c.count ?? c._count?.services) ?? 0,
 });
 
 export const normalizeService = (s = {}) => ({
   id: s.id,
   title: s.title,
   description: s.description,
-  price_from: s.price_from ?? s.priceFrom,
+  price_from: num(s.price_from ?? s.priceFrom),
   price_unit: lower(s.price_unit ?? s.priceUnit) || 'soat',
   category_id: s.category_id ?? s.categoryId,
 });
 
 export const normalizeReview = (r = {}) => ({
   id: r.id,
-  rating: r.rating,
+  rating: num(r.rating),
   comment: r.comment,
   created_at: r.created_at ?? r.createdAt,
   author_name: r.author_name ?? r.author?.fullName ?? r.user?.fullName ?? 'Foydalanuvchi',
@@ -87,13 +90,13 @@ export const normalizeProvider = (p = {}) => {
     category_id: p.category_id ?? firstCat?.id,
     category_name: p.category_name ?? firstCat?.name ?? 'Umumiy',
     bio: p.bio ?? '',
-    experience_years: p.experience_years ?? p.experienceYears ?? 0,
+    experience_years: num(p.experience_years ?? p.experienceYears) ?? 0,
     mahalla: typeof p.mahalla === 'string' ? p.mahalla : p.user?.mahalla?.name ?? '—',
     verification_status: lower(p.verification_status ?? p.verificationStatus) || 'pending',
-    rating_avg: p.rating_avg ?? p.ratingAvg ?? 0,
-    rating_count: p.rating_count ?? p.ratingCount ?? 0,
-    completed_orders: p.completed_orders ?? p.completedOrders ?? 0,
-    price_from: p.price_from ?? p.services?.[0]?.priceFrom ?? 0,
+    rating_avg: num(p.rating_avg ?? p.ratingAvg) ?? 0,
+    rating_count: num(p.rating_count ?? p.ratingCount) ?? 0,
+    completed_orders: num(p.completed_orders ?? p.completedOrders) ?? 0,
+    price_from: num(p.price_from ?? p.services?.[0]?.priceFrom) ?? 0,
     is_available: p.is_available ?? p.isAvailable ?? false,
     services: (p.services || []).map(normalizeService),
     reviews: (p.reviews || []).map(normalizeReview),
@@ -106,13 +109,18 @@ export const normalizeOrder = (o = {}) => ({
   description: o.description,
   address: o.address,
   status: lower(o.status) || 'new',
-  price_agreed: o.price_agreed ?? o.priceAgreed ?? null,
+  price_agreed: num(o.price_agreed ?? o.priceAgreed),
   scheduled_at: o.scheduled_at ?? o.scheduledAt ?? null,
   created_at: o.created_at ?? o.createdAt,
   category_id: o.category_id ?? o.categoryId ?? o.category?.id,
   category_name: o.category_name ?? o.category?.name ?? '—',
   worker_id: o.worker_id ?? o.providerId ?? o.provider?.id,
   worker_name: o.worker_name ?? o.provider?.user?.fullName ?? null,
+  worker_user_id: o.worker_user_id ?? o.provider?.userId ?? o.provider?.user?.id ?? null,
+  resident_id: o.resident_id ?? o.residentId ?? o.resident?.id,
+  resident_name: o.resident_name ?? o.resident?.fullName ?? null,
+  resident_phone: o.resident_phone ?? o.resident?.phone ?? null,
+  resident_avatar: o.resident_avatar ?? o.resident?.avatarUrl ?? null,
 });
 
 export const normalizeNotification = (n = {}) => ({
@@ -162,7 +170,7 @@ export const normalizeMessage = (m = {}) => ({
 export const normalizeRegion = (r = {}) => ({
   id: r.id,
   name: r.name,
-  mahallas_count: r.mahallas_count ?? r._count?.mahallas ?? 0,
+  mahallas_count: num(r.mahallas_count ?? r._count?.mahallas) ?? 0,
   created_at: r.created_at ?? r.createdAt,
 });
 

@@ -20,7 +20,9 @@ export const bookingService = {
         scheduledAt: scheduled_at || undefined,
       })
       .then((r) => normalizeOrder(r.data)),
-  accept: (id) => api.patch(ENDPOINTS.BOOKINGS.accept(id)).then((r) => r.data),
+  // AcceptOrderDto requires priceAgreed — the worker sets it when claiming the job.
+  accept: (id, priceAgreed) =>
+    api.patch(ENDPOINTS.BOOKINGS.accept(id), { priceAgreed: Number(priceAgreed) }).then((r) => normalizeOrder(r.data)),
   updateStatus: (id, status) =>
     api.patch(ENDPOINTS.BOOKINGS.status(id), { status: toApiStatus(status) }).then((r) => r.data),
   cancel: (id) => api.delete(ENDPOINTS.BOOKINGS.byId(id)).then((r) => r.data),

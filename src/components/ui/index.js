@@ -1,5 +1,6 @@
 export { default as Button } from './Button';
 export { default as Input } from './Input';
+export { default as PhoneInput } from './PhoneInput';
 export { default as Spinner } from './Spinner';
 export { default as Card, CardHeader } from './Card';
 export { default as Modal } from './Modal';

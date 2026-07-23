@@ -7,11 +7,16 @@ const getInitialTheme = () => {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 };
 
+const getInitialLanguage = () => {
+  if (typeof window === 'undefined') return 'uz';
+  return localStorage.getItem('language') || 'uz';
+};
+
 const initialState = {
   theme: getInitialTheme(),
   sidebarOpen: true,
   sidebarMobileOpen: false,
-  language: 'uz',
+  language: getInitialLanguage(),
 };
 
 const uiSlice = createSlice({

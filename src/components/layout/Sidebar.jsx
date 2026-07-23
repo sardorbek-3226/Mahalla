@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { HiXMark } from 'react-icons/hi2';
 import Logo from '@/components/common/Logo';
 import { SIDEBAR_NAV } from '@/constants/navigation';
@@ -9,29 +10,32 @@ import { setSidebarMobile } from '@/redux/slices/uiSlice';
 import { useAuth } from '@/hooks/useAuth';
 import { cn } from '@/utils/cn';
 
-const NavItems = ({ items, onNavigate }) => (
-  <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
-    {items.map(({ to, label, icon: Icon }) => (
-      <NavLink
-        key={to}
-        to={to}
-        end
-        onClick={onNavigate}
-        className={({ isActive }) =>
-          cn(
-            'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition',
-            isActive
-              ? 'bg-primary-50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300'
-              : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
-          )
-        }
-      >
-        <Icon className="h-5 w-5 shrink-0" />
-        <span className="truncate">{label}</span>
-      </NavLink>
-    ))}
-  </nav>
-);
+const NavItems = ({ items, onNavigate }) => {
+  const { t } = useTranslation();
+  return (
+    <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
+      {items.map(({ to, labelKey, icon: Icon }) => (
+        <NavLink
+          key={to}
+          to={to}
+          end
+          onClick={onNavigate}
+          className={({ isActive }) =>
+            cn(
+              'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition',
+              isActive
+                ? 'bg-primary-50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300'
+                : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
+            )
+          }
+        >
+          <Icon className="h-5 w-5 shrink-0" />
+          <span className="truncate">{t(labelKey)}</span>
+        </NavLink>
+      ))}
+    </nav>
+  );
+};
 
 const SidebarContent = ({ items, role, onNavigate }) => (
   <div className="flex h-full flex-col">
